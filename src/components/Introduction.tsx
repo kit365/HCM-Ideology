@@ -51,23 +51,19 @@ export function Introduction() {
           <div className="space-y-8 order-1 lg:order-2">
             <div className="p-8 bg-[#F5F0E8]/50 rounded-lg border border-black/5">
               <p className="text-lg leading-relaxed text-[#4A4A4A]" style={{ fontFamily: "'Lora', Georgia, serif" }}>
-                Tư tưởng Hồ Chí Minh về cách mạng giải phóng dân tộc là một hệ thống quan điểm toàn diện,
-                sâu sắc về con đường giải phóng dân tộc, giành độc lập tự do cho Tổ quốc.
+                "Không có gì quý hơn độc lập, tự do" - đây không chỉ là khẩu hiệu mà là tư tưởng cốt lõi, là chân lý bất hủ của Hồ Chí Minh. Đối với Người, độc lập dân tộc là quyền thiêng liêng, bất khả xâm phạm, là khát vọng cháy bỏng xuyên suốt lịch sử dựng nước và giữ nước của dân tộc.
               </p>
             </div>
 
             <div className="p-8 bg-[#F5F0E8]/50 rounded-lg border border-black/5">
               <p className="text-lg leading-relaxed text-[#4A4A4A]" style={{ fontFamily: "'Lora', Georgia, serif" }}>
-                Người đã kết hợp sáng tạo chủ nghĩa Mác - Lênin với thực tiễn cách mạng Việt Nam,
-                với truyền thống yêu nước và văn hóa dân tộc, tạo nên một tư tưởng độc đáo,
-                mang đậm bản sắc Việt Nam.
+                Độc lập không phải là khái niệm trừu tượng mà phải thiết thực, gắn liền với tự do, cơm no, áo ấm và hạnh phúc của nhân dân. Người khẳng định: "Nước độc lập mà dân không hưởng hạnh phúc tự do, thì độc lập cũng chẳng có nghĩa lý gì".
               </p>
             </div>
 
             <div className="p-8 bg-[#F5F0E8]/50 rounded-lg border border-black/5">
               <p className="text-lg leading-relaxed text-[#4A4A4A]" style={{ fontFamily: "'Lora', Georgia, serif" }}>
-                Tư tưởng của Người không chỉ dẫn dắt cách mạng Việt Nam giành thắng lợi vẻ vang
-                mà còn có ý nghĩa to lớn đối với các dân tộc bị áp bức trên thế giới.
+                Đó phải là nền độc lập hoàn toàn, triệt để và gắn liền với sự thống nhất, toàn vẹn lãnh thổ. Như lời Người từng căn dặn: "Nước Việt Nam là một, dân tộc Việt Nam là một. Sông có thể cạn, núi có thể mòn, song chân lý đó không bao giờ thay đổi".
               </p>
             </div>
 
@@ -77,10 +73,7 @@ export function Introduction() {
               className="inline-flex items-center gap-2 text-[#7B2D3E] hover:text-[#5C2230] text-sm tracking-[0.1em] uppercase font-medium transition-colors group"
               style={{ fontFamily: 'system-ui, sans-serif' }}
             >
-              Khám phá thêm
-              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
+             {/* Nội dung button đang trống từ code gốc, bạn có thể điền thêm text vào đây nếu cần */}
             </button>
           </div>
         </div>

@@ -1,38 +1,40 @@
+import { Flag, Star } from 'lucide-react'; // Giả sử bạn có dùng icon, nếu không thì code dưới vẫn chạy bình thường theo layout cũ
+
 const timelineEvents = [
   {
     year: '1911',
-    title: 'Ra Đi Tìm Đường Cứu Nước',
-    description: 'Nguyễn Tất Thành rời bến cảng Nhà Rồng, bắt đầu hành trình tìm con đường giải phóng dân tộc.',
+    title: 'Khát Vọng Giải Phóng',
+    description: 'Người rời bến cảng Nhà Rồng, bắt đầu hành trình bôn ba qua 3 đại dương, 4 châu lục để khảo nghiệm các con đường cứu nước.',
   },
   {
     year: '1920',
-    title: 'Tham Gia Đảng Cộng Sản Pháp',
-    description: 'Người tìm thấy con đường cứu nước qua chủ nghĩa Mác - Lênin, khẳng định "Chỉ có chủ nghĩa xã hội, chủ nghĩa cộng sản mới giải phóng được các dân tộc bị áp bức".',
+    title: 'Tìm Thấy Ánh Sáng Thời Đại',
+    description: 'Bắt gặp Sơ thảo luận cương của Lênin, Người khẳng định chân lý: "Muốn cứu nước và giải phóng dân tộc không có con đường nào khác con đường cách mạng vô sản".',
   },
   {
     year: '1930',
-    title: 'Thành Lập Đảng Cộng Sản Việt Nam',
-    description: 'Chủ tịch Hồ Chí Minh chủ trì hội nghị hợp nhất các tổ chức cộng sản, thành lập Đảng Cộng sản Việt Nam.',
+    title: 'Đảng Tiên Phong Ra Đời',
+    description: 'Sáng lập Đảng Cộng sản Việt Nam, chấm dứt thời kỳ khủng hoảng về đường lối, xác định ngọn cờ độc lập dân tộc gắn liền với chủ nghĩa xã hội.',
   },
   {
     year: '1941',
-    title: 'Thành Lập Việt Minh',
-    description: 'Mặt trận Việt Minh được thành lập, thực hiện đường lối đoàn kết toàn dân, chuẩn bị cho Tổng khởi nghĩa.',
+    title: 'Xây Dựng Khối Đại Đoàn Kết',
+    description: 'Về nước trực tiếp lãnh đạo, thành lập Mặt trận Việt Minh, đặt quyền lợi dân tộc lên trên hết, khơi dậy lòng yêu nước của toàn dân.',
   },
   {
     year: '1945',
-    title: 'Cách Mạng Tháng Tám Thành Công',
-    description: 'Nhân dân Việt Nam giành chính quyền trong cả nước. Ngày 2/9/1945, Chủ tịch Hồ Chí Minh đọc Tuyên ngôn độc lập.',
+    title: 'Khai Sinh Nền Độc Lập',
+    description: 'Chớp thời cơ "ngàn năm có một", lãnh đạo Cách mạng Tháng Tám thành công. Người đọc Tuyên ngôn Độc lập, khai sinh nước VNDCCH.',
   },
   {
     year: '1954',
-    title: 'Chiến Thắng Điện Biên Phủ',
-    description: 'Chiến thắng lịch sử làm nên kỳ tích "lừng lẫy năm châu, chấn động địa cầu", buộc thực dân Pháp ký Hiệp định Genève.',
+    title: 'Chiến Thắng Lừng Lẫy Năm Châu',
+    description: 'Kết thúc thắng lợi cuộc kháng chiến chống thực dân Pháp bằng chiến dịch Điện Biên Phủ, chứng minh sức mạnh của chiến tranh nhân dân.',
   },
   {
     year: '1975',
-    title: 'Hoàn Thành Thống Nhất Đất Nước',
-    description: 'Giải phóng hoàn toàn miền Nam, thống nhất đất nước, hoàn thành sự nghiệp giải phóng dân tộc theo di nguyện của Bác.',
+    title: 'Non Sông Thu Về Một Mối',
+    description: 'Giải phóng hoàn toàn miền Nam, thống nhất đất nước, hiện thực hóa chân lý bất di bất dịch: "Nước Việt Nam là một, dân tộc Việt Nam là một".',
   },
 ];
 
@@ -58,11 +60,11 @@ export function Timeline() {
             Hành trình lịch sử
           </span>
           <h2 className="text-4xl sm:text-5xl md:text-6xl text-[#1A1A1A] mb-6" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
-            Dấu Mốc Lịch Sử
+            Dấu Mốc Vẻ Vang
           </h2>
           <div className="w-16 h-[2px] bg-gradient-to-r from-[#7B2D3E] to-[#C9A227] mx-auto mb-6"></div>
           <p className="text-lg text-[#4A4A4A] max-w-2xl mx-auto" style={{ fontFamily: "'Lora', Georgia, serif" }}>
-            Hành trình vẻ vang của cách mạng giải phóng dân tộc
+            Quá trình hiện thực hóa tư tưởng độc lập, tự do của Hồ Chí Minh qua thực tiễn cách mạng.
           </p>
         </div>
 

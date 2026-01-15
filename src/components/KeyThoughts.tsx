@@ -3,33 +3,33 @@ import { Flag, Users, Globe, Heart, BookOpen, Shield } from 'lucide-react';
 const thoughts = [
   {
     icon: Flag,
-    title: 'Độc Lập Dân Tộc',
-    description: 'Độc lập dân tộc là vấn đề sống còn, là quyền thiêng liêng của mỗi dân tộc. Người khẳng định: "Không có gì quý hơn độc lập tự do".',
-  },
-  {
-    icon: Users,
-    title: 'Đoàn Kết Dân Tộc',
-    description: 'Đại đoàn kết toàn dân tộc là nguồn sức mạnh to lớn, là động lực để giành thắng lợi trong sự nghiệp giải phóng dân tộc.',
-  },
-  {
-    icon: Globe,
-    title: 'Đoàn Kết Quốc Tế',
-    description: 'Kết hợp sức mạnh dân tộc với sức mạnh thời đại, đoàn kết với các dân tộc yêu chuộng hòa bình và tiến bộ trên thế giới.',
+    title: 'Quyền Dân Tộc Thiêng Liêng',
+    description: 'Từ quyền con người nâng lên thành quyền dân tộc. Bác khẳng định: "Tất cả các dân tộc trên thế giới đều sinh ra bình đẳng".',
   },
   {
     icon: Heart,
-    title: 'Lấy Dân Làm Gốc',
-    description: 'Dân là chủ, dân là gốc của cách mạng. Mọi chính sách phải xuất phát từ lợi ích của nhân dân, vì nhân dân phục vụ.',
+    title: 'Độc Lập Gắn Liền Hạnh Phúc',
+    description: 'Độc lập phải thiết thực. "Nếu nước độc lập mà dân không hưởng hạnh phúc tự do, thì độc lập cũng chẳng có nghĩa lý gì".',
   },
   {
     icon: BookOpen,
-    title: 'Kết Hợp Lý Luận Với Thực Tiễn',
-    description: 'Vận dụng sáng tạo chủ nghĩa Mác - Lênin vào điều kiện cụ thể của Việt Nam, không rập khuôn, giáo điều.',
+    title: 'Con Đường Cách Mạng Vô Sản',
+    description: 'Rút kinh nghiệm từ lịch sử, Bác kết luận: "Muốn cứu nước và giải phóng dân tộc không có con đường nào khác con đường cách mạng vô sản".',
+  },
+  {
+    icon: Users,
+    title: 'Đảng Lãnh Đạo & Đại Đoàn Kết',
+    description: 'Cách mạng là sự nghiệp của quần chúng, do Đảng Cộng sản lãnh đạo, dựa trên nền tảng liên minh công - nông vững chắc.',
+  },
+  {
+    icon: Globe,
+    title: 'Tính Chủ Động & Sáng Tạo',
+    description: 'Khác với quan điểm cũ, Bác khẳng định cách mạng thuộc địa có thể giành thắng lợi trước cách mạng vô sản ở chính quốc.',
   },
   {
     icon: Shield,
-    title: 'Bạo Lực Cách Mạng',
-    description: 'Đấu tranh chính trị kết hợp với đấu tranh vũ trang khi cần thiết để lật đổ ách thống trị của đế quốc và tay sai.',
+    title: 'Phương Pháp Bạo Lực Cách Mạng',
+    description: 'Sử dụng sức mạnh tổng hợp: bạo lực chính trị kết hợp bạo lực vũ trang để đập tan bạo lực phản cách mạng của kẻ thù.',
   },
 ];
 
@@ -52,14 +52,14 @@ export function KeyThoughts() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <span className="inline-block text-[0.65rem] font-medium tracking-[0.2em] uppercase text-[#7B2D3E] mb-4" style={{ fontFamily: 'system-ui, sans-serif' }}>
-            Hệ thống tư tưởng
+            Hệ thống quan điểm
           </span>
           <h2 className="text-4xl sm:text-5xl md:text-6xl text-[#1A1A1A] mb-6" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
-            Những Tư Tưởng Chính
+            Giá Trị Cốt Lõi
           </h2>
           <div className="w-16 h-[2px] bg-gradient-to-r from-[#7B2D3E] to-[#C9A227] mx-auto mb-6"></div>
           <p className="text-lg text-[#4A4A4A] max-w-2xl mx-auto" style={{ fontFamily: "'Lora', Georgia, serif" }}>
-            Hệ thống tư tưởng toàn diện về con đường giải phóng dân tộc
+            Tổng hợp những luận điểm sáng tạo và khoa học nhất trong tư tưởng Hồ Chí Minh về cách mạng giải phóng dân tộc.
           </p>
         </div>
 
