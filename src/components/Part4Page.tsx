@@ -1,209 +1,268 @@
 import React from 'react';
 
-// Sử dụng Palette màu đồng bộ với Part III nhưng tone Đỏ (Thống nhất)
-const THEME_ACCENT = '#C83232'; // Đỏ thẫm
-const BOX_BG_GRADIENT = 'linear-gradient(135deg, rgba(200, 50, 50, 0.08) 0%, rgba(200, 50, 50, 0.02) 100%)';
-const QUOTE_BORDER_COLOR = '#C83232';
+// Palette màu "Thống nhất & Toàn vẹn lãnh thổ" - Premium & Trang trọng
+const THEME_ACCENT = '#B91C1C'; // Đỏ cờ, đậm và sang hơn
+const PAPER_BG = '#FDFBF7'; // Màu giấy kem
+const TEXT_MAIN = '#2D1810'; // Nâu đen thẫm, đọc dịu mắt hơn đen
+const TEXT_SUB = '#6D5A50'; // Nâu xám nhạt
 
-// Trang trái Phần IV (trang 8)
+// Trang trái Phần IV
 export function Part4LeftPage() {
     return (
         <div style={{
-            animation: 'pageIn 0.6s ease-out',
+            animation: 'pageIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1)',
             position: 'relative',
             height: '100%',
+            backgroundColor: PAPER_BG, // Nền giấy
             display: 'flex',
             flexDirection: 'column',
-            padding: '40px 30px'
+            padding: '40px 35px', // Giảm padding để có thêm không gian
+            borderLeft: '1px solid rgba(0,0,0,0.05)',
+            backgroundImage: 'linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px)',
+            backgroundSize: '20px 100%', // Hiệu ứng giấy kẻ rất mờ
+            overflowY: 'auto' // Cho phép cuộn nếu nội dung quá dài
         }}>
-            {/* Title Block */}
-            <div style={{ marginBottom: '1.5rem' }}>
+            {/* Header: Số phần & Tên phần */}
+            <div style={{ marginBottom: '1.5rem', borderBottom: `2px solid ${THEME_ACCENT}`, paddingBottom: '0.75rem' }}>
                 <h2 style={{
                     fontFamily: "'Playfair Display', Georgia, serif",
-                    fontSize: '2.2rem',
-                    color: '#1A1A1A',
-                    marginBottom: '0.4rem',
-                    fontWeight: 'bold',
-                    lineHeight: '1.2'
+                    fontSize: '2.8rem', // Giảm size chút xíu
+                    color: THEME_ACCENT,
+                    margin: '0',
+                    fontWeight: '700',
+                    lineHeight: '1',
+                    letterSpacing: '-1px'
                 }}>
                     Phần IV
                 </h2>
                 <h3 style={{
                     fontFamily: "'Playfair Display', Georgia, serif",
-                    fontSize: '1rem',
-                    color: THEME_ACCENT,
+                    fontSize: '1.2rem',
+                    color: TEXT_MAIN,
+                    marginTop: '0.4rem',
                     marginBottom: '0',
                     fontStyle: 'italic',
-                    fontWeight: '600'
+                    fontWeight: '500'
                 }}>
                     Thống Nhất Và Toàn Vẹn Lãnh Thổ
                 </h3>
             </div>
 
-            {/* Intro Content */}
+            {/* Intro Text */}
             <p style={{
                 fontFamily: "'Lora', Georgia, serif",
-                fontSize: '0.9rem',
-                color: '#444',
+                fontSize: '0.95rem', // Chữ vừa vặn hơn
+                color: TEXT_SUB,
                 lineHeight: '1.6',
                 marginBottom: '1.5rem',
                 textAlign: 'justify'
             }}>
-                Khát vọng thống nhất là dòng chảy xuyên suốt trong tư tưởng Hồ Chí Minh. Người khẳng định độc lập mà đất nước còn chia cắt thì chưa trọn vẹn.
+                Khát vọng thống nhất là dòng chảy xuyên suốt trong tư tưởng Hồ Chí Minh. Người luôn khẳng định: độc lập mà đất nước còn chia cắt thì chưa trọn vẹn.
             </p>
 
-            {/* Quote 1: Chân lý (Vừa là quote vừa là sub-heading) */}
+            {/* Highlight Quote 1 */}
             <div style={{
-                marginBottom: '2rem',
-                textAlign: 'center',
-                padding: '0 1rem'
+                marginBottom: '1.5rem',
+                position: 'relative',
+                paddingLeft: '1.5rem'
             }}>
+                <div style={{
+                    position: 'absolute',
+                    left: '0',
+                    top: '5px',
+                    bottom: '5px',
+                    width: '3px',
+                    backgroundColor: THEME_ACCENT,
+                    borderRadius: '2px'
+                }}></div>
                 <p style={{
                     fontFamily: "'Playfair Display', Georgia, serif",
-                    fontSize: '1.3rem',
-                    color: '#8B1E1E',
-                    lineHeight: '1.4',
-                    fontWeight: 'bold',
-                    fontStyle: 'italic',
-                    margin: '0 0 0.5rem 0'
+                    fontSize: '1.4rem',
+                    color: TEXT_MAIN,
+                    lineHeight: '1.3',
+                    fontWeight: '600',
+                    margin: '0 0 0.4rem 0'
                 }}>
                     "Nước Việt Nam là một, dân tộc Việt Nam là một."
-                </p>
-                <p style={{
-                    fontFamily: "'Lora', Georgia, serif",
-                    fontSize: '0.8rem',
-                    color: '#666',
-                    margin: 0
-                }}>
-                    — 2/1958
-                </p>
-            </div>
-
-            {/* Quote Box 2: Nam Bộ - Box chính, to và rõ ràng */}
-            <div style={{
-                background: BOX_BG_GRADIENT,
-                padding: '1.5rem',
-                borderRadius: '8px',
-                borderLeft: `4px solid ${QUOTE_BORDER_COLOR}`,
-                marginTop: 'auto',
-                marginBottom: '2rem',
-                boxShadow: '0 4px 15px rgba(0,0,0,0.05)'
-            }}>
-                <p style={{
-                    fontFamily: "'Lora', Georgia, serif",
-                    fontSize: '1rem', // Font to dễ đọc
-                    color: '#2C2C2C',
-                    lineHeight: '1.6',
-                    fontStyle: 'italic',
-                    margin: '0 0 1rem 0',
-                    textAlign: 'justify'
-                }}>
-                    "Nam Bộ là máu của máu Việt Nam, là thịt của thịt Việt Nam. Sông có thể cạn, núi có thể mòn, song chân lý ấy không bao giờ thay đổi."
                 </p>
                 <p style={{
                     fontFamily: "'Lora', Georgia, serif",
                     fontSize: '0.85rem',
                     color: THEME_ACCENT,
                     margin: 0,
-                    fontWeight: '600',
-                    textAlign: 'right'
+                    fontWeight: 'bold',
+                    letterSpacing: '0.5px'
                 }}>
-                    — Thư gửi đồng bào Nam Bộ, 1946
+                    — THÁNG 2 / 1958
                 </p>
             </div>
 
-            {/* Số trang */}
-            <div style={{ position: 'absolute', bottom: '15px', left: '30px', fontFamily: "'Lora', Georgia, serif", fontSize: '0.85rem', color: '#999' }}>8</div>
+            {/* Box Quote 2: Nam Bộ Style Premium */}
+            <div style={{
+                marginTop: 'auto', // Đẩy xuống dưới cùng nếu còn chỗ
+                background: '#fff',
+                padding: '1.25rem 1.5rem', // Padding gọn hơn
+                borderRadius: '2px',
+                border: '1px solid #e5e5e5',
+                boxShadow: '0 5px 20px rgba(0,0,0,0.04)',
+                position: 'relative',
+                marginBottom: '2rem' // Cách số trang
+            }}>
+                {/* Dấu ngoặc kép trang trí */}
+                <span style={{
+                    position: 'absolute',
+                    top: '-20px',
+                    left: '15px',
+                    fontSize: '3.5rem',
+                    color: 'rgba(185, 28, 28, 0.1)',
+                    fontFamily: 'serif',
+                    lineHeight: 1
+                }}>“</span>
+
+                <p style={{
+                    fontFamily: "'Lora', Georgia, serif",
+                    fontSize: '1rem',
+                    color: TEXT_MAIN,
+                    lineHeight: '1.6',
+                    fontStyle: 'italic',
+                    margin: '0 0 0.75rem 0',
+                    textAlign: 'justify',
+                    position: 'relative',
+                    zIndex: 1
+                }}>
+                    Nam Bộ là máu của máu Việt Nam, là thịt của thịt Việt Nam. Sông có thể cạn, núi có thể mòn, song chân lý ấy không bao giờ thay đổi.
+                </p>
+                <div style={{
+                    borderTop: '1px solid #eee',
+                    paddingTop: '0.5rem',
+                    textAlign: 'right'
+                }}>
+                    <span style={{
+                        fontFamily: "'Playfair Display', serif",
+                        fontSize: '0.8rem',
+                        color: TEXT_SUB,
+                        textTransform: 'uppercase',
+                        letterSpacing: '1px'
+                    }}>Thư gửi đồng bào Nam Bộ, 1946</span>
+                </div>
+            </div>
+
+            {/* Pagination */}
+            <div style={{ position: 'absolute', bottom: '15px', left: '40px', fontFamily: "'Lora', serif", fontSize: '0.9rem', color: '#aaa', fontWeight: 'bold' }}>10</div>
         </div>
     );
 }
 
-// Trang phải Phần IV (trang 9)
+// Trang phải Phần IV
 export function Part4RightPage() {
     return (
         <div style={{
-            animation: 'pageIn 0.6s ease-out',
+            animation: 'pageIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.1s', // Delay nhẹ
             position: 'relative',
             height: '100%',
+            backgroundColor: PAPER_BG,
             display: 'flex',
             flexDirection: 'column',
-            padding: '40px 30px'
+            padding: '40px 35px', // Giảm padding
+            borderLeft: '1px solid rgba(0,0,0,0.03)', // Rãnh sách mờ
+            overflowY: 'auto' // Cho phép cuộn
         }}>
-            {/* Box Di Chúc */}
+            {/* Box Di Chúc - Style Thư tín cổ điển */}
             <div style={{
-                background: '#FFF',
-                padding: '2rem',
-                borderRadius: '8px',
-                boxShadow: '0 10px 30px rgba(166, 52, 70, 0.08)',
+                backgroundColor: '#fff',
+                padding: '2rem 1.5rem', // Gọn hơn
                 marginBottom: '2rem',
+                boxShadow: '0 10px 30px rgba(0,0,0,0.06)',
+                border: '1px solid rgba(0,0,0,0.02)',
                 position: 'relative',
-                borderTop: `4px solid ${THEME_ACCENT}`
+                transform: 'rotate(0.5deg)' // Nghiêng nhẹ tự nhiên
             }}>
+                {/* Ghim giấy ảo (Optional visual) */}
+                <div style={{
+                    position: 'absolute', top: '-10px', left: '50%', transform: 'translateX(-50%)',
+                    width: '60px', height: '15px', background: 'rgba(185, 28, 28, 0.15)', borderRadius: '2px'
+                }}></div>
+
                 <h4 style={{
-                    fontFamily: "'Playfair Display', Georgia, serif",
-                    fontSize: '1rem',
-                    color: '#888',
+                    fontFamily: "'Playfair Display', serif",
+                    fontSize: '0.85rem',
+                    color: THEME_ACCENT,
                     textTransform: 'uppercase',
-                    letterSpacing: '1px',
-                    margin: '0 0 1.5rem 0',
-                    textAlign: 'center'
+                    letterSpacing: '2px',
+                    textAlign: 'center',
+                    marginBottom: '1rem',
+                    borderBottom: '1px solid rgba(185, 28, 28, 0.1)',
+                    paddingBottom: '0.4rem',
+                    display: 'inline-block',
+                    width: '100%'
                 }}>
                     Di chúc thiêng liêng
                 </h4>
 
                 <p style={{
-                    fontFamily: "'Playfair Display', Georgia, serif",
-                    fontSize: '1.15rem',
-                    color: '#222',
+                    fontFamily: "'Playfair Display', serif",
+                    fontSize: '1.2rem',
+                    color: TEXT_MAIN,
                     lineHeight: '1.6',
                     textAlign: 'justify',
-                    marginBottom: '1.5rem'
+                    marginBottom: '1rem'
                 }}>
                     "Dù khó khăn, gian khổ đến mấy, nhân dân ta nhất định sẽ hoàn toàn thắng lợi... Tổ quốc ta nhất định sẽ thống nhất. Đồng bào Nam Bắc nhất định sẽ sum họp một nhà."
                 </p>
 
                 <p style={{
-                    fontFamily: "'Lora', Georgia, serif",
+                    fontFamily: "'Lora', serif",
                     fontSize: '0.8rem',
-                    color: '#666',
-                    margin: 0,
+                    color: '#888',
                     textAlign: 'right',
                     fontStyle: 'italic'
                 }}>
-                    — Hà Nội, 1969
+                    — Hà Nội, 10-5-1969
                 </p>
             </div>
 
-            {/* Bottom Section: Miền Nam - Tự do, không cắt chữ */}
+            {/* Bottom Section: Quote nổi bật */}
             <div style={{
                 marginTop: 'auto',
-                marginBottom: '1.5rem',
+                marginBottom: '2.5rem', // Đẩy lên khỏi số trang
                 textAlign: 'center',
-                padding: '0'
+                padding: '0 1rem'
             }}>
+                <div style={{ display: 'inline-block', marginBottom: '0.5rem' }}>
+                    {/* Icon trái tim cách điệu nhỏ */}
+                    <span style={{ fontSize: '1.5rem', color: THEME_ACCENT, opacity: 0.8 }}>♥</span>
+                </div>
                 <p style={{
-                    fontFamily: "'Playfair Display', Georgia, serif",
-                    fontSize: '1.3rem',
+                    fontFamily: "'Playfair Display', serif",
+                    fontSize: '1.5rem', // Vừa vặn
                     color: THEME_ACCENT,
                     fontStyle: 'italic',
                     marginBottom: '0.5rem',
-                    fontWeight: '600',
-                    // Bỏ white-space nowrap để tự xuống dòng nếu cần
+                    fontWeight: '700',
+                    textShadow: '0 2px 4px rgba(185, 28, 28, 0.05)'
                 }}>
                     "Miền Nam luôn ở trong trái tim tôi"
                 </p>
+                <div style={{
+                    width: '50px',
+                    height: '1px',
+                    background: '#ccc',
+                    margin: '0 auto 0.5rem auto'
+                }}></div>
                 <p style={{
-                    fontFamily: "'Lora', Georgia, serif",
-                    fontSize: '0.75rem',
+                    fontFamily: "'Lora', serif",
+                    fontSize: '0.8rem',
                     color: '#999',
-                    fontStyle: 'normal'
+                    fontStyle: 'normal',
+                    textTransform: 'uppercase',
+                    letterSpacing: '1px'
                 }}>
-                    — Phát biểu tại sân bay Gia Lâm, 1946
+                    Hà Nội, 1946
                 </p>
             </div>
 
-            {/* Số trang */}
-            <div style={{ position: 'absolute', bottom: '15px', right: '30px', fontFamily: "'Lora', Georgia, serif", fontSize: '0.85rem', color: '#999' }}>9</div>
+            {/* Pagination */}
+            <div style={{ position: 'absolute', bottom: '15px', right: '40px', fontFamily: "'Lora', serif", fontSize: '0.9rem', color: '#aaa', fontWeight: 'bold' }}>11</div>
         </div>
     );
 }

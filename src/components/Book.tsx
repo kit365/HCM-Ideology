@@ -3,9 +3,14 @@ import { Part1Page2 } from './Part1Page2';
 import { Part2LeftPage } from './Part2LeftPage';
 import { Part2RightPage } from './Part2RightPage';
 import { Part3LeftPage, Part3RightPage } from './Part3Page';
+
 import { Part4LeftPage, Part4RightPage } from './Part4Page';
+import { TransitionLeftPage, TransitionRightPage } from './TransitionPage';
+import { Part5LeftPage, Part5RightPage } from './Part5Page';
+import { Part5Page2LeftPage, Part5Page2RightPage } from './Part5Page2';
 import tuyenNgonAudio from '../audio/cd80510c4c31f8f1b26e234bcfa7658c01_-_Tuyen_ngon_doc_lap_103854.mp3';
 import tatCaDanTocAudio from '../audio/tatrcadantoctrenthegioideusinhrabinhdang.mp3';
+import hoChiMinhImage from '../Screenshot 2026-01-15 001843.png';
 
 
 interface BookProps {
@@ -27,8 +32,40 @@ export function Book({ onClose }: BookProps) {
         };
     }, []);
 
-    // Use the uploaded Ho Chi Minh image
-    const hoChiMinhImage = "/src/Screenshot 2026-01-15 001843.png"; // Ảnh bạn đã upload
+    // Keyboard navigation: Arrow keys to flip pages
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                // Right arrow or Space -> Next page
+                if (currentPage < pages.length - 1) {
+                    stopAudio();
+                    setCurrentPage((prev: number) => prev + 1);
+                }
+            } else if (e.key === 'ArrowLeft') {
+                // Left arrow -> Previous page
+                if (currentPage > 0) {
+                    stopAudio();
+                    setCurrentPage((prev: number) => prev - 1);
+                }
+            } else if (e.key === 'Escape') {
+                // Escape -> Close book
+                onClose();
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [currentPage, onClose]);
+
+    // Helper function to stop current audio
+    const stopAudio = () => {
+        if (currentAudioRef.current) {
+            currentAudioRef.current.pause();
+            currentAudioRef.current = null;
+        }
+        setPlayingQuote(null);
+    };
+
 
     // Audio clips for Ho Chi Minh's quotes
     const audioQuotes: { [key: string]: string } = {
@@ -36,6 +73,12 @@ export function Book({ onClose }: BookProps) {
         'tat-ca-moi-nguoi': tatCaDanTocAudio, // ✅ Audio đã cắt: "Tất cả các dân tộc trên thế giới đều sinh ra bình đẳng..."
         'doc-lap-tu-do-quyen': tuyenNgonAudio, // Tạm thời dùng chung
     };
+
+    // Debug logging
+    console.log('Loaded audio sources:', {
+        tuyenNgon: tuyenNgonAudio,
+        tatCa: tatCaDanTocAudio
+    });
 
     const playQuote = (quoteId: string) => {
         console.log('=== playQuote called ===');
@@ -118,40 +161,40 @@ Trước hết, chúng ta cần hiểu rõ những vấn đề cơ bản về đ
 Theo Hồ Chí Minh, độc lập dân tộc phải gắn với tự do của nhân dân. Ngoài ra, độc lập cũng phải gắn với cơm no, áo ấm và hạnh phúc của nhân dân.`,
             showImage: false
         },
-        {
-            title: "Phần II",
-            subtitle: "Gắn Với Tự Do, Cơm No, Áo Ấm, Và Hạnh Phúc của Nhân Dân",
-            content: `Trong Chánh cương vắn tắt của Đảng (1930), Người đã nêu rõ mục tiêu:
 
-_"Làm cho nước Nam được hoàn toàn độc lập... dân chúng được tự do... thủ tiêu hết các thứ quốc trái... thâu hết ruộng đất của đế quốc chủ nghĩa làm của công chia cho dân cày nghèo. Bỏ sưu thuế cho dân cày nghèo... thi hành luật ngày làm 8 giờ."_
-— Chánh cương vắn tắt của Đảng
-
-Đây là quan niệm tiến bộ, toàn diện về độc lập dân tộc gắn liền với quyền và lợi ích thiết thực của nhân dân lao động.`,
-            showImage: false
-        },
         {
             title: "Phần III",
             subtitle: "Độc Lập Thật Sự, Hoàn Toàn Và Triệt Để",
             content: "Nội dung Part III", // Placeholder, rendering handled by Part3Page component
             showImage: false
         },
+
         {
             title: "Phần IV",
             subtitle: "Độc lập dân tộc gắn liền với thống nhất và toàn vẹn lãnh thổ",
             content: "Nội dung Part IV", // Placeholder, rendering handled by Part4Page component
             showImage: false
         },
+        {
+            title: "Phần V - Giới thiệu",
+            subtitle: "Tư tưởng HCM về con đường đạt được độc lập",
+            content: "Trang chuyển tiếp", // Transition page before Part V
+            showImage: false
+        },
+        {
+            title: "Phần V",
+            subtitle: "Con đường cách mạng vô sản",
+            content: "Nội dung Part V", // Placeholder, rendering handled by Part5Page component
+            showImage: false
+        },
+        {
+            title: "Phần V - Chi tiết",
+            subtitle: "So sánh đường lối cách mạng",
+            content: "Nội dung Part V Page 2", // Placeholder, rendering handled by Part5Page2 component
+            showImage: false
+        },
 
     ];
-
-    // Helper function to stop current audio
-    const stopAudio = () => {
-        if (currentAudioRef.current) {
-            currentAudioRef.current.pause();
-            currentAudioRef.current = null;
-        }
-        setPlayingQuote(null);
-    };
 
     const nextPage = () => {
         if (currentPage < pages.length - 1) {
@@ -258,10 +301,10 @@ _"Làm cho nước Nam được hoàn toàn độc lập... dân chúng được
                             style={{
                                 width: '50%',
                                 height: '100%',
-                                backgroundColor: currentPage === 2 ? 'transparent' : '#FDFBF7',
-                                padding: currentPage === 2 ? '0' : '60px 50px',
-                                boxShadow: currentPage === 2 ? 'none' : 'inset -10px 0 20px rgba(0,0,0,0.1)',
-                                borderLeft: currentPage === 2 ? 'none' : '2px solid #d4c5a0',
+                                backgroundColor: (currentPage === 2 || currentPage === 4 || currentPage === 5 || currentPage === 6 || currentPage === 7) ? 'transparent' : '#FDFBF7',
+                                padding: (currentPage === 2 || currentPage === 4 || currentPage === 5 || currentPage === 6 || currentPage === 7) ? '0' : '60px 50px',
+                                boxShadow: (currentPage === 2 || currentPage === 4 || currentPage === 5 || currentPage === 6 || currentPage === 7) ? 'none' : 'inset -10px 0 20px rgba(0,0,0,0.1)',
+                                borderLeft: (currentPage === 2 || currentPage === 4 || currentPage === 5 || currentPage === 6 || currentPage === 7) ? 'none' : '2px solid #d4c5a0',
                                 display: 'flex',
                                 flexDirection: 'column',
                                 overflow: 'hidden'
@@ -277,6 +320,15 @@ _"Làm cho nước Nam được hoàn toàn độc lập... dân chúng được
                                 ) : currentPage === 4 ? (
                                     /* Phần IV - Trang trái: thống nhất */
                                     <Part4LeftPage />
+                                ) : currentPage === 5 ? (
+                                    /* Trang chuyển tiếp - Giới thiệu Part V */
+                                    <TransitionLeftPage />
+                                ) : currentPage === 6 ? (
+                                    /* Phần V - Trang trái: timeline cách mạng */
+                                    <Part5LeftPage />
+                                ) : currentPage === 7 ? (
+                                    /* Phần V Page 2 - Trang trái: so sánh đường lối */
+                                    <Part5Page2LeftPage />
                                 ) : (
                                     <div style={{ animation: 'pageIn 0.6s ease-out' }}>
                                         <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '2rem', color: '#1A1A1A', marginBottom: '0.5rem', fontWeight: 'bold' }}>
@@ -341,6 +393,15 @@ _"Làm cho nước Nam được hoàn toàn độc lập... dân chúng được
                                     ) : currentPage === 4 ? (
                                         /* Phần IV - trang phải: di chúc */
                                         <Part4RightPage />
+                                    ) : currentPage === 5 ? (
+                                        /* Trang chuyển tiếp - trang phải: hành trình */
+                                        <TransitionRightPage />
+                                    ) : currentPage === 6 ? (
+                                        /* Phần V - trang phải: kết luận */
+                                        <Part5RightPage />
+                                    ) : currentPage === 7 ? (
+                                        /* Phần V Page 2 - trang phải: ý nghĩa sáng tạo */
+                                        <Part5Page2RightPage />
                                     ) : (
                                         /* Render nội dung bình thường cho các trang khác */
                                         <div style={{ animation: 'pageIn 0.6s ease-out' }}>
