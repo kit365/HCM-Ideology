@@ -122,20 +122,7 @@ export function Part3LeftPage() {
                 </p>
             </div>
 
-            {/* Quote box 3 */}
-            <div style={{
-                background: 'linear-gradient(135deg, rgba(91, 163, 198, 0.15) 0%, rgba(91, 163, 198, 0.05) 100%)',
-                padding: '1rem',
-                borderRadius: '8px',
-                borderLeft: '4px solid #5BA3C6'
-            }}>
-                <p style={{ fontFamily: "'Lora', Georgia, serif", fontSize: '0.95rem', color: '#2A5A70', lineHeight: '1.5', fontStyle: 'italic', margin: 0 }}>
-                    "Nam Bộ là máu của máu Việt Nam, là thịt của thịt Việt Nam. Sông có thể cạn, núi có thể mòn, song chân lý ấy không bao giờ thay đổi."
-                </p>
-                <p style={{ fontFamily: "'Lora', Georgia, serif", fontSize: '0.8rem', color: '#5BA3C6', marginTop: '0.5rem', marginBottom: 0, fontWeight: '600' }}>
-                    — Thư gửi đồng bào Nam Bộ, 1946
-                </p>
-            </div>
+
 
             {/* Số trang */}
             <div style={{ position: 'absolute', bottom: '10px', left: '10px', fontFamily: "'Lora', Georgia, serif", fontSize: '0.85rem', color: '#999' }}>6</div>

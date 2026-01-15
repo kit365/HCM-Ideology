@@ -158,6 +158,9 @@ export function Part2LeftPage() {
                     Chánh cương vắn tắt của Đảng
                 </p>
             </div>
+
+            {/* Số trang */}
+            <div style={{ position: 'absolute', bottom: '10px', left: '30px', fontFamily: "'Lora', Georgia, serif", fontSize: '0.9rem', color: '#D4C5A0' }}>4</div>
         </div>
     );
 }

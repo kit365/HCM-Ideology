@@ -58,7 +58,7 @@ export function Part2RightPage() {
 
             {/* Số trang */}
             <div style={{ position: 'absolute', bottom: '10px', right: '10px', fontFamily: "'Lora', Georgia, serif", fontSize: '0.9rem', color: '#999' }}>
-                6
+                5
             </div>
         </div>
     );

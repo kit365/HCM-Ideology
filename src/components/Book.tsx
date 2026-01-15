@@ -3,6 +3,7 @@ import { Part1Page2 } from './Part1Page2';
 import { Part2LeftPage } from './Part2LeftPage';
 import { Part2RightPage } from './Part2RightPage';
 import { Part3LeftPage, Part3RightPage } from './Part3Page';
+import { Part4LeftPage, Part4RightPage } from './Part4Page';
 import tuyenNgonAudio from '../audio/cd80510c4c31f8f1b26e234bcfa7658c01_-_Tuyen_ngon_doc_lap_103854.mp3';
 import tatCaDanTocAudio from '../audio/tatrcadantoctrenthegioideusinhrabinhdang.mp3';
 
@@ -130,120 +131,17 @@ _"Làm cho nước Nam được hoàn toàn độc lập... dân chúng được
         },
         {
             title: "Phần III",
-            subtitle: "Độc Lập Thật Sự, Hoàn Toàn (1/2)",
-            content: `Hồ Chí Minh nhấn mạnh độc lập dân tộc phải là nền độc lập thật sự, hoàn toàn và triệt để, không chỉ về hình thức mà phải thực chất trên mọi lĩnh vực: chính trị, kinh tế, văn hóa, xã hội, quốc phòng, an ninh.
-
-Người kiên quyết đấu tranh chống mọi hình thức độc lập giả, độc lập nửa vời, độc lập bù nhìn, độc lập chỉ về mặt hình thức.Độc lập phải có nội dung thực chất, phải thực sự thuộc về nhân dân, do nhân dân làm chủ.
-
-Nền độc lập thật sự phải được củng cố bằng nền kinh tế tự chủ, văn hóa dân tộc phát triển, và chế độ chính trị do nhân dân làm chủ thực sự.`,
-            showImage: false
-        },
-        {
-            title: "Phần III",
-            subtitle: "Độc Lập Thật Sự, Hoàn Toàn (2/2)",
-            content: `Độc lập về chính trị phải đi đôi với độc lập về kinh tế, tự chủ về văn hóa.Chỉ có như vậy, nền độc lập mới thực sự bền vững, không bị lung lay trước mọi thử thách.
-
-** Lời Bác dạy:**
-
-    _"Chúng ta phải giữ vững độc lập, thống nhất, chủ quyền và toàn vẹn lãnh thổ của Tổ quốc."_
-
-_"Muốn có nền độc lập thật sự, hoàn toàn, dân ta phải ra sức xây dựng nước nhà cho giàu mạnh."_
-
-_"Độc lập về chính trị mà không độc lập về kinh tế thì cũng chưa phải là độc lập hoàn toàn."_
-
-_"Độc lập dân tộc phải thật sự, hoàn toàn, không thể có độc lập nửa vời."_
-
-Tư tưởng này thể hiện tầm nhìn chiến lược, toàn diện về xây dựng và bảo vệ nền độc lập dân tộc bền vững.`,
+            subtitle: "Độc Lập Thật Sự, Hoàn Toàn Và Triệt Để",
+            content: "Nội dung Part III", // Placeholder, rendering handled by Part3Page component
             showImage: false
         },
         {
             title: "Phần IV",
-            subtitle: "Gắn Với Thống Nhất, Toàn Vẹn Lãnh Thổ (1/2)",
-            content: `Trong tư tưởng Hồ Chí Minh, độc lập dân tộc, thống nhất đất nước và toàn vẹn lãnh thổ là ba vấn đề có mối quan hệ hữu cơ, gắn bó chặt chẽ, không thể tách rời nhau.
-
-Không có độc lập thì không thể thống nhất đất nước.Không có thống nhất thì độc lập không trọn vẹn, không bền vững.Không giữ được toàn vẹn lãnh thổ thì độc lập và thống nhất đều mất ý nghĩa.
-
-Từ khi giành được độc lập năm 1945 cho đến khi đi xa vào năm 1969, Chủ tịch Hồ Chí Minh luôn luôn hướng về mục tiêu thống nhất đất nước, giải phóng hoàn toàn miền Nam yêu dấu.`,
+            subtitle: "Độc lập dân tộc gắn liền với thống nhất và toàn vẹn lãnh thổ",
+            content: "Nội dung Part IV", // Placeholder, rendering handled by Part4Page component
             showImage: false
         },
-        {
-            title: "Phần IV",
-            subtitle: "Gắn Với Thống Nhất, Toàn Vẹn Lãnh Thổ (2/2)",
-            content: `Trong Di chúc thiêng liêng, Người dành những dòng xúc động nhất cho sự nghiệp thống nhất non sông, khẳng định niềm tin vào thắng lợi cuối cùng của dân tộc.
 
-** Lời Bác dạy:**
-
-    _"Sông có thể cạn, núi có thể mòn, song chân lý ấy không bao giờ thay đổi: không có gì quý hơn độc lập, tự do!"_
-
-_"Dù phải hy sinh tất cả, dù phải đốt cháy cả dãy Trường Sơn, chúng ta cũng kiên quyết giành cho được độc lập."_
-
-_"Bắc - Nam sum họp, non sông liền một dải, núi Trường Sơn nghìn dặm, một nhà Nam - Bắc."_
-
-_"Cuộc kháng chiến chống Mỹ cứu nước có thể còn kéo dài. Đồng bào ta có thể phải hy sinh nhiều của, nhiều người. Nhưng dù sao chúng ta cũng phải quyết tâm đánh đến thắng lợi hoàn toàn."_
-
-Đây là khát vọng cháy bỏng, là ý chí thép của dân tộc, là động lực to lớn thúc đẩy nhân dân Việt Nam vượt qua mọi khó khăn, gian khổ, hy sinh để bảo vệ và giành lại độc lập, thống nhất.`,
-            showImage: false
-        },
-        {
-            title: "Chương 1",
-            subtitle: "Con Đường Tìm Đến Chủ Nghĩa Mác-Lênin",
-            content: `Sinh ra trong thời kỳ Việt Nam trở thành thuộc địa của Pháp, Hồ Chí Minh từ nhỏ đã chứng kiến cảnh đau khổ, nghèo khó của đồng bào dưới ách áp bức của thực dân.Người đã sớm nung nấu ý chí giải phóng dân tộc.
-
-Sau khi ra đi tìm đường cứu nước, Người đã nghiên cứu nhiều học thuyết và phong trào cách mạng khác nhau trên thế giới.Cuối cùng, Người tìm thấy con đường giải phóng dân tộc đúng đắn nhất là con đường cách mạng vô sản - chủ nghĩa Mác - Lênin.
-
-Bước ngoặt quan trọng là khi đọc "Sơ thảo lần thứ nhất những luận cương về vấn đề dân tộc và vấn đề thuộc địa" của Lênin, Người đã tìm ra chân lý: "Muốn cứu nước và giải phóng dân tộc không có con đường nào khác con đường cách mạng vô sản".`,
-            showImage: false
-        },
-        {
-            title: "Chương 2",
-            subtitle: "Độc Lập Dân Tộc - Mục Tiêu Cao Cả Nhất",
-            content: `Hồ Chí Minh khẳng định độc lập dân tộc là quyền thiêng liêng, bất khả xâm phạm của mỗi dân tộc.Đây là mục tiêu cao cả nhất, là nhiệm vụ trước hết và cấp bách của cách mạng Việt Nam.
-
-Người tuyên bố: "Không có gì quý hơn độc lập tự do" và "Thà hy sinh tất cả, chứ nhất định không chịu mất nước, nhất định không chịu làm nô lệ".Quyết tâm giải phóng dân tộc của Người thể hiện ở câu nói nổi tiếng: Người sẵn sàng "đốt cháy cả dãy Trường Sơn" để giành lại độc lập.
-
-Tư tưởng này đã trở thành ngọn cờ tập hợp toàn dân tộc, động viên mọi tầng lớp nhân dân đứng lên đấu tranh chống kẻ thù xâm lược, giành lại độc lập tự do cho Tổ quốc.`,
-            showImage: false
-        },
-        {
-            title: "Chương 3",
-            subtitle: "Sức Mạnh Của Nhân Dân",
-            content: `Hồ Chí Minh luôn tin tưởng sâu sắc vào sức mạnh vô địch của nhân dân.Người khẳng định: "Dân ta có một điều quý nhất là thích độc lập, tự do" và "Không có việc gì khó, chỉ sợ lòng không bền, đào núi và lấp biển, quyết chí ắt làm nên".
-
-Cách mạng giải phóng dân tộc phải dựa vào sức mạnh của quần chúng nhân dân, phát huy tinh thần yêu nước, ý chí tự lực cánh sinh của dân tộc.Người luôn nhấn mạnh: "Dân là gốc nước", "Dân mạnh thì nước mạnh".
-
-Người đã xây dựng được khối đại đoàn kết toàn dân tộc, tập hợp mọi lực lượng yêu nước vào mặt trận thống nhất rộng rãi để cùng nhau đấu tranh giải phóng dân tộc.`,
-            showImage: false
-        },
-        {
-            title: "Chương 4",
-            subtitle: "Kết Hợp Đấu Tranh Vũ Trang Và Chính Trị",
-            content: `Tư tưởng Hồ Chí Minh về cách mạng giải phóng dân tộc đặc biệt nhấn mạnh sự kết hợp chặt chẽ giữa đấu tranh vũ trang và đấu tranh chính trị, giữa chiến tranh du kích và chiến tranh chính quy.
-
-Người chỉ rõ: "Chính trị trọng hơn quân sự, dân quân trọng hơn quân chính quy".Chiến tranh nhân dân là hình thức đấu tranh cao nhất, trong đó toàn dân tham gia, mọi người đều là chiến sĩ.
-
-Chiến lược "toàn dân, toàn diện, lâu dài, dựa vào sức mình là chính" đã giúp nhân dân Việt Nam giành được những thắng lợi vĩ đại trong cuộc kháng chiến chống thực dân Pháp và đế quốc Mỹ.`,
-            showImage: false
-        },
-        {
-            title: "Chương 5",
-            subtitle: "Vai Trò Lãnh Đạo Của Đảng",
-            content: `Hồ Chí Minh khẳng định vai trò lãnh đạo tuyệt đối của Đảng Cộng sản là yếu tố quyết định thắng lợi của cách mạng giải phóng dân tộc.Đảng là bộ tham mưu, là người lãnh đạo, tổ chức và định hướng cho cách mạng.
-
-Người nhấn mạnh: "Có Đảng Cộng sản Việt Nam là nhờ có chủ nghĩa Mác-Lênin" và "Đảng phải thật sự là đạo đức, là văn minh, là đội tiên phong của giai cấp công nhân và của nhân dân lao động".
-
-Đảng phải luôn gắn bó mật thiết với nhân dân, phục vụ nhân dân, lãnh đạo nhân dân giành những thắng lợi trên con đường giải phóng dân tộc và xây dựng đất nước.`,
-            showImage: false
-        },
-        {
-            title: "Chương 6",
-            subtitle: "Kết Hợp Sức Mạnh Dân Tộc Với Sức Mạnh Thời Đại",
-            content: `Tư tưởng Hồ Chí Minh về cách mạng giải phóng dân tộc còn thể hiện ở việc kết hợp sức mạnh dân tộc với sức mạnh thời đại, kết hợp chủ nghĩa yêu nước với chủ nghĩa quốc tế vô sản.
-
-Người luôn coi trọng đoàn kết quốc tế, tranh thủ sự ủng hộ của các lực lượng tiến bộ trên thế giới.Người khẳng định: "Cách mạng Việt Nam là một bộ phận của cách mạng thế giới".
-
-Đây là tư tưởng chiến lược lớn, đã tạo nên sức mạnh tổng hợp giúp nhân dân Việt Nam chiến thắng những kẻ thù hùng mạnh, giành được độc lập, tự do và thống nhất đất nước.`,
-            showImage: false
-        }
     ];
 
     // Helper function to stop current audio
@@ -376,6 +274,9 @@ Người luôn coi trọng đoàn kết quốc tế, tranh thủ sự ủng hộ
                                 ) : currentPage === 3 ? (
                                     /* Phần III - Trang trái: sơ đồ so sánh */
                                     <Part3LeftPage />
+                                ) : currentPage === 4 ? (
+                                    /* Phần IV - Trang trái: thống nhất */
+                                    <Part4LeftPage />
                                 ) : (
                                     <div style={{ animation: 'pageIn 0.6s ease-out' }}>
                                         <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '2rem', color: '#1A1A1A', marginBottom: '0.5rem', fontWeight: 'bold' }}>
@@ -437,6 +338,9 @@ Người luôn coi trọng đoàn kết quốc tế, tranh thủ sự ủng hộ
                                     ) : currentPage === 3 ? (
                                         /* Phần III - trang phải: trích dẫn */
                                         <Part3RightPage />
+                                    ) : currentPage === 4 ? (
+                                        /* Phần IV - trang phải: di chúc */
+                                        <Part4RightPage />
                                     ) : (
                                         /* Render nội dung bình thường cho các trang khác */
                                         <div style={{ animation: 'pageIn 0.6s ease-out' }}>
@@ -452,10 +356,12 @@ Người luôn coi trọng đoàn kết quốc tế, tranh thủ sự ủng hộ
                                         </div>
                                     )}
 
-                                    {/* Số trang */}
-                                    <div style={{ position: 'absolute', bottom: '40px', right: '50px', fontFamily: "'Lora', Georgia, serif", fontSize: '0.9rem', color: '#999' }}>
-                                        {currentPage === 0 ? 1 : currentPage * 2 + 1}
-                                    </div>
+                                    {/* Số trang - Custom components render số trang riêng, chỉ hiển thị cho Intro hoặc trang thường */}
+                                    {currentPage === 0 && (
+                                        <div style={{ position: 'absolute', bottom: '40px', right: '50px', fontFamily: "'Lora', Georgia, serif", fontSize: '0.9rem', color: '#999' }}>
+                                            {1}
+                                        </div>
+                                    )}
                                 </>
                             )}
                         </div>
