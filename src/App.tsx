@@ -1,16 +1,22 @@
 import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Presentation } from 'lucide-react';
 import { Hero } from './components/Hero';
 import { Introduction } from './components/Introduction';
-import { NationalIndependence } from './components/NationalIndependence';
 import { LiberationRevolution } from './components/LiberationRevolution';
 import { KeyThoughts } from './components/KeyThoughts';
 import { Timeline } from './components/Timeline';
 import { Quotes } from './components/Quotes';
 import { Footer } from './components/Footer';
+import { HousePresentation } from './components/HousePresentation';
 
 export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showPresentation, setShowPresentation] = useState(false);
+
+  // Nếu đang xem Presentation → render fullscreen
+  if (showPresentation) {
+    return <HousePresentation onClose={() => setShowPresentation(false)} />;
+  }
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -22,7 +28,6 @@ export default function App() {
 
   const navItems = [
     { id: 'gioi-thieu', label: 'Giới Thiệu' },
-    { id: 'doc-lap-dan-toc', label: 'Độc Lập' },
     { id: 'cach-mang-giai-phong', label: 'Cách Mạng' },
     { id: 'tu-tuong', label: 'Tư Tưởng' },
     { id: 'lich-su', label: 'Lịch Sử' },
@@ -31,7 +36,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#FDFBF7]">
-      {/* Navigation - Refined minimal style */}
+      {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 bg-[#FDFBF7]/90 backdrop-blur-sm z-50 border-b border-black/5">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="flex justify-between items-center h-12">
@@ -92,13 +97,24 @@ export default function App() {
       <main className="pt-12">
         <Hero />
         <Introduction />
-        <NationalIndependence />
         <LiberationRevolution />
         <KeyThoughts />
         <Timeline />
         <Quotes />
       </main>
       <Footer />
+
+      {/* Floating Presentation Trigger Button */}
+      <button
+        onClick={() => setShowPresentation(true)}
+        className="fixed bottom-8 left-8 z-[9999] group"
+      >
+        <div className="absolute inset-0 bg-amber-400 rounded-full animate-ping opacity-30"></div>
+        <div className="relative flex items-center gap-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white px-6 py-4 rounded-full shadow-lg shadow-orange-500/30 hover:shadow-xl hover:scale-105 transition-all font-bold">
+          <Presentation className="w-5 h-5" />
+          <span className="text-sm uppercase tracking-wider">Bắt đầu Thuyết Trình</span>
+        </div>
+      </button>
     </div>
   );
 }
