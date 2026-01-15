@@ -1,0 +1,236 @@
+import { useState } from 'react';
+import { Book } from './Book';
+
+export function Hero() {
+  const [showBook, setShowBook] = useState(false);
+
+  return (
+    <>
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{ backgroundColor: '#FDFBF7' }}>
+        {/* Subtle background pattern */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-5"
+          style={{
+            backgroundImage: 'radial-gradient(circle at 2px 2px, #7B2D3E 1px, transparent 0)',
+            backgroundSize: '40px 40px'
+          }}
+        ></div>
+
+        {/* Hero Content */}
+        <div className="relative z-10 w-full max-w-4xl mx-auto px-6 text-center py-16">
+
+          {/* Historical period */}
+          <div className="mb-16" style={{ animation: 'fadeIn 1s ease-out' }}>
+            <div className="flex items-center justify-center gap-8 mb-3">
+              <div style={{ width: '80px', height: '1px', backgroundColor: '#7B2D3E', opacity: 0.3 }}></div>
+              <span
+                className="text-xs font-medium tracking-widest"
+                style={{
+                  fontFamily: 'system-ui, sans-serif',
+                  color: '#7B2D3E',
+                  letterSpacing: '0.2em'
+                }}
+              >
+                1890 — 1969
+              </span>
+              <div style={{ width: '80px', height: '1px', backgroundColor: '#7B2D3E', opacity: 0.3 }}></div>
+            </div>
+          </div>
+
+          {/* Main heading */}
+          <div className="mb-16" style={{ animation: 'fadeInUp 1s ease-out', fontFamily: "'Playfair Display', Georgia, serif" }}>
+            {/* Subtitle */}
+            <div
+              className="text-2xl sm:text-3xl md:text-4xl font-light mb-8"
+              style={{
+                color: '#4A4A4A',
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase'
+              }}
+            >
+              Tư Tưởng
+            </div>
+
+            {/* Main title */}
+            <h1
+              className="font-bold mb-12"
+              style={{
+                color: '#1A1A1A',
+                letterSpacing: '0.05em',
+                fontSize: 'clamp(3rem, 10vw, 8rem)',
+                lineHeight: '1.1',
+                whiteSpace: 'nowrap'
+              }}
+            >
+              HỒ CHÍ MINH
+            </h1>
+
+            {/* Decorative element */}
+            <div className="flex justify-center items-center gap-4 mb-12">
+              <div style={{ width: '60px', height: '2px', background: 'linear-gradient(to right, transparent, #7B2D3E)' }}></div>
+              <div style={{ width: '8px', height: '8px', backgroundColor: '#C9A227', transform: 'rotate(45deg)' }}></div>
+              <div style={{ width: '60px', height: '2px', background: 'linear-gradient(to left, transparent, #7B2D3E)' }}></div>
+            </div>
+          </div>
+
+          {/* Quote */}
+          <div className="max-w-2xl mx-auto mb-16" style={{ animation: 'fadeIn 1.5s ease-out' }}>
+            <p
+              className="text-lg sm:text-xl font-light italic leading-relaxed"
+              style={{ fontFamily: "'Lora', Georgia, serif", color: '#4A4A4A' }}
+            >
+              "Muốn cứu nước và giải phóng dân tộc không có con đường nào khác con đường cách mạng vô sản"
+            </p>
+          </div>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16" style={{ animation: 'fadeInUp 1.5s ease-out' }}>
+            <button
+              onClick={() => setShowBook(true)}
+              className="px-10 py-4 text-xs font-bold uppercase transition-all duration-300"
+              style={{
+                fontFamily: 'system-ui, sans-serif',
+                backgroundColor: '#7B2D3E',
+                color: '#ffffff',
+                letterSpacing: '0.2em',
+                border: 'none',
+                cursor: 'pointer'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = '#5C2230';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 10px 25px rgba(123, 45, 62, 0.3)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = '#7B2D3E';
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
+            >
+              Khám Phá Ngay
+            </button>
+
+            <button
+              onClick={() => document.getElementById('tu-tuong')?.scrollIntoView({ behavior: 'smooth' })}
+              className="px-10 py-4 text-xs font-bold uppercase transition-all duration-300"
+              style={{
+                fontFamily: 'system-ui, sans-serif',
+                backgroundColor: 'transparent',
+                color: '#7B2D3E',
+                letterSpacing: '0.2em',
+                border: '2px solid #7B2D3E',
+                cursor: 'pointer'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(123, 45, 62, 0.05)';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.borderColor = '#5C2230';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'transparent';
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.borderColor = '#7B2D3E';
+              }}
+            >
+              Tìm Hiểu Thêm
+            </button>
+          </div>
+        </div>
+
+        {/* Scroll indicator - Simple and elegant */}
+        <div
+          className="absolute left-1/2 z-20"
+          style={{
+            bottom: '2.5rem',
+            transform: 'translateX(-50%)',
+            animation: 'bounce 2s ease-in-out infinite'
+          }}
+        >
+          <div className="text-center" style={{ opacity: 0.5 }}>
+            <div
+              className="mx-auto mb-2"
+              style={{
+                width: '24px',
+                height: '36px',
+                border: '2px solid #6B6B6B',
+                borderRadius: '12px',
+                position: 'relative'
+              }}
+            >
+              <div
+                style={{
+                  width: '4px',
+                  height: '8px',
+                  backgroundColor: '#7B2D3E',
+                  borderRadius: '2px',
+                  position: 'absolute',
+                  top: '6px',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  animation: 'scrollDot 2s ease-in-out infinite'
+                }}
+              ></div>
+            </div>
+            <div
+              className="text-xs tracking-widest"
+              style={{
+                fontFamily: 'system-ui, sans-serif',
+                color: '#6B6B6B',
+                letterSpacing: '0.15em',
+                fontSize: '0.65rem'
+              }}
+            >
+              SCROLL
+            </div>
+          </div>
+        </div>
+
+        {/* CSS Animations */}
+        <style>{`
+          @keyframes fadeIn {
+            from {
+              opacity: 0;
+            }
+            to {
+              opacity: 1;
+            }
+          }
+          
+          @keyframes fadeInUp {
+            from {
+              opacity: 0;
+              transform: translateY(30px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+          
+          @keyframes bounce {
+            0%, 100% {
+              transform: translateX(-50%) translateY(0);
+            }
+            50% {
+              transform: translateX(-50%) translateY(-8px);
+            }
+          }
+          
+          @keyframes scrollDot {
+            0% {
+              transform: translateX(-50%) translateY(0);
+              opacity: 1;
+            }
+            100% {
+              transform: translateX(-50%) translateY(16px);
+              opacity: 0;
+            }
+          }
+        `}</style>
+      </section>
+
+      {/* Book component */}
+      {showBook && <Book onClose={() => setShowBook(false)} />}
+    </>
+  );
+}
