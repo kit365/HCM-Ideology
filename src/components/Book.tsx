@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Part1Page2 } from './Part1Page2';
 import { Part2LeftPage } from './Part2LeftPage';
 import { Part2RightPage } from './Part2RightPage';
+import { Part3LeftPage, Part3RightPage } from './Part3Page';
 import tuyenNgonAudio from '../audio/cd80510c4c31f8f1b26e234bcfa7658c01_-_Tuyen_ngon_doc_lap_103854.mp3';
 import tatCaDanTocAudio from '../audio/tatrcadantoctrenthegioideusinhrabinhdang.mp3';
 
@@ -372,6 +373,9 @@ Người luôn coi trọng đoàn kết quốc tế, tranh thủ sự ủng hộ
                                 currentPage === 2 ? (
                                     /* Phần II - Trang trái: nền đỏ đô với video */
                                     <Part2LeftPage />
+                                ) : currentPage === 3 ? (
+                                    /* Phần III - Trang trái: sơ đồ so sánh */
+                                    <Part3LeftPage />
                                 ) : (
                                     <div style={{ animation: 'pageIn 0.6s ease-out' }}>
                                         <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '2rem', color: '#1A1A1A', marginBottom: '0.5rem', fontWeight: 'bold' }}>
@@ -430,6 +434,9 @@ Người luôn coi trọng đoàn kết quốc tế, tranh thủ sự ủng hộ
                                     ) : currentPage === 2 ? (
                                         /* Phần II - trang phải: nội dung đầy đủ */
                                         <Part2RightPage />
+                                    ) : currentPage === 3 ? (
+                                        /* Phần III - trang phải: trích dẫn */
+                                        <Part3RightPage />
                                     ) : (
                                         /* Render nội dung bình thường cho các trang khác */
                                         <div style={{ animation: 'pageIn 0.6s ease-out' }}>
