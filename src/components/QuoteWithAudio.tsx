@@ -22,13 +22,18 @@ export function QuoteWithAudio({ quote, audioId, playingQuote, onPlay }: QuoteWi
             transition: 'all 0.3s ease'
         }}>
             <button
-                onClick={() => onPlay(audioId)}
+                onClick={() => {
+                    console.log('Audio button clicked! audioId:', audioId);
+                    onPlay(audioId);
+                }}
                 style={{
                     background: 'linear-gradient(135deg, #8B4513 0%, #654321 100%)',
                     border: 'none',
                     borderRadius: '50%',
                     width: '28px',
                     height: '28px',
+                    minWidth: '28px',
+                    minHeight: '28px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -38,6 +43,8 @@ export function QuoteWithAudio({ quote, audioId, playingQuote, onPlay }: QuoteWi
                     boxShadow: isPlaying ? '0 0 12px rgba(139, 69, 19, 0.6)' : '0 2px 4px rgba(0,0,0,0.2)',
                     transition: 'all 0.3s ease',
                     transform: isPlaying ? 'scale(1.1)' : 'scale(1)',
+                    position: 'relative',
+                    zIndex: 10,
                 }}
                 onMouseEnter={(e) => {
                     const target = e.currentTarget;

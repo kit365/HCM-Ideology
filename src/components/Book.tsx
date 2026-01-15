@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Part1Page2 } from './Part1Page2';
+import { Part2LeftPage } from './Part2LeftPage';
+import { Part2RightPage } from './Part2RightPage';
 import tuyenNgonAudio from '../audio/cd80510c4c31f8f1b26e234bcfa7658c01_-_Tuyen_ngon_doc_lap_103854.mp3';
 import tatCaDanTocAudio from '../audio/tatrcadantoctrenthegioideusinhrabinhdang.mp3';
 
@@ -34,6 +36,11 @@ export function Book({ onClose }: BookProps) {
     };
 
     const playQuote = (quoteId: string) => {
+        console.log('=== playQuote called ===');
+        console.log('quoteId:', quoteId);
+        console.log('audioQuotes:', audioQuotes);
+        console.log('audioQuotes[quoteId]:', audioQuotes[quoteId]);
+
         // Stop current audio if any
         if (currentAudioRef.current) {
             currentAudioRef.current.pause();
@@ -49,15 +56,25 @@ export function Book({ onClose }: BookProps) {
         // Play new quote
         setPlayingQuote(quoteId);
 
-        const audio = new Audio(audioQuotes[quoteId]);
+        const audioSrc = audioQuotes[quoteId];
+        console.log('Creating Audio with src:', audioSrc);
+
+        const audio = new Audio(audioSrc);
+        audio.volume = 1.0; // Đảm bảo volume max
         currentAudioRef.current = audio;
 
-        audio.play().catch((err) => {
-            console.log('Audio playback failed:', err);
-            setPlayingQuote(null);
-        });
+        console.log('Attempting to play...');
+        audio.play()
+            .then(() => {
+                console.log('✅ Audio playing successfully!');
+            })
+            .catch((err) => {
+                console.error('❌ Audio playback failed:', err);
+                setPlayingQuote(null);
+            });
 
         audio.onended = () => {
+            console.log('Audio ended');
             setPlayingQuote(null);
             currentAudioRef.current = null;
         };
@@ -228,14 +245,25 @@ Người luôn coi trọng đoàn kết quốc tế, tranh thủ sự ủng hộ
         }
     ];
 
+    // Helper function to stop current audio
+    const stopAudio = () => {
+        if (currentAudioRef.current) {
+            currentAudioRef.current.pause();
+            currentAudioRef.current = null;
+        }
+        setPlayingQuote(null);
+    };
+
     const nextPage = () => {
         if (currentPage < pages.length - 1) {
+            stopAudio(); // Dừng audio khi chuyển trang
             setCurrentPage(currentPage + 1);
         }
     };
 
     const prevPage = () => {
         if (currentPage > 0) {
+            stopAudio(); // Dừng audio khi chuyển trang
             setCurrentPage(currentPage - 1);
         }
     };
@@ -292,116 +320,148 @@ Người luôn coi trọng đoàn kết quốc tế, tranh thủ sự ủng hộ
                     animation: 'bookOpen 1s ease-out'
                 }}
             >
-                <div
-                    className="relative"
-                    style={{
-                        width: '1000px',
-                        height: '700px',
-                        maxWidth: '90vw',
-                        maxHeight: '85vh',
-                        transformStyle: 'preserve-3d'
-                    }}
-                >
-                    {/* LEFT PAGE - Hiển thị ảnh Bác Hồ khi currentPage = 1 */}
-                    <div
-                        className="absolute left-0 top-0"
-                        style={{
-                            width: '50%',
-                            height: '100%',
-                            backgroundColor: '#FDFBF7',
-                            padding: '60px 50px',
-                            boxShadow: 'inset -10px 0 20px rgba(0,0,0,0.1)',
-                            borderLeft: '2px solid #d4c5a0',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            overflow: 'hidden'
-                        }}
-                    >
-                        {currentPage > 0 ? (
-                            <div style={{ animation: 'pageIn 0.6s ease-out' }}>
-                                <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '2rem', color: '#1A1A1A', marginBottom: '0.5rem', fontWeight: 'bold' }}>
-                                    {pages[currentPage]?.title}
-                                </h2>
-                                <h3 style={{ fontFamily: "'Lora', Georgia, serif", fontSize: '1rem', color: '#7B2D3E', marginBottom: '1.5rem', fontStyle: 'italic' }}>
-                                    {pages[currentPage]?.subtitle}
-                                </h3>
-                                <p style={{ fontFamily: "'Lora', Georgia, serif", fontSize: '0.95rem', color: '#4A4A4A', lineHeight: '1.7', textAlign: 'justify', whiteSpace: 'pre-line' }}>
-                                    {pages[currentPage]?.content}
-                                </p>
-                                <div style={{ position: 'absolute', bottom: '40px', left: '50px', fontFamily: "'Lora', Georgia, serif", fontSize: '0.9rem', color: '#999' }}>
-                                    {currentPage * 2}
-                                </div>
-                            </div>
-                        ) : (
-                            /* Trang trái đầu tiên - hiển thị ảnh Bác Hồ */
-                            currentPage === 0 && pages[0]?.showImage && (
-                                <div style={{ animation: 'pageIn 0.6s ease-out', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
-                                    <div style={{ border: '3px solid #d4c5a0', padding: '8px', backgroundColor: '#f5f5f0', boxShadow: '0 4px 8px rgba(0,0,0,0.2)' }}>
-                                        <img
-                                            src={hoChiMinhImage}
-                                            alt="Chân dung Chủ tịch Hồ Chí Minh"
-                                            style={{ width: '100%', maxWidth: '360px', height: 'auto', maxHeight: '500px', objectFit: 'contain', filter: 'sepia(0.3) contrast(1.1)', display: 'block' }}
-                                        />
-                                        <div style={{ marginTop: '0.75rem', textAlign: 'center', fontFamily: "'Lora', Georgia, serif", fontSize: '0.8rem', color: '#888', fontStyle: 'italic' }}>
-                                            Chủ tịch Hồ Chí Minh<br />(1890-1969)
-                                        </div>
-                                    </div>
-                                </div>
-                            )
-                        )}
-                    </div>
+                {/* Bìa sách - màu đỏ đô giống hộ chiếu Việt Nam */}
+                <div style={{
+                    background: 'linear-gradient(135deg, #8B0000 0%, #660000 50%, #4A0000 100%)',
+                    padding: '12px',
+                    borderRadius: '4px 12px 12px 4px',
+                    boxShadow: '0 10px 40px rgba(0,0,0,0.5), inset 0 0 60px rgba(0,0,0,0.3)',
+                    border: '2px solid #C9A227',
+                    position: 'relative'
+                }}>
+                    {/* Họa tiết viền vàng */}
+                    <div style={{
+                        position: 'absolute',
+                        top: '6px',
+                        left: '6px',
+                        right: '6px',
+                        bottom: '6px',
+                        border: '1px solid rgba(201, 162, 39, 0.5)',
+                        borderRadius: '2px 10px 10px 2px',
+                        pointerEvents: 'none'
+                    }}></div>
 
-                    {/* RIGHT PAGE - Nội dung giới thiệu */}
                     <div
-                        className="absolute right-0 top-0"
+                        className="relative"
                         style={{
-                            width: '50%',
-                            height: '100%',
-                            backgroundColor: '#FDFBF7',
-                            padding: '60px 50px',
-                            boxShadow: 'inset 10px 0 20px rgba(0,0,0,0.1)',
-                            borderRight: '2px solid #d4c5a0',
-                            display: 'flex',
-                            flexDirection: 'column',
+                            width: '1000px',
+                            height: '700px',
+                            maxWidth: '88vw',
+                            maxHeight: '82vh',
+                            transformStyle: 'preserve-3d',
+                            borderRadius: '2px 8px 8px 2px',
                             overflow: 'hidden'
                         }}
                     >
-                        {currentPage < pages.length && (
-                            <>
-                                {currentPage === 1 ? (
-                                    /* Sử dụng component đặc biệt có audio cho Phần I (2/2) */
-                                    <Part1Page2 playingQuote={playingQuote} onPlayQuote={playQuote} />
+                        {/* LEFT PAGE */}
+                        <div
+                            className="absolute left-0 top-0"
+                            style={{
+                                width: '50%',
+                                height: '100%',
+                                backgroundColor: currentPage === 2 ? 'transparent' : '#FDFBF7',
+                                padding: currentPage === 2 ? '0' : '60px 50px',
+                                boxShadow: currentPage === 2 ? 'none' : 'inset -10px 0 20px rgba(0,0,0,0.1)',
+                                borderLeft: currentPage === 2 ? 'none' : '2px solid #d4c5a0',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                overflow: 'hidden'
+                            }}
+                        >
+                            {currentPage > 0 ? (
+                                currentPage === 2 ? (
+                                    /* Phần II - Trang trái: nền đỏ đô với video */
+                                    <Part2LeftPage />
                                 ) : (
-                                    /* Render nội dung bình thường cho các trang khác */
                                     <div style={{ animation: 'pageIn 0.6s ease-out' }}>
                                         <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '2rem', color: '#1A1A1A', marginBottom: '0.5rem', fontWeight: 'bold' }}>
-                                            {pages[currentPage === 0 ? 0 : currentPage + 1]?.title}
+                                            {pages[currentPage]?.title}
                                         </h2>
                                         <h3 style={{ fontFamily: "'Lora', Georgia, serif", fontSize: '1rem', color: '#7B2D3E', marginBottom: '1.5rem', fontStyle: 'italic' }}>
-                                            {pages[currentPage === 0 ? 0 : currentPage + 1]?.subtitle}
+                                            {pages[currentPage]?.subtitle}
                                         </h3>
                                         <p style={{ fontFamily: "'Lora', Georgia, serif", fontSize: '0.95rem', color: '#4A4A4A', lineHeight: '1.7', textAlign: 'justify', whiteSpace: 'pre-line' }}>
-                                            {pages[currentPage === 0 ? 0 : currentPage + 1]?.content}
+                                            {pages[currentPage]?.content}
                                         </p>
+                                        <div style={{ position: 'absolute', bottom: '40px', left: '50px', fontFamily: "'Lora', Georgia, serif", fontSize: '0.9rem', color: '#999' }}>
+                                            {currentPage * 2}
+                                        </div>
                                     </div>
-                                )}
+                                )
+                            ) : (
+                                /* Trang trái đầu tiên - hiển thị ảnh Bác Hồ */
+                                currentPage === 0 && pages[0]?.showImage && (
+                                    <div style={{ animation: 'pageIn 0.6s ease-out', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+                                        <div style={{ border: '3px solid #d4c5a0', padding: '8px', backgroundColor: '#f5f5f0', boxShadow: '0 4px 8px rgba(0,0,0,0.2)' }}>
+                                            <img
+                                                src={hoChiMinhImage}
+                                                alt="Chân dung Chủ tịch Hồ Chí Minh"
+                                                style={{ width: '100%', maxWidth: '360px', height: 'auto', maxHeight: '500px', objectFit: 'contain', filter: 'sepia(0.3) contrast(1.1)', display: 'block' }}
+                                            />
+                                            <div style={{ marginTop: '0.75rem', textAlign: 'center', fontFamily: "'Lora', Georgia, serif", fontSize: '0.8rem', color: '#888', fontStyle: 'italic' }}>
+                                                Chủ tịch Hồ Chí Minh<br />(1890-1969)
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
+                            )}
+                        </div>
 
-                                {/* Số trang */}
-                                <div style={{ position: 'absolute', bottom: '40px', right: '50px', fontFamily: "'Lora', Georgia, serif", fontSize: '0.9rem', color: '#999' }}>
-                                    {currentPage === 0 ? 1 : currentPage * 2 + 1}
-                                </div>
-                            </>
-                        )}
+                        {/* RIGHT PAGE - Nội dung giới thiệu */}
+                        <div
+                            className="absolute right-0 top-0"
+                            style={{
+                                width: '50%',
+                                height: '100%',
+                                backgroundColor: '#FDFBF7',
+                                padding: '60px 50px',
+                                boxShadow: 'inset 10px 0 20px rgba(0,0,0,0.1)',
+                                borderRight: '2px solid #d4c5a0',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                overflow: 'hidden'
+                            }}
+                        >
+                            {currentPage < pages.length && (
+                                <>
+                                    {currentPage === 1 ? (
+                                        /* Sử dụng component đặc biệt có audio cho Phần I */
+                                        <Part1Page2 playingQuote={playingQuote} onPlayQuote={playQuote} />
+                                    ) : currentPage === 2 ? (
+                                        /* Phần II - trang phải: nội dung đầy đủ */
+                                        <Part2RightPage />
+                                    ) : (
+                                        /* Render nội dung bình thường cho các trang khác */
+                                        <div style={{ animation: 'pageIn 0.6s ease-out' }}>
+                                            <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '2rem', color: '#1A1A1A', marginBottom: '0.5rem', fontWeight: 'bold' }}>
+                                                {pages[currentPage === 0 ? 0 : currentPage + 1]?.title}
+                                            </h2>
+                                            <h3 style={{ fontFamily: "'Lora', Georgia, serif", fontSize: '1rem', color: '#7B2D3E', marginBottom: '1.5rem', fontStyle: 'italic' }}>
+                                                {pages[currentPage === 0 ? 0 : currentPage + 1]?.subtitle}
+                                            </h3>
+                                            <p style={{ fontFamily: "'Lora', Georgia, serif", fontSize: '0.95rem', color: '#4A4A4A', lineHeight: '1.7', textAlign: 'justify', whiteSpace: 'pre-line' }}>
+                                                {pages[currentPage === 0 ? 0 : currentPage + 1]?.content}
+                                            </p>
+                                        </div>
+                                    )}
+
+                                    {/* Số trang */}
+                                    <div style={{ position: 'absolute', bottom: '40px', right: '50px', fontFamily: "'Lora', Georgia, serif", fontSize: '0.9rem', color: '#999' }}>
+                                        {currentPage === 0 ? 1 : currentPage * 2 + 1}
+                                    </div>
+                                </>
+                            )}
+                        </div>
+
+                        {/* Book spine */}
+                        <div style={{ position: 'absolute', left: '50%', top: '0', width: '20px', height: '100%', background: 'linear-gradient(to right, rgba(0,0,0,0.2), transparent, rgba(0,0,0,0.2))', transform: 'translateX(-50%)', pointerEvents: 'none' }}></div>
                     </div>
 
-                    {/* Book spine */}
-                    <div style={{ position: 'absolute', left: '50%', top: '0', width: '20px', height: '100%', background: 'linear-gradient(to right, rgba(0,0,0,0.2), transparent, rgba(0,0,0,0.2))', transform: 'translateX(-50%)', pointerEvents: 'none' }}></div>
-                </div>
-
-                {/* Navigation */}
-                <div className="absolute top-1/2 -translate-y-1/2 w-full flex justify-between px-4" style={{ width: 'calc(100% + 100px)', left: '-50px' }}>
-                    <button onClick={prevPage} disabled={currentPage === 0} className="transition-all duration-300" style={{ width: '50px', height: '50px', borderRadius: '50%', backgroundColor: currentPage === 0 ? '#ccc' : '#7B2D3E', color: 'white', border: 'none', fontSize: '1.5rem', cursor: currentPage === 0 ? 'not-allowed' : 'pointer', opacity: currentPage === 0 ? 0.5 : 1 }} onMouseEnter={(e) => { if (currentPage > 0) { e.currentTarget.style.backgroundColor = '#5C2230'; e.currentTarget.style.transform = 'scale(1.1)'; } }} onMouseLeave={(e) => { if (currentPage > 0) { e.currentTarget.style.backgroundColor = '#7B2D3E'; e.currentTarget.style.transform = 'scale(1)'; } }}>‹</button>
-                    <button onClick={nextPage} disabled={currentPage >= pages.length - 1} className="transition-all duration-300" style={{ width: '50px', height: '50px', borderRadius: '50%', backgroundColor: currentPage >= pages.length - 1 ? '#ccc' : '#7B2D3E', color: 'white', border: 'none', fontSize: '1.5rem', cursor: currentPage >= pages.length - 1 ? 'not-allowed' : 'pointer', opacity: currentPage >= pages.length - 1 ? 0.5 : 1 }} onMouseEnter={(e) => { if (currentPage < pages.length - 1) { e.currentTarget.style.backgroundColor = '#5C2230'; e.currentTarget.style.transform = 'scale(1.1)'; } }} onMouseLeave={(e) => { if (currentPage < pages.length - 1) { e.currentTarget.style.backgroundColor = '#7B2D3E'; e.currentTarget.style.transform = 'scale(1)'; } }}>›</button>
+                    {/* Navigation */}
+                    <div className="absolute top-1/2 -translate-y-1/2 w-full flex justify-between px-4" style={{ width: 'calc(100% + 100px)', left: '-50px', pointerEvents: 'none' }}>
+                        <button onClick={prevPage} disabled={currentPage === 0} className="transition-all duration-300" style={{ width: '50px', height: '50px', borderRadius: '50%', backgroundColor: currentPage === 0 ? '#ccc' : '#7B2D3E', color: 'white', border: 'none', fontSize: '1.5rem', cursor: currentPage === 0 ? 'not-allowed' : 'pointer', opacity: currentPage === 0 ? 0.5 : 1, pointerEvents: 'auto' }} onMouseEnter={(e) => { if (currentPage > 0) { e.currentTarget.style.backgroundColor = '#5C2230'; e.currentTarget.style.transform = 'scale(1.1)'; } }} onMouseLeave={(e) => { if (currentPage > 0) { e.currentTarget.style.backgroundColor = '#7B2D3E'; e.currentTarget.style.transform = 'scale(1)'; } }}>‹</button>
+                        <button onClick={nextPage} disabled={currentPage >= pages.length - 1} className="transition-all duration-300" style={{ width: '50px', height: '50px', borderRadius: '50%', backgroundColor: currentPage >= pages.length - 1 ? '#ccc' : '#7B2D3E', color: 'white', border: 'none', fontSize: '1.5rem', cursor: currentPage >= pages.length - 1 ? 'not-allowed' : 'pointer', opacity: currentPage >= pages.length - 1 ? 0.5 : 1, pointerEvents: 'auto' }} onMouseEnter={(e) => { if (currentPage < pages.length - 1) { e.currentTarget.style.backgroundColor = '#5C2230'; e.currentTarget.style.transform = 'scale(1.1)'; } }} onMouseLeave={(e) => { if (currentPage < pages.length - 1) { e.currentTarget.style.backgroundColor = '#7B2D3E'; e.currentTarget.style.transform = 'scale(1)'; } }}>›</button>
+                    </div>
                 </div>
             </div>
 
