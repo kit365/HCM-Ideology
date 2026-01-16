@@ -53,24 +53,23 @@ export function Part5LeftPage() {
             {/* Header */}
             <div style={{ marginBottom: '25px', textAlign: 'center' }}>
                 <div style={{
+                    fontFamily: "'Playfair Display', Georgia, serif",
                     color: '#ffd700',
-                    fontSize: '0.75rem',
-                    letterSpacing: '3px',
-                    marginBottom: '8px',
-                    textTransform: 'uppercase'
+                    fontSize: '1.75rem',
+                    fontWeight: 'bold',
+                    marginBottom: '8px'
                 }}>
                     Phần V
                 </div>
-                <h2 style={{
-                    color: '#fff',
-                    fontSize: '1.3rem',
-                    fontFamily: "'Playfair Display', Georgia, serif",
-                    fontWeight: 'bold',
-                    lineHeight: 1.3,
-                    textShadow: '0 2px 10px rgba(0,0,0,0.3)'
+                <h3 style={{
+                    fontFamily: "'Lora', Georgia, serif",
+                    fontSize: '0.85rem',
+                    color: 'rgba(255,255,255,0.9)',
+                    fontStyle: 'italic',
+                    marginBottom: '0.5rem'
                 }}>
                     Con Đường Cách Mạng Vô Sản
-                </h2>
+                </h3>
                 <div style={{
                     width: '60px',
                     height: '2px',
@@ -139,7 +138,7 @@ export function Part5LeftPage() {
                             {item.year && (
                                 <div style={{
                                     color: '#ffd700',
-                                    fontSize: '0.7rem',
+                                    fontSize: '0.85rem',
                                     fontWeight: 'bold',
                                     marginBottom: '4px'
                                 }}>
@@ -148,16 +147,16 @@ export function Part5LeftPage() {
                             )}
                             <div style={{
                                 color: '#fff',
-                                fontSize: '0.85rem',
+                                fontSize: '1rem',
                                 fontWeight: '600',
                                 marginBottom: '4px'
                             }}>
                                 {item.title}
                             </div>
                             <div style={{
-                                color: 'rgba(255,255,255,0.7)',
-                                fontSize: '0.75rem',
-                                lineHeight: 1.4
+                                color: 'rgba(255,255,255,0.8)',
+                                fontSize: '0.9rem',
+                                lineHeight: 1.5
                             }}>
                                 {item.description}
                             </div>
@@ -168,8 +167,8 @@ export function Part5LeftPage() {
                                     marginTop: '8px',
                                     paddingTop: '8px',
                                     borderTop: '1px solid rgba(255,215,0,0.3)',
-                                    color: 'rgba(255,255,255,0.85)',
-                                    fontSize: '0.7rem',
+                                    color: 'rgba(255,255,255,0.9)',
+                                    fontSize: '0.85rem',
                                     lineHeight: 1.5,
                                     fontStyle: 'italic'
                                 }}>
@@ -268,8 +267,8 @@ export function Part5RightPage() {
                 </div>
                 <p style={{
                     color: '#fff',
-                    fontSize: '0.85rem',
-                    lineHeight: 1.5,
+                    fontSize: '1rem',
+                    lineHeight: 1.6,
                     fontFamily: "'Lora', Georgia, serif",
                     fontStyle: 'italic',
                     margin: 0
@@ -279,8 +278,8 @@ export function Part5RightPage() {
                 <div style={{
                     marginTop: '8px',
                     textAlign: 'right',
-                    color: 'rgba(255,255,255,0.7)',
-                    fontSize: '0.7rem'
+                    color: 'rgba(255,255,255,0.8)',
+                    fontSize: '0.85rem'
                 }}>
                     — Hồ Chí Minh
                 </div>
@@ -306,8 +305,8 @@ export function Part5RightPage() {
                 </div>
                 <p style={{
                     color: '#fff',
-                    fontSize: '0.85rem',
-                    lineHeight: 1.5,
+                    fontSize: '1rem',
+                    lineHeight: 1.6,
                     fontFamily: "'Lora', Georgia, serif",
                     fontStyle: 'italic',
                     margin: 0
@@ -330,7 +329,7 @@ export function Part5RightPage() {
                 }}>
                     <p style={{
                         color: '#5C2230',
-                        fontSize: '0.8rem',
+                        fontSize: '0.95rem',
                         lineHeight: 1.6,
                         fontStyle: 'italic',
                         margin: 0,
@@ -342,7 +341,7 @@ export function Part5RightPage() {
                 <div style={{
                     marginTop: '12px',
                     color: '#B8860B',
-                    fontSize: '0.7rem'
+                    fontSize: '0.85rem'
                 }}>
                     ➤ Xem trang tiếp theo để hiểu rõ hơn về đường lối cách mạng
                 </div>

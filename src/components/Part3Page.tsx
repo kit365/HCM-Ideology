@@ -42,11 +42,11 @@ export function Part3LeftPage() {
             flexDirection: 'column'
         }}>
             {/* Tiêu đề */}
-            <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '1.8rem', color: '#1A1A1A', marginBottom: '0.2rem', fontWeight: 'bold' }}>
+            <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '1.75rem', color: '#1A1A1A', marginBottom: '0.4rem', fontWeight: 'bold' }}>
                 Phần III
             </h2>
 
-            <h3 style={{ fontFamily: "'Lora', Georgia, serif", fontSize: '0.9rem', color: '#7B2D3E', marginBottom: '0.8rem', fontStyle: 'italic' }}>
+            <h3 style={{ fontFamily: "'Lora', Georgia, serif", fontSize: '0.85rem', color: '#7B2D3E', marginBottom: '1rem', fontStyle: 'italic' }}>
                 Độc Lập Thật Sự, Hoàn Toàn Và Triệt Để
             </h3>
 

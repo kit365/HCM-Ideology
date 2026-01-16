@@ -60,7 +60,7 @@ export function TransitionLeftPage() {
 
             {/* Header */}
             <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-                <div style={{
+                {/* <div style={{
                     color: '#ffd700',
                     fontSize: '0.65rem',
                     letterSpacing: '3px',
@@ -68,10 +68,10 @@ export function TransitionLeftPage() {
                     marginBottom: '8px'
                 }}>
                     Phần V
-                </div>
+                </div> */}
                 <h1 style={{
                     color: '#fff',
-                    fontSize: '1.1rem',
+                    fontSize: '1.5rem',
                     fontFamily: "'Playfair Display', Georgia, serif",
                     fontWeight: 'bold',
                     margin: 0,
@@ -81,7 +81,7 @@ export function TransitionLeftPage() {
                 </h1>
                 <h2 style={{
                     color: '#ffd700',
-                    fontSize: '0.9rem',
+                    fontSize: '1.15rem',
                     fontFamily: "'Playfair Display', Georgia, serif",
                     fontWeight: 'normal',
                     marginTop: '5px',
@@ -101,9 +101,9 @@ export function TransitionLeftPage() {
 
             {/* Introduction */}
             <p style={{
-                color: 'rgba(255,255,255,0.85)',
-                fontSize: '0.78rem',
-                lineHeight: 1.6,
+                color: 'rgba(255,255,255,0.9)',
+                fontSize: '0.95rem',
+                lineHeight: 1.7,
                 textAlign: 'center',
                 marginBottom: '20px',
                 fontStyle: 'italic'
@@ -129,10 +129,10 @@ export function TransitionLeftPage() {
                             transition: 'all 0.5s ease'
                         }}
                     >
-                        <span style={{ fontSize: '1.2rem' }}>{q.icon}</span>
+                        <span style={{ fontSize: '1.3rem' }}>{q.icon}</span>
                         <span style={{
                             color: '#fff',
-                            fontSize: '0.8rem',
+                            fontSize: '0.95rem',
                             fontWeight: 500
                         }}>
                             {q.text}
@@ -178,7 +178,7 @@ export function TransitionRightPage() {
             <div style={{ textAlign: 'center', marginBottom: '15px' }}>
                 <h2 style={{
                     color: '#7B2D3E',
-                    fontSize: '1rem',
+                    fontSize: '1.2rem',
                     fontFamily: "'Playfair Display', Georgia, serif",
                     fontWeight: 'bold',
                     margin: 0
@@ -215,8 +215,8 @@ export function TransitionRightPage() {
                     }} />
                     <p style={{
                         color: '#333',
-                        fontSize: '0.75rem',
-                        lineHeight: 1.5,
+                        fontSize: '0.9rem',
+                        lineHeight: 1.6,
                         margin: 0
                     }}>
                         <strong>1911:</strong> Ra đi tìm đường cứu nước từ Bến Nhà Rồng
@@ -242,8 +242,8 @@ export function TransitionRightPage() {
                     }} />
                     <p style={{
                         color: '#333',
-                        fontSize: '0.75rem',
-                        lineHeight: 1.5,
+                        fontSize: '0.9rem',
+                        lineHeight: 1.6,
                         margin: 0
                     }}>
                         <strong>1919:</strong> Gửi Bản yêu sách 8 điểm đến Hội nghị Versailles
@@ -269,8 +269,8 @@ export function TransitionRightPage() {
                     }} />
                     <p style={{
                         color: '#333',
-                        fontSize: '0.75rem',
-                        lineHeight: 1.5,
+                        fontSize: '0.9rem',
+                        lineHeight: 1.6,
                         margin: 0
                     }}>
                         <strong>1920:</strong> Đọc Sơ thảo Luận cương của Lênin - Bước ngoặt tư tưởng
@@ -296,8 +296,8 @@ export function TransitionRightPage() {
                     }} />
                     <p style={{
                         color: '#333',
-                        fontSize: '0.75rem',
-                        lineHeight: 1.5,
+                        fontSize: '0.9rem',
+                        lineHeight: 1.6,
                         margin: 0
                     }}>
                         <strong>Kết luận:</strong> Chỉ có CNXH mới thực sự giải phóng được dân tộc
@@ -317,8 +317,8 @@ export function TransitionRightPage() {
             }}>
                 <p style={{
                     color: '#444',
-                    fontSize: '0.72rem',
-                    lineHeight: 1.6,
+                    fontSize: '0.9rem',
+                    lineHeight: 1.7,
                     fontStyle: 'italic',
                     margin: 0
                 }}>
@@ -328,7 +328,7 @@ export function TransitionRightPage() {
                     marginTop: '6px',
                     textAlign: 'right',
                     color: '#7B2D3E',
-                    fontSize: '0.68rem',
+                    fontSize: '0.85rem',
                     fontWeight: 600
                 }}>
                     — Hồ Chí Minh
@@ -340,7 +340,7 @@ export function TransitionRightPage() {
                 textAlign: 'center',
                 marginTop: '12px',
                 color: '#B8860B',
-                fontSize: '0.75rem'
+                fontSize: '0.9rem'
             }}>
                 ▶ Tiếp theo: Con đường cách mạng vô sản
             </div>

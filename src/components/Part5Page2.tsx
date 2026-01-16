@@ -29,12 +29,12 @@ export function Part5Page2LeftPage() {
             <div style={{ position: 'absolute', bottom: '50px', left: '15px', fontSize: '16px', opacity: 0.15 }}>★</div>
 
             {/* Header */}
-            <div style={{ marginBottom: '20px', textAlign: 'center' }}>
+            <div style={{ marginBottom: '10px', textAlign: 'center' }}>
                 <div style={{
                     color: '#ffd700',
                     fontSize: '0.65rem',
                     letterSpacing: '2px',
-                    marginBottom: '6px',
+                    marginBottom: '2px',
                     textTransform: 'uppercase'
                 }}>
                     So Sánh Đường Lối
@@ -44,8 +44,9 @@ export function Part5Page2LeftPage() {
                     fontSize: '1.1rem',
                     fontFamily: "'Playfair Display', Georgia, serif",
                     fontWeight: 'bold',
-                    lineHeight: 1.3,
-                    textShadow: '0 2px 8px rgba(0,0,0,0.4)'
+                    lineHeight: 1.2,
+                    textShadow: '0 2px 8px rgba(0,0,0,0.4)',
+                    marginBottom: '0'
                 }}>
                     Hai Con Đường Cách Mạng
                 </h2>
@@ -53,7 +54,7 @@ export function Part5Page2LeftPage() {
                     width: '50px',
                     height: '2px',
                     background: 'linear-gradient(90deg, transparent, #ffd700, transparent)',
-                    margin: '10px auto 0'
+                    margin: '6px auto 0'
                 }}></div>
             </div>
 
@@ -111,7 +112,7 @@ export function Part5Page2LeftPage() {
                     }}>
                         <p style={{
                             color: 'rgba(255,255,255,0.9)',
-                            fontSize: '0.75rem',
+                            fontSize: '0.9rem',
                             lineHeight: 1.6,
                             margin: 0,
                             fontFamily: "'Lora', Georgia, serif"
@@ -121,8 +122,8 @@ export function Part5Page2LeftPage() {
                             Giải phóng dân tộc
                         </p>
                         <p style={{
-                            color: 'rgba(255,255,255,0.6)',
-                            fontSize: '0.65rem',
+                            color: 'rgba(255,255,255,0.7)',
+                            fontSize: '0.8rem',
                             marginTop: '8px',
                             marginBottom: 0,
                             fontStyle: 'italic'
@@ -189,7 +190,7 @@ export function Part5Page2LeftPage() {
                     }}>
                         <p style={{
                             color: 'rgba(255,255,255,0.9)',
-                            fontSize: '0.75rem',
+                            fontSize: '0.9rem',
                             lineHeight: 1.6,
                             margin: 0,
                             fontFamily: "'Lora', Georgia, serif"
@@ -199,8 +200,8 @@ export function Part5Page2LeftPage() {
                             Giải phóng giai cấp
                         </p>
                         <p style={{
-                            color: 'rgba(255,255,255,0.6)',
-                            fontSize: '0.65rem',
+                            color: 'rgba(255,255,255,0.7)',
+                            fontSize: '0.8rem',
                             marginTop: '8px',
                             marginBottom: 0,
                             fontStyle: 'italic'
@@ -213,8 +214,7 @@ export function Part5Page2LeftPage() {
 
             {/* Key insight */}
             <div style={{
-                marginTop: 'auto',
-                paddingTop: '15px',
+                marginTop: '10px',
                 transform: animationStep >= 3 ? 'translateY(0)' : 'translateY(20px)',
                 opacity: animationStep >= 3 ? 1 : 0,
                 transition: 'all 0.5s ease'
@@ -228,8 +228,8 @@ export function Part5Page2LeftPage() {
                 }}>
                     <p style={{
                         color: 'rgba(255,255,255,0.9)',
-                        fontSize: '0.7rem',
-                        lineHeight: 1.5,
+                        fontSize: '0.85rem',
+                        lineHeight: 1.6,
                         margin: 0,
                         fontFamily: "'Lora', Georgia, serif",
                         fontStyle: 'italic'
@@ -267,11 +267,11 @@ export function Part5Page2RightPage() {
             width: '100%',
             height: '100%',
             backgroundColor: '#FDFBF7',
-            padding: '30px 25px',
+            padding: '20px 25px',
             display: 'flex',
             flexDirection: 'column',
             position: 'relative',
-            overflow: 'hidden'
+            overflow: 'auto'
         }}>
             {/* Header */}
             <div style={{ marginBottom: '15px', textAlign: 'center' }}>
@@ -300,7 +300,7 @@ export function Part5Page2RightPage() {
                 flex: 1,
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '15px'
+                gap: '10px'
             }}>
                 {/* Key Quote */}
                 <div style={{
@@ -322,8 +322,8 @@ export function Part5Page2RightPage() {
                     </div>
                     <p style={{
                         color: '#fff',
-                        fontSize: '0.85rem',
-                        lineHeight: 1.6,
+                        fontSize: '1rem',
+                        lineHeight: 1.7,
                         fontFamily: "'Lora', Georgia, serif",
                         fontStyle: 'italic',
                         margin: 0
@@ -333,8 +333,8 @@ export function Part5Page2RightPage() {
                     <div style={{
                         marginTop: '10px',
                         textAlign: 'right',
-                        color: 'rgba(255,255,255,0.7)',
-                        fontSize: '0.7rem'
+                        color: 'rgba(255,255,255,0.8)',
+                        fontSize: '0.85rem'
                     }}>
                         — Tư tưởng Hồ Chí Minh
                     </div>
@@ -358,7 +358,7 @@ export function Part5Page2RightPage() {
                         <div style={{ fontSize: '1.2rem', marginBottom: '6px', textAlign: 'center' }}>🇻🇳</div>
                         <h4 style={{
                             color: '#7B2D3E',
-                            fontSize: '0.7rem',
+                            fontSize: '0.85rem',
                             fontWeight: 'bold',
                             marginBottom: '6px',
                             textAlign: 'center'
@@ -367,7 +367,7 @@ export function Part5Page2RightPage() {
                         </h4>
                         <p style={{
                             color: '#5C2230',
-                            fontSize: '0.65rem',
+                            fontSize: '0.8rem',
                             lineHeight: 1.5,
                             margin: 0,
                             textAlign: 'center'
@@ -440,22 +440,23 @@ export function Part5Page2RightPage() {
 
             {/* Bottom decoration */}
             <div style={{
-                marginTop: 'auto',
-                paddingTop: '15px',
+                marginTop: '10px',
+                paddingTop: '8px',
                 textAlign: 'center',
                 borderTop: '1px solid rgba(184, 134, 11, 0.3)'
             }}>
                 <div style={{
                     color: '#B8860B',
-                    fontSize: '1.5rem',
-                    marginBottom: '5px'
+                    fontSize: '1.2rem',
+                    marginBottom: '3px'
                 }}>
                     ★
                 </div>
                 <p style={{
                     color: '#999',
-                    fontSize: '0.65rem',
-                    fontStyle: 'italic'
+                    fontSize: '0.6rem',
+                    fontStyle: 'italic',
+                    margin: 0
                 }}>
                     Kết thúc Phần V: Con đường cách mạng vô sản
                 </p>

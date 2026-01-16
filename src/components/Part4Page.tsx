@@ -26,23 +26,19 @@ export function Part4LeftPage() {
             <div style={{ marginBottom: '1.5rem', borderBottom: `2px solid ${THEME_ACCENT}`, paddingBottom: '0.75rem' }}>
                 <h2 style={{
                     fontFamily: "'Playfair Display', Georgia, serif",
-                    fontSize: '2.8rem', // Giảm size chút xíu
-                    color: THEME_ACCENT,
+                    fontSize: '1.75rem',
+                    color: '#1A1A1A',
                     margin: '0',
-                    fontWeight: '700',
-                    lineHeight: '1',
-                    letterSpacing: '-1px'
+                    fontWeight: 'bold'
                 }}>
                     Phần IV
                 </h2>
                 <h3 style={{
-                    fontFamily: "'Playfair Display', Georgia, serif",
-                    fontSize: '1.2rem',
-                    color: TEXT_MAIN,
-                    marginTop: '0.4rem',
-                    marginBottom: '0',
-                    fontStyle: 'italic',
-                    fontWeight: '500'
+                    fontFamily: "'Lora', Georgia, serif",
+                    fontSize: '0.85rem',
+                    color: '#7B2D3E',
+                    marginBottom: '1rem',
+                    fontStyle: 'italic'
                 }}>
                     Thống Nhất Và Toàn Vẹn Lãnh Thổ
                 </h3>
@@ -163,15 +159,15 @@ export function Part4RightPage() {
             backgroundColor: PAPER_BG,
             display: 'flex',
             flexDirection: 'column',
-            padding: '40px 35px', // Giảm padding
+            padding: '35px 30px', // Giảm padding
             borderLeft: '1px solid rgba(0,0,0,0.03)', // Rãnh sách mờ
-            overflowY: 'auto' // Cho phép cuộn
+            overflow: 'hidden' // Bỏ thanh kéo
         }}>
             {/* Box Di Chúc - Style Thư tín cổ điển */}
             <div style={{
                 backgroundColor: '#fff',
-                padding: '2rem 1.5rem', // Gọn hơn
-                marginBottom: '2rem',
+                padding: '1.5rem 1.25rem', // Nhỏ hơn
+                marginBottom: '1.5rem',
                 boxShadow: '0 10px 30px rgba(0,0,0,0.06)',
                 border: '1px solid rgba(0,0,0,0.02)',
                 position: 'relative',
@@ -185,14 +181,14 @@ export function Part4RightPage() {
 
                 <h4 style={{
                     fontFamily: "'Playfair Display', serif",
-                    fontSize: '0.85rem',
+                    fontSize: '0.75rem',
                     color: THEME_ACCENT,
                     textTransform: 'uppercase',
                     letterSpacing: '2px',
                     textAlign: 'center',
-                    marginBottom: '1rem',
+                    marginBottom: '0.75rem',
                     borderBottom: '1px solid rgba(185, 28, 28, 0.1)',
-                    paddingBottom: '0.4rem',
+                    paddingBottom: '0.3rem',
                     display: 'inline-block',
                     width: '100%'
                 }}>
@@ -201,11 +197,11 @@ export function Part4RightPage() {
 
                 <p style={{
                     fontFamily: "'Playfair Display', serif",
-                    fontSize: '1.2rem',
+                    fontSize: '1rem',
                     color: TEXT_MAIN,
-                    lineHeight: '1.6',
+                    lineHeight: '1.55',
                     textAlign: 'justify',
-                    marginBottom: '1rem'
+                    marginBottom: '0.75rem'
                 }}>
                     "Dù khó khăn, gian khổ đến mấy, nhân dân ta nhất định sẽ hoàn toàn thắng lợi... Tổ quốc ta nhất định sẽ thống nhất. Đồng bào Nam Bắc nhất định sẽ sum họp một nhà."
                 </p>
@@ -224,7 +220,7 @@ export function Part4RightPage() {
             {/* Bottom Section: Quote nổi bật */}
             <div style={{
                 marginTop: 'auto',
-                marginBottom: '2.5rem', // Đẩy lên khỏi số trang
+                marginBottom: '2rem', // Đẩy lên khỏi số trang
                 textAlign: 'center',
                 padding: '0 1rem'
             }}>
@@ -234,10 +230,10 @@ export function Part4RightPage() {
                 </div>
                 <p style={{
                     fontFamily: "'Playfair Display', serif",
-                    fontSize: '1.5rem', // Vừa vặn
+                    fontSize: '1.3rem', // Nhỏ hơn
                     color: THEME_ACCENT,
                     fontStyle: 'italic',
-                    marginBottom: '0.5rem',
+                    marginBottom: '0.4rem',
                     fontWeight: '700',
                     textShadow: '0 2px 4px rgba(185, 28, 28, 0.05)'
                 }}>

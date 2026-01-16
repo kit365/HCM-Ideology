@@ -8,6 +8,11 @@ import { Part4LeftPage, Part4RightPage } from './Part4Page';
 import { TransitionLeftPage, TransitionRightPage } from './TransitionPage';
 import { Part5LeftPage, Part5RightPage } from './Part5Page';
 import { Part5Page2LeftPage, Part5Page2RightPage } from './Part5Page2';
+import { Part6LeftPage, Part6RightPage } from './Part6Page';
+import { Part7LeftPage, Part7RightPage } from './Part7Page';
+import { Part8LeftPage, Part8RightPage } from './Part8Page';
+import { Part8Page2LeftPage, Part8Page2RightPage } from './Part8Page2';
+import { Part9LeftPage, Part9RightPage } from './Part9Page';
 import tuyenNgonAudio from '../audio/cd80510c4c31f8f1b26e234bcfa7658c01_-_Tuyen_ngon_doc_lap_103854.mp3';
 import tatCaDanTocAudio from '../audio/tatrcadantoctrenthegioideusinhrabinhdang.mp3';
 import hoChiMinhImage from '../Screenshot 2026-01-15 001843.png';
@@ -30,6 +35,18 @@ export function Book({ onClose }: BookProps) {
                 currentAudioRef.current = null;
             }
         };
+    }, []);
+
+    // Load confetti script
+    useEffect(() => {
+        const scriptId = 'confetti-script';
+        if (!document.getElementById(scriptId)) {
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js';
+            script.id = scriptId;
+            script.async = true;
+            document.body.appendChild(script);
+        }
     }, []);
 
     // Keyboard navigation: Arrow keys to flip pages
@@ -122,6 +139,15 @@ export function Book({ onClose }: BookProps) {
             console.log('Audio ended');
             setPlayingQuote(null);
             currentAudioRef.current = null;
+
+            // Bùm! Pháo giấy bay tung tóe (Confetti effect)
+            if ((window as any).confetti) {
+                (window as any).confetti({
+                    particleCount: 150,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+            }
         };
     };
 
@@ -191,6 +217,36 @@ Theo Hồ Chí Minh, độc lập dân tộc phải gắn với tự do của nh
             title: "Phần V - Chi tiết",
             subtitle: "So sánh đường lối cách mạng",
             content: "Nội dung Part V Page 2", // Placeholder, rendering handled by Part5Page2 component
+            showImage: false
+        },
+        {
+            title: "Phần VI",
+            subtitle: "Đảng Cộng Sản Lãnh Đạo Cách Mạng",
+            content: "Nội dung Part VI", // Placeholder, rendering handled by Part6Page component
+            showImage: false
+        },
+        {
+            title: "Phần VII",
+            subtitle: "Lực Lượng Cách Mạng Giải Phóng Dân Tộc",
+            content: "Nội dung Part VII", // Placeholder, rendering handled by Part7Page component
+            showImage: false
+        },
+        {
+            title: "Phần VIII",
+            subtitle: "Chính Quốc và Thuộc Địa",
+            content: "Nội dung Part VIII Page 1",
+            showImage: false
+        },
+        {
+            title: "Phần VIII",
+            subtitle: "Luận Điểm Sáng Tạo",
+            content: "Nội dung Part VIII Page 2",
+            showImage: false
+        },
+        {
+            title: "Phần IX",
+            subtitle: "Phương Pháp Bạo Lực Cách Mạng",
+            content: "Nội dung Part IX",
             showImage: false
         },
 
@@ -301,10 +357,10 @@ Theo Hồ Chí Minh, độc lập dân tộc phải gắn với tự do của nh
                             style={{
                                 width: '50%',
                                 height: '100%',
-                                backgroundColor: (currentPage === 2 || currentPage === 4 || currentPage === 5 || currentPage === 6 || currentPage === 7) ? 'transparent' : '#FDFBF7',
-                                padding: (currentPage === 2 || currentPage === 4 || currentPage === 5 || currentPage === 6 || currentPage === 7) ? '0' : '60px 50px',
-                                boxShadow: (currentPage === 2 || currentPage === 4 || currentPage === 5 || currentPage === 6 || currentPage === 7) ? 'none' : 'inset -10px 0 20px rgba(0,0,0,0.1)',
-                                borderLeft: (currentPage === 2 || currentPage === 4 || currentPage === 5 || currentPage === 6 || currentPage === 7) ? 'none' : '2px solid #d4c5a0',
+                                backgroundColor: (currentPage === 2 || currentPage === 4 || currentPage === 5 || currentPage === 6 || currentPage === 7 || currentPage === 8 || currentPage === 9 || currentPage === 10 || currentPage === 11 || currentPage === 12) ? 'transparent' : '#FDFBF7',
+                                padding: (currentPage === 2 || currentPage === 4 || currentPage === 5 || currentPage === 6 || currentPage === 7 || currentPage === 8 || currentPage === 9 || currentPage === 10 || currentPage === 11 || currentPage === 12) ? '0' : '60px 50px',
+                                boxShadow: (currentPage === 2 || currentPage === 4 || currentPage === 5 || currentPage === 6 || currentPage === 7 || currentPage === 8 || currentPage === 9 || currentPage === 10 || currentPage === 11 || currentPage === 12) ? 'none' : 'inset -10px 0 20px rgba(0,0,0,0.1)',
+                                borderLeft: (currentPage === 2 || currentPage === 4 || currentPage === 5 || currentPage === 6 || currentPage === 7 || currentPage === 8 || currentPage === 9 || currentPage === 10 || currentPage === 11 || currentPage === 12) ? 'none' : '2px solid #d4c5a0',
                                 display: 'flex',
                                 flexDirection: 'column',
                                 overflow: 'hidden'
@@ -329,6 +385,21 @@ Theo Hồ Chí Minh, độc lập dân tộc phải gắn với tự do của nh
                                 ) : currentPage === 7 ? (
                                     /* Phần V Page 2 - Trang trái: so sánh đường lối */
                                     <Part5Page2LeftPage />
+                                ) : currentPage === 8 ? (
+                                    /* Phần VI - Trang trái: Đảng Cộng Sản lãnh đạo */
+                                    <Part6LeftPage />
+                                ) : currentPage === 9 ? (
+                                    /* Phần VII - Trang trái: Lực lượng cách mạng */
+                                    <Part7LeftPage />
+                                ) : currentPage === 10 ? (
+                                    /* Phần VIII Page 1 - Trang trái: Chính Quốc vs Thuộc Địa */
+                                    <Part8LeftPage />
+                                ) : currentPage === 11 ? (
+                                    /* Phần VIII Page 2 - Trang trái: Luận điểm sáng tạo */
+                                    <Part8Page2LeftPage />
+                                ) : currentPage === 12 ? (
+                                    /* Phần IX - Trang trái: Phương pháp bạo lực cách mạng */
+                                    <Part9LeftPage />
                                 ) : (
                                     <div style={{ animation: 'pageIn 0.6s ease-out' }}>
                                         <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '2rem', color: '#1A1A1A', marginBottom: '0.5rem', fontWeight: 'bold' }}>
@@ -402,6 +473,21 @@ Theo Hồ Chí Minh, độc lập dân tộc phải gắn với tự do của nh
                                     ) : currentPage === 7 ? (
                                         /* Phần V Page 2 - trang phải: ý nghĩa sáng tạo */
                                         <Part5Page2RightPage />
+                                    ) : currentPage === 8 ? (
+                                        /* Phần VI - trang phải: quan điểm Hồ Chí Minh */
+                                        <Part6RightPage />
+                                    ) : currentPage === 9 ? (
+                                        /* Phần VII - trang phải: quan điểm về lực lượng cách mạng */
+                                        <Part7RightPage />
+                                    ) : currentPage === 10 ? (
+                                        /* Phần VIII Page 1 - trang phải: Mối quan hệ Chính Quốc - Thuộc Địa */
+                                        <Part8RightPage />
+                                    ) : currentPage === 11 ? (
+                                        /* Phần VIII Page 2 - trang phải: Ý nghĩa lịch sử */
+                                        <Part8Page2RightPage />
+                                    ) : currentPage === 12 ? (
+                                        /* Phần IX - trang phải: Nội dung và hình thức bạo lực */
+                                        <Part9RightPage />
                                     ) : (
                                         /* Render nội dung bình thường cho các trang khác */
                                         <div style={{ animation: 'pageIn 0.6s ease-out' }}>
