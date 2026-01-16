@@ -26,10 +26,10 @@ export function Part2RightPage() {
             </div>
 
             {/* Tiêu đề */}
-            <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '2.2rem', color: '#1A1A1A', marginBottom: '0.5rem', fontWeight: 'bold' }}>
+            <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '1.75rem', color: '#1A1A1A', marginBottom: '0.5rem', fontWeight: 'bold' }}>
                 Phần II
             </h2>
-            <h3 style={{ fontFamily: "'Lora', Georgia, serif", fontSize: '1rem', color: '#7B2D3E', marginBottom: '1rem', fontStyle: 'italic' }}>
+            <h3 style={{ fontFamily: "'Lora', Georgia, serif", fontSize: '0.85rem', color: '#7B2D3E', marginBottom: '1rem', fontStyle: 'italic' }}>
                 Gắn Với Tự Do, Cơm No, Áo Ấm, Và Hạnh Phúc của Nhân Dân
             </h3>
 

@@ -3,9 +3,19 @@ import { Part1Page2 } from './Part1Page2';
 import { Part2LeftPage } from './Part2LeftPage';
 import { Part2RightPage } from './Part2RightPage';
 import { Part3LeftPage, Part3RightPage } from './Part3Page';
+
 import { Part4LeftPage, Part4RightPage } from './Part4Page';
+import { TransitionLeftPage, TransitionRightPage } from './TransitionPage';
+import { Part5LeftPage, Part5RightPage } from './Part5Page';
+import { Part5Page2LeftPage, Part5Page2RightPage } from './Part5Page2';
+import { Part6LeftPage, Part6RightPage } from './Part6Page';
+import { Part7LeftPage, Part7RightPage } from './Part7Page';
+import { Part8LeftPage, Part8RightPage } from './Part8Page';
+import { Part8Page2LeftPage, Part8Page2RightPage } from './Part8Page2';
+import { Part9LeftPage, Part9RightPage } from './Part9Page';
 import tuyenNgonAudio from '../audio/cd80510c4c31f8f1b26e234bcfa7658c01_-_Tuyen_ngon_doc_lap_103854.mp3';
 import tatCaDanTocAudio from '../audio/tatrcadantoctrenthegioideusinhrabinhdang.mp3';
+import hoChiMinhImage from '../Screenshot 2026-01-15 001843.png';
 
 
 interface BookProps {
@@ -27,8 +37,52 @@ export function Book({ onClose }: BookProps) {
         };
     }, []);
 
-    // Use the uploaded Ho Chi Minh image
-    const hoChiMinhImage = "/src/Screenshot 2026-01-15 001843.png"; // Ảnh bạn đã upload
+    // Load confetti script
+    useEffect(() => {
+        const scriptId = 'confetti-script';
+        if (!document.getElementById(scriptId)) {
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js';
+            script.id = scriptId;
+            script.async = true;
+            document.body.appendChild(script);
+        }
+    }, []);
+
+    // Keyboard navigation: Arrow keys to flip pages
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                // Right arrow or Space -> Next page
+                if (currentPage < pages.length - 1) {
+                    stopAudio();
+                    setCurrentPage((prev: number) => prev + 1);
+                }
+            } else if (e.key === 'ArrowLeft') {
+                // Left arrow -> Previous page
+                if (currentPage > 0) {
+                    stopAudio();
+                    setCurrentPage((prev: number) => prev - 1);
+                }
+            } else if (e.key === 'Escape') {
+                // Escape -> Close book
+                onClose();
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [currentPage, onClose]);
+
+    // Helper function to stop current audio
+    const stopAudio = () => {
+        if (currentAudioRef.current) {
+            currentAudioRef.current.pause();
+            currentAudioRef.current = null;
+        }
+        setPlayingQuote(null);
+    };
+
 
     // Audio clips for Ho Chi Minh's quotes
     const audioQuotes: { [key: string]: string } = {
@@ -36,6 +90,12 @@ export function Book({ onClose }: BookProps) {
         'tat-ca-moi-nguoi': tatCaDanTocAudio, // ✅ Audio đã cắt: "Tất cả các dân tộc trên thế giới đều sinh ra bình đẳng..."
         'doc-lap-tu-do-quyen': tuyenNgonAudio, // Tạm thời dùng chung
     };
+
+    // Debug logging
+    console.log('Loaded audio sources:', {
+        tuyenNgon: tuyenNgonAudio,
+        tatCa: tatCaDanTocAudio
+    });
 
     const playQuote = (quoteId: string) => {
         console.log('=== playQuote called ===');
@@ -79,6 +139,15 @@ export function Book({ onClose }: BookProps) {
             console.log('Audio ended');
             setPlayingQuote(null);
             currentAudioRef.current = null;
+
+            // Bùm! Pháo giấy bay tung tóe (Confetti effect)
+            if ((window as any).confetti) {
+                (window as any).confetti({
+                    particleCount: 150,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+            }
         };
     };
 
@@ -118,40 +187,70 @@ Trước hết, chúng ta cần hiểu rõ những vấn đề cơ bản về đ
 Theo Hồ Chí Minh, độc lập dân tộc phải gắn với tự do của nhân dân. Ngoài ra, độc lập cũng phải gắn với cơm no, áo ấm và hạnh phúc của nhân dân.`,
             showImage: false
         },
-        {
-            title: "Phần II",
-            subtitle: "Gắn Với Tự Do, Cơm No, Áo Ấm, Và Hạnh Phúc của Nhân Dân",
-            content: `Trong Chánh cương vắn tắt của Đảng (1930), Người đã nêu rõ mục tiêu:
 
-_"Làm cho nước Nam được hoàn toàn độc lập... dân chúng được tự do... thủ tiêu hết các thứ quốc trái... thâu hết ruộng đất của đế quốc chủ nghĩa làm của công chia cho dân cày nghèo. Bỏ sưu thuế cho dân cày nghèo... thi hành luật ngày làm 8 giờ."_
-— Chánh cương vắn tắt của Đảng
-
-Đây là quan niệm tiến bộ, toàn diện về độc lập dân tộc gắn liền với quyền và lợi ích thiết thực của nhân dân lao động.`,
-            showImage: false
-        },
         {
             title: "Phần III",
             subtitle: "Độc Lập Thật Sự, Hoàn Toàn Và Triệt Để",
             content: "Nội dung Part III", // Placeholder, rendering handled by Part3Page component
             showImage: false
         },
+
         {
             title: "Phần IV",
             subtitle: "Độc lập dân tộc gắn liền với thống nhất và toàn vẹn lãnh thổ",
             content: "Nội dung Part IV", // Placeholder, rendering handled by Part4Page component
             showImage: false
         },
+        {
+            title: "Phần V - Giới thiệu",
+            subtitle: "Tư tưởng HCM về con đường đạt được độc lập",
+            content: "Trang chuyển tiếp", // Transition page before Part V
+            showImage: false
+        },
+        {
+            title: "Phần V",
+            subtitle: "Con đường cách mạng vô sản",
+            content: "Nội dung Part V", // Placeholder, rendering handled by Part5Page component
+            showImage: false
+        },
+        {
+            title: "Phần V - Chi tiết",
+            subtitle: "So sánh đường lối cách mạng",
+            content: "Nội dung Part V Page 2", // Placeholder, rendering handled by Part5Page2 component
+            showImage: false
+        },
+        {
+            title: "Phần VI",
+            subtitle: "Đảng Cộng Sản Lãnh Đạo Cách Mạng",
+            content: "Nội dung Part VI", // Placeholder, rendering handled by Part6Page component
+            showImage: false
+        },
+        {
+            title: "Phần VII",
+            subtitle: "Lực Lượng Cách Mạng Giải Phóng Dân Tộc",
+            content: "Nội dung Part VII", // Placeholder, rendering handled by Part7Page component
+            showImage: false
+        },
+        {
+            title: "Phần VIII",
+            subtitle: "Chính Quốc và Thuộc Địa",
+            content: "Nội dung Part VIII Page 1",
+            showImage: false
+        },
+        {
+            title: "Phần VIII",
+            subtitle: "Luận Điểm Sáng Tạo",
+            content: "Nội dung Part VIII Page 2",
+            showImage: false
+        },
+        {
+            title: "Phần IX",
+            subtitle: "Phương Pháp Bạo Lực Cách Mạng",
+            content: "Nội dung Part IX",
+            showImage: false
+        },
 
     ];
-
-    // Helper function to stop current audio
-    const stopAudio = () => {
-        if (currentAudioRef.current) {
-            currentAudioRef.current.pause();
-            currentAudioRef.current = null;
-        }
-        setPlayingQuote(null);
-    };
 
     const nextPage = () => {
         if (currentPage < pages.length - 1) {
@@ -258,10 +357,10 @@ _"Làm cho nước Nam được hoàn toàn độc lập... dân chúng được
                             style={{
                                 width: '50%',
                                 height: '100%',
-                                backgroundColor: currentPage === 2 ? 'transparent' : '#FDFBF7',
-                                padding: currentPage === 2 ? '0' : '60px 50px',
-                                boxShadow: currentPage === 2 ? 'none' : 'inset -10px 0 20px rgba(0,0,0,0.1)',
-                                borderLeft: currentPage === 2 ? 'none' : '2px solid #d4c5a0',
+                                backgroundColor: (currentPage === 2 || currentPage === 4 || currentPage === 5 || currentPage === 6 || currentPage === 7 || currentPage === 8 || currentPage === 9 || currentPage === 10 || currentPage === 11 || currentPage === 12) ? 'transparent' : '#FDFBF7',
+                                padding: (currentPage === 2 || currentPage === 4 || currentPage === 5 || currentPage === 6 || currentPage === 7 || currentPage === 8 || currentPage === 9 || currentPage === 10 || currentPage === 11 || currentPage === 12) ? '0' : '60px 50px',
+                                boxShadow: (currentPage === 2 || currentPage === 4 || currentPage === 5 || currentPage === 6 || currentPage === 7 || currentPage === 8 || currentPage === 9 || currentPage === 10 || currentPage === 11 || currentPage === 12) ? 'none' : 'inset -10px 0 20px rgba(0,0,0,0.1)',
+                                borderLeft: (currentPage === 2 || currentPage === 4 || currentPage === 5 || currentPage === 6 || currentPage === 7 || currentPage === 8 || currentPage === 9 || currentPage === 10 || currentPage === 11 || currentPage === 12) ? 'none' : '2px solid #d4c5a0',
                                 display: 'flex',
                                 flexDirection: 'column',
                                 overflow: 'hidden'
@@ -277,6 +376,30 @@ _"Làm cho nước Nam được hoàn toàn độc lập... dân chúng được
                                 ) : currentPage === 4 ? (
                                     /* Phần IV - Trang trái: thống nhất */
                                     <Part4LeftPage />
+                                ) : currentPage === 5 ? (
+                                    /* Trang chuyển tiếp - Giới thiệu Part V */
+                                    <TransitionLeftPage />
+                                ) : currentPage === 6 ? (
+                                    /* Phần V - Trang trái: timeline cách mạng */
+                                    <Part5LeftPage />
+                                ) : currentPage === 7 ? (
+                                    /* Phần V Page 2 - Trang trái: so sánh đường lối */
+                                    <Part5Page2LeftPage />
+                                ) : currentPage === 8 ? (
+                                    /* Phần VI - Trang trái: Đảng Cộng Sản lãnh đạo */
+                                    <Part6LeftPage />
+                                ) : currentPage === 9 ? (
+                                    /* Phần VII - Trang trái: Lực lượng cách mạng */
+                                    <Part7LeftPage />
+                                ) : currentPage === 10 ? (
+                                    /* Phần VIII Page 1 - Trang trái: Chính Quốc vs Thuộc Địa */
+                                    <Part8LeftPage />
+                                ) : currentPage === 11 ? (
+                                    /* Phần VIII Page 2 - Trang trái: Luận điểm sáng tạo */
+                                    <Part8Page2LeftPage />
+                                ) : currentPage === 12 ? (
+                                    /* Phần IX - Trang trái: Phương pháp bạo lực cách mạng */
+                                    <Part9LeftPage />
                                 ) : (
                                     <div style={{ animation: 'pageIn 0.6s ease-out' }}>
                                         <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '2rem', color: '#1A1A1A', marginBottom: '0.5rem', fontWeight: 'bold' }}>
@@ -341,6 +464,30 @@ _"Làm cho nước Nam được hoàn toàn độc lập... dân chúng được
                                     ) : currentPage === 4 ? (
                                         /* Phần IV - trang phải: di chúc */
                                         <Part4RightPage />
+                                    ) : currentPage === 5 ? (
+                                        /* Trang chuyển tiếp - trang phải: hành trình */
+                                        <TransitionRightPage />
+                                    ) : currentPage === 6 ? (
+                                        /* Phần V - trang phải: kết luận */
+                                        <Part5RightPage />
+                                    ) : currentPage === 7 ? (
+                                        /* Phần V Page 2 - trang phải: ý nghĩa sáng tạo */
+                                        <Part5Page2RightPage />
+                                    ) : currentPage === 8 ? (
+                                        /* Phần VI - trang phải: quan điểm Hồ Chí Minh */
+                                        <Part6RightPage />
+                                    ) : currentPage === 9 ? (
+                                        /* Phần VII - trang phải: quan điểm về lực lượng cách mạng */
+                                        <Part7RightPage />
+                                    ) : currentPage === 10 ? (
+                                        /* Phần VIII Page 1 - trang phải: Mối quan hệ Chính Quốc - Thuộc Địa */
+                                        <Part8RightPage />
+                                    ) : currentPage === 11 ? (
+                                        /* Phần VIII Page 2 - trang phải: Ý nghĩa lịch sử */
+                                        <Part8Page2RightPage />
+                                    ) : currentPage === 12 ? (
+                                        /* Phần IX - trang phải: Nội dung và hình thức bạo lực */
+                                        <Part9RightPage />
                                     ) : (
                                         /* Render nội dung bình thường cho các trang khác */
                                         <div style={{ animation: 'pageIn 0.6s ease-out' }}>
