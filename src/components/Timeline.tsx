@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { createPortal } from 'react-dom';
-import { X, ZoomIn } from 'lucide-react';
+import React from 'react';
+import { Star } from 'lucide-react';
 
 const timelineEvents = [
   {
@@ -41,172 +40,71 @@ const timelineEvents = [
 ];
 
 export function Timeline() {
-  const [selectedEvent, setSelectedEvent] = useState<typeof timelineEvents[0] | null>(null);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  // Handle keyboard 'Escape' to close modal
-  useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setSelectedEvent(null);
-    };
-    window.addEventListener('keydown', handleEsc);
-    return () => window.removeEventListener('keydown', handleEsc);
-  }, []);
-
   return (
-    <section id="lich-su" className="py-24 bg-[#FDFBF7] relative overflow-hidden">
-      {/* Background Decor */}
-      <div className="absolute top-0 left-0 select-none pointer-events-none" style={{
-        fontFamily: "'Playfair Display', serif",
-        fontSize: '25rem',
-        fontWeight: 600,
-        color: 'rgba(0,0,0,0.02)',
-        lineHeight: 1,
-        transform: 'translate(-20%, -10%)'
-      }}>05</div>
-
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <span className="inline-block text-[0.65rem] font-medium tracking-[0.2em] uppercase text-[#7B2D3E] mb-4" style={{ fontFamily: 'system-ui, sans-serif' }}>
-            Hành trình lịch sử
-          </span>
-          <h2 className="text-4xl sm:text-5xl md:text-6xl text-[#1A1A1A] mb-6" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
-            Dấu Mốc Vẻ Vang
+    <section className="py-20 md:py-32 bg-[#FDFCF8] overflow-hidden">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Header Tinh Tế */}
+        <div className="text-center mb-24 relative">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[8rem] md:text-[12rem] font-bold text-[#F5EFE0] select-none pointer-events-none opacity-60" style={{ fontFamily: "'Playfair Display', serif" }}>
+            HCM
+          </div>
+          <h2 className="relative text-4xl md:text-5xl font-bold text-[#8B1E3F] mb-4 uppercase tracking-wider" style={{ fontFamily: "'Playfair Display', serif" }}>
+            Hành Trình Lịch Sử
           </h2>
-          <div className="w-16 h-[2px] bg-gradient-to-r from-[#7B2D3E] to-[#C9A227] mx-auto mb-6"></div>
-          <p className="text-lg text-[#4A4A4A] max-w-2xl mx-auto" style={{ fontFamily: "'Lora', Georgia, serif" }}>
-            Nhấn vào các mốc thời gian để xem chi tiết.
+          <div className="w-24 h-1 bg-[#D4AF37] mx-auto mb-6"></div>
+          <p className="relative text-gray-600 max-w-2xl mx-auto text-lg italic font-light" style={{ fontFamily: "'Lora', serif" }}>
+            Những mốc son chói lọi trong sự nghiệp cách mạng vẻ vang.
           </p>
         </div>
 
-        {/* List Events */}
+        {/* Timeline Layout */}
         <div className="relative">
-          {/* Central Line */}
-          <div className="absolute left-8 md:left-1/2 md:-translate-x-1/2 top-4 bottom-12 w-[1px] bg-gradient-to-b from-[#7B2D3E] via-[#C9A227] to-[#7B2D3E] opacity-30 md:opacity-100"></div>
-          
-          <div className="space-y-12">
-            {timelineEvents.map((event, index) => (
-              <div key={index} className={`relative flex flex-col md:flex-row gap-8 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
-                
-                {/* Content Side */}
-                <div className={`flex-1 ml-16 md:ml-0 ${index % 2 === 0 ? 'md:text-right md:pr-12' : 'md:pl-12'}`}>
-                  <button
-                    onClick={() => setSelectedEvent(event)}
-                    className="w-full text-left md:text-inherit group cursor-pointer bg-[#F5F0E8]/80 rounded-lg border border-black/5 hover:border-[#7B2D3E] transition-all duration-300 hover:shadow-xl hover:-translate-y-1 p-6 relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-[#7B2D3E] focus:ring-offset-2"
-                  >
-                    <div className="absolute inset-0 bg-[#7B2D3E]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <span className="inline-block px-3 py-1 bg-[#7B2D3E] text-white text-sm font-medium mb-4 group-hover:bg-[#C9A227] transition-colors duration-300 rounded" style={{ fontFamily: "'Playfair Display', serif" }}>
-                      {event.year}
-                    </span>
-                    <h3 className="text-xl font-medium text-[#1A1A1A] mb-2 group-hover:text-[#7B2D3E] transition-colors" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
-                      {event.title}
-                    </h3>
-                    <div className={`flex items-center gap-2 text-sm text-[#7B2D3E]/70 mt-3 font-medium ${index % 2 === 0 ? 'md:justify-end' : 'md:justify-start'}`}>
-                      <ZoomIn size={16} />
-                      <span className="uppercase tracking-wider text-xs">Xem chi tiết</span>
+          {/* Đường Line Giữa (Mảnh & Mờ) */}
+          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-[#D4AF37]/50 to-transparent"></div>
+
+          <div className="space-y-20">
+            {timelineEvents.map((event, index) => {
+              const isEven = index % 2 === 0;
+              return (
+                <div key={index} className={`group relative flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-0 ${isEven ? 'md:flex-row-reverse' : ''}`}>
+                  
+                  {/* Cột Nội Dung */}
+                  <div className={`flex-1 pl-12 md:pl-0 ${isEven ? 'md:pr-20 md:text-right' : 'md:pl-20 md:text-left'}`}>
+                    <div className="relative z-10 transition-transform duration-500 md:group-hover:-translate-y-2">
+                      
+                      {/* Năm (Watermark Style) */}
+                      <span 
+                        className={`absolute -top-10 text-[5rem] md:text-[6.5rem] font-bold text-[#F2E8D5] z-[-1] leading-none select-none transition-colors duration-500 group-hover:text-[#E8DCC0]
+                        ${isEven ? 'right-0 md:right-0' : 'left-0 md:left-0'}`}
+                        style={{ fontFamily: "'Playfair Display', serif" }}
+                      >
+                        {event.year}
+                      </span>
+
+                      {/* Tiêu đề & Nội dung */}
+                      <div className="pt-4">
+                         <span className="block md:hidden text-[#D4AF37] font-bold text-xl mb-1 font-serif">{event.year}</span>
+                         <h3 className="text-2xl md:text-3xl font-bold text-[#1a1a1a] mb-3 group-hover:text-[#8B1E3F] transition-colors duration-300" style={{ fontFamily: "'Playfair Display', serif" }}>
+                           {event.title}
+                         </h3>
+                         <div className="w-12 h-[2px] bg-[#8B1E3F]/20 mb-4 md:ml-0 md:mr-auto inline-block"></div>
+                         <p className="text-gray-600 text-lg leading-relaxed font-light" style={{ fontFamily: "'Lora', serif" }}>
+                           {event.description}
+                         </p>
+                      </div>
+
                     </div>
-                  </button>
-                </div>
-
-                {/* Center Dot */}
-                <div className="absolute left-8 md:left-1/2 -translate-x-1/2 flex items-center justify-center pt-6 md:pt-0">
-                  <div className="w-4 h-4 bg-[#7B2D3E] rounded-full border-4 border-[#FDFBF7] shadow-sm z-10 relative">
-                     <div className="absolute inset-0 bg-[#7B2D3E] rounded-full animate-ping opacity-20"></div>
                   </div>
-                </div>
+                  {/* Cột Trống (Spacer) */}
+                  <div className="hidden md:block flex-1"></div>
 
-                {/* Empty Side for alignment */}
-                <div className="hidden md:block flex-1"></div>
-              </div>
-            ))}
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
-
-      {/* MODAL / POPUP */}
-      {mounted && selectedEvent && createPortal(
-        <div 
-          className="fixed inset-0 z-[9999] flex items-center justify-center p-4"
-          style={{ isolation: 'isolate' }}
-        >
-
-          <div 
-            className="absolute inset-0 bg-black/80 backdrop-blur-sm cursor-pointer transition-opacity"
-            onClick={() => setSelectedEvent(null)}
-            aria-hidden="true"
-          ></div>
-
-          {/* POPUP CARD */}
-          <div 
-            className="relative shadow-2xl flex flex-col"
-            role="dialog"
-            aria-modal="true"
-            style={{ 
-                // DIMENSIONS
-                width: '90%',
-                maxWidth: '450px',
-                minHeight: '350px', 
-                maxHeight: '80vh',
-                
-                // VISUALS - HARDCODED SOLID WHITE
-                backgroundColor: '#ffffff', 
-                borderRadius: '24px',
-                
-                // LAYOUT
-                zIndex: 10001,
-                opacity: 1, 
-                isolation: 'isolate' 
-            }}
-            onClick={(e) => e.stopPropagation()} 
-          >
-            {/* Close Button */}
-            <button 
-              onClick={() => setSelectedEvent(null)}
-              className="absolute top-4 left-4 w-10 h-10 flex items-center justify-center bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-full transition-colors z-50 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#7B2D3E]"
-              aria-label="Close modal"
-            >
-              <X size={22} />
-            </button>
-
-            {/* Content Container */}
-            <div className="flex-1 flex flex-col items-center justify-center p-8 md:p-10 text-center overflow-y-auto custom-scrollbar">
-                
-                {/* Year */}
-                <div 
-                  className="text-lg text-[#7B2D3E] mb-3 tracking-widest font-bold"
-                  style={{ fontFamily: "'Playfair Display', serif" }}
-                >
-                   {selectedEvent.year}
-                </div>
-
-                {/* Title */}
-                <h3 
-                  className="text-2xl md:text-3xl font-bold text-black mb-6 leading-tight"
-                  style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-                >
-                    {selectedEvent.title}
-                </h3>
-
-                {/* Divider */}
-                <div className="w-12 h-[2px] bg-[#C9A227] mb-6"></div>
-
-                {/* Description */}
-                <p 
-                  className="text-lg text-gray-900 leading-relaxed font-medium"
-                  style={{ fontFamily: "'Lora', Georgia, serif" }}
-                >
-                    {selectedEvent.description}
-                </p>
-            </div>
-          </div>
-        </div>,
-        document.body
-      )}
     </section>
   );
 }
