@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 
-// Component for Part 5 Page 2 - Left Page: Detailed comparison of revolutionary paths
+// ==========================================
+// TRANG TRÁI (LEFT PAGE) - PART 5 PAGE 2
+// ==========================================
 export function Part5Page2LeftPage() {
     const [animationStep, setAnimationStep] = useState(0);
 
@@ -14,22 +16,50 @@ export function Part5Page2LeftPage() {
     }, []);
 
     return (
-        <div style={{
+        <div className="scroll-container-brown" style={{
             width: '100%',
             height: '100%',
-            background: 'linear-gradient(135deg, #2C1810 0%, #3D2317 50%, #4A2C1A 100%)',
+            background: 'linear-gradient(135deg, #2C1810 0%, #3D2317 50%, #4A2C1A 100%)', // Nâu đất/Đỏ gạch tối
             padding: '30px 25px',
             display: 'flex',
             flexDirection: 'column',
             position: 'relative',
-            overflow: 'hidden'
+            overflowY: 'auto', // Cho phép cuộn
+            overflowX: 'hidden'
         }}>
+            {/* --- CSS: SCROLLBAR & ANIMATION --- */}
+            <style>{`
+                .scroll-container-brown::-webkit-scrollbar { width: 6px; }
+                .scroll-container-brown::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); }
+                .scroll-container-brown::-webkit-scrollbar-thumb { background: rgba(255, 215, 0, 0.4); border-radius: 3px; }
+                .scroll-container-brown::-webkit-scrollbar-thumb:hover { background: rgba(255, 215, 0, 0.7); }
+
+                @keyframes spotlightMoveBrown {
+                    0% { top: -20%; opacity: 0.2; transform: scale(1); }
+                    50% { top: 60%; opacity: 0.5; transform: scale(1.3); }
+                    100% { top: -20%; opacity: 0.2; transform: scale(1); }
+                }
+            `}</style>
+
+            {/* --- HIỆU ỨNG SPOTLIGHT --- */}
+            <div style={{
+                position: 'absolute',
+                left: '0',
+                right: '0',
+                height: '400px',
+                background: 'radial-gradient(circle, rgba(255, 215, 0, 0.15) 0%, transparent 70%)',
+                filter: 'blur(25px)',
+                pointerEvents: 'none',
+                zIndex: 1,
+                animation: 'spotlightMoveBrown 8s infinite ease-in-out'
+            }}></div>
+
             {/* Decorative elements */}
-            <div style={{ position: 'absolute', top: '15px', right: '15px', fontSize: '20px', opacity: 0.2 }}>☭</div>
-            <div style={{ position: 'absolute', bottom: '50px', left: '15px', fontSize: '16px', opacity: 0.15 }}>★</div>
+            <div style={{ position: 'absolute', top: '15px', right: '15px', fontSize: '20px', opacity: 0.2, zIndex: 0 }}>☭</div>
+            <div style={{ position: 'absolute', bottom: '50px', left: '15px', fontSize: '16px', opacity: 0.15, zIndex: 0 }}>★</div>
 
             {/* Header */}
-            <div style={{ marginBottom: '10px', textAlign: 'center' }}>
+            <div style={{ marginBottom: '10px', textAlign: 'center', zIndex: 2, flexShrink: 0 }}>
                 <div style={{
                     color: '#ffd700',
                     fontSize: '0.65rem',
@@ -63,7 +93,8 @@ export function Part5Page2LeftPage() {
                 flex: 1,
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '15px'
+                gap: '15px',
+                zIndex: 2
             }}>
                 {/* Marx-Engels Card */}
                 <div style={{
@@ -73,7 +104,8 @@ export function Part5Page2LeftPage() {
                     border: '1px solid rgba(255, 215, 0, 0.3)',
                     transform: animationStep >= 1 ? 'translateX(0)' : 'translateX(-30px)',
                     opacity: animationStep >= 1 ? 1 : 0,
-                    transition: 'all 0.5s ease'
+                    transition: 'all 0.5s ease',
+                    flexShrink: 0
                 }}>
                     <div style={{
                         display: 'flex',
@@ -139,7 +171,8 @@ export function Part5Page2LeftPage() {
                     color: '#ffd700',
                     fontSize: '1.2rem',
                     opacity: animationStep >= 2 ? 1 : 0,
-                    transition: 'opacity 0.3s ease'
+                    transition: 'opacity 0.3s ease',
+                    flexShrink: 0
                 }}>
                     ⟷
                 </div>
@@ -152,7 +185,8 @@ export function Part5Page2LeftPage() {
                     border: '1px solid rgba(255, 215, 0, 0.5)',
                     transform: animationStep >= 2 ? 'translateX(0)' : 'translateX(30px)',
                     opacity: animationStep >= 2 ? 1 : 0,
-                    transition: 'all 0.5s ease'
+                    transition: 'all 0.5s ease',
+                    flexShrink: 0
                 }}>
                     <div style={{
                         display: 'flex',
@@ -217,7 +251,9 @@ export function Part5Page2LeftPage() {
                 marginTop: '10px',
                 transform: animationStep >= 3 ? 'translateY(0)' : 'translateY(20px)',
                 opacity: animationStep >= 3 ? 1 : 0,
-                transition: 'all 0.5s ease'
+                transition: 'all 0.5s ease',
+                zIndex: 2,
+                flexShrink: 0
             }}>
                 <div style={{
                     background: 'rgba(255, 215, 0, 0.1)',
@@ -239,13 +275,18 @@ export function Part5Page2LeftPage() {
                 </div>
             </div>
 
+            {/* Spacer */}
+            <div style={{ height: '30px', flexShrink: 0 }}></div>
+
             {/* Page number */}
             <div style={{
                 position: 'absolute',
                 bottom: '15px',
                 left: '25px',
                 color: 'rgba(255,255,255,0.5)',
-                fontSize: '0.75rem'
+                fontSize: '0.75rem',
+                zIndex: 2,
+                pointerEvents: 'none'
             }}>
                 16
             </div>
@@ -253,7 +294,9 @@ export function Part5Page2LeftPage() {
     );
 }
 
-// Component for Part 5 Page 2 - Right Page: Final insight and conclusion
+// ==========================================
+// TRANG PHẢI (RIGHT PAGE) - PART 5 PAGE 2
+// ==========================================
 export function Part5Page2RightPage() {
     const [isRevealed, setIsRevealed] = useState(false);
 
@@ -263,7 +306,7 @@ export function Part5Page2RightPage() {
     }, []);
 
     return (
-        <div style={{
+        <div className="scroll-container-light" style={{
             width: '100%',
             height: '100%',
             backgroundColor: '#FDFBF7',
@@ -271,10 +314,40 @@ export function Part5Page2RightPage() {
             display: 'flex',
             flexDirection: 'column',
             position: 'relative',
-            overflow: 'auto'
+            overflowY: 'auto',
+            overflowX: 'hidden'
         }}>
+            {/* --- CSS: SCROLLBAR & ANIMATION --- */}
+            <style>{`
+                .scroll-container-light::-webkit-scrollbar { width: 6px; }
+                .scroll-container-light::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.05); }
+                .scroll-container-light::-webkit-scrollbar-thumb { background: rgba(123, 45, 62, 0.3); border-radius: 3px; }
+                .scroll-container-light::-webkit-scrollbar-thumb:hover { background: rgba(123, 45, 62, 0.6); }
+
+                @keyframes lanternMoveLight {
+                    0% { top: -10%; opacity: 0.4; }
+                    50% { top: 50%; opacity: 0.7; }
+                    100% { top: -10%; opacity: 0.4; }
+                }
+            `}</style>
+
+            {/* --- HIỆU ỨNG LANTERN LIGHT --- */}
+            <div style={{
+                position: 'absolute',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: '120%', 
+                height: '300px',
+                background: 'radial-gradient(ellipse at center, rgba(255, 223, 120, 0.4) 0%, transparent 70%)',
+                filter: 'blur(30px)',
+                pointerEvents: 'none',
+                zIndex: 0,
+                mixBlendMode: 'multiply',
+                animation: 'lanternMoveLight 10s infinite ease-in-out'
+            }}></div>
+
             {/* Header */}
-            <div style={{ marginBottom: '15px', textAlign: 'center' }}>
+            <div style={{ marginBottom: '15px', textAlign: 'center', zIndex: 1, flexShrink: 0 }}>
                 <div style={{
                     color: '#B8860B',
                     fontSize: '0.65rem',
@@ -300,7 +373,8 @@ export function Part5Page2RightPage() {
                 flex: 1,
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '10px'
+                gap: '10px',
+                zIndex: 1
             }}>
                 {/* Key Quote */}
                 <div style={{
@@ -310,7 +384,8 @@ export function Part5Page2RightPage() {
                     boxShadow: '0 6px 20px rgba(123, 45, 62, 0.3)',
                     transform: isRevealed ? 'translateY(0)' : 'translateY(20px)',
                     opacity: isRevealed ? 1 : 0,
-                    transition: 'all 0.6s ease'
+                    transition: 'all 0.6s ease',
+                    flexShrink: 0
                 }}>
                     <div style={{
                         color: 'rgba(255,215,0,0.8)',
@@ -346,7 +421,8 @@ export function Part5Page2RightPage() {
                     gap: '10px',
                     transform: isRevealed ? 'translateY(0)' : 'translateY(20px)',
                     opacity: isRevealed ? 1 : 0,
-                    transition: 'all 0.6s ease 0.2s'
+                    transition: 'all 0.6s ease 0.2s',
+                    flexShrink: 0
                 }}>
                     <div style={{
                         flex: 1,
@@ -410,7 +486,8 @@ export function Part5Page2RightPage() {
                     color: '#B8860B',
                     fontSize: '1.5rem',
                     transform: isRevealed ? 'scale(1)' : 'scale(0)',
-                    transition: 'transform 0.4s ease 0.4s'
+                    transition: 'transform 0.4s ease 0.4s',
+                    flexShrink: 0
                 }}>
                     ⟺
                 </div>
@@ -423,7 +500,8 @@ export function Part5Page2RightPage() {
                     border: '2px solid rgba(184, 134, 11, 0.4)',
                     transform: isRevealed ? 'translateY(0)' : 'translateY(20px)',
                     opacity: isRevealed ? 1 : 0,
-                    transition: 'all 0.6s ease 0.5s'
+                    transition: 'all 0.6s ease 0.5s',
+                    flexShrink: 0
                 }}>
                     <p style={{
                         color: '#5C2230',
@@ -443,7 +521,9 @@ export function Part5Page2RightPage() {
                 marginTop: '10px',
                 paddingTop: '8px',
                 textAlign: 'center',
-                borderTop: '1px solid rgba(184, 134, 11, 0.3)'
+                borderTop: '1px solid rgba(184, 134, 11, 0.3)',
+                zIndex: 1,
+                flexShrink: 0
             }}>
                 <div style={{
                     color: '#B8860B',
@@ -462,13 +542,18 @@ export function Part5Page2RightPage() {
                 </p>
             </div>
 
+            {/* Spacer */}
+            <div style={{ height: '30px', flexShrink: 0 }}></div>
+
             {/* Page number */}
             <div style={{
                 position: 'absolute',
                 bottom: '15px',
                 right: '25px',
                 color: '#999',
-                fontSize: '0.75rem'
+                fontSize: '0.75rem',
+                zIndex: 1,
+                pointerEvents: 'none'
             }}>
                 17
             </div>

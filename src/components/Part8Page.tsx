@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 
-// Part 8 Page 1 - Left Page: Giải thích Chính Quốc vs Thuộc địa
+// ==========================================
+// TRANG TRÁI (LEFT PAGE) - PART 8
+// ==========================================
 export function Part8LeftPage() {
     const [isRevealed, setIsRevealed] = useState(false);
 
@@ -10,18 +12,46 @@ export function Part8LeftPage() {
     }, []);
 
     return (
-        <div style={{
+        <div className="scroll-container-blue" style={{
             width: '100%',
             height: '100%',
-            background: 'linear-gradient(135deg, #1a365d 0%, #2c5282 50%, #1a365d 100%)',
+            background: 'linear-gradient(135deg, #1a365d 0%, #2c5282 50%, #1a365d 100%)', // Tông xanh đậm
             display: 'flex',
             flexDirection: 'column',
-            padding: '1.5rem',
+            padding: '30px 25px',
             boxSizing: 'border-box',
             position: 'relative',
-            overflow: 'hidden'
+            overflowY: 'auto', // Cho phép cuộn
+            overflowX: 'hidden'
         }}>
-            {/* Decorative background elements */}
+            {/* --- CSS: SCROLLBAR & ANIMATION --- */}
+            <style>{`
+                .scroll-container-blue::-webkit-scrollbar { width: 6px; }
+                .scroll-container-blue::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); }
+                .scroll-container-blue::-webkit-scrollbar-thumb { background: rgba(255, 215, 0, 0.3); border-radius: 3px; }
+                .scroll-container-blue::-webkit-scrollbar-thumb:hover { background: rgba(255, 215, 0, 0.6); }
+
+                @keyframes spotlightMoveBlue {
+                    0% { top: -20%; opacity: 0.3; transform: scale(1); }
+                    50% { top: 60%; opacity: 0.5; transform: scale(1.2); }
+                    100% { top: -20%; opacity: 0.3; transform: scale(1); }
+                }
+            `}</style>
+
+            {/* --- HIỆU ỨNG SPOTLIGHT --- */}
+            <div style={{
+                position: 'absolute',
+                left: '0',
+                right: '0',
+                height: '400px',
+                background: 'radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%)', // Ánh sáng vàng nhạt trên nền xanh
+                filter: 'blur(20px)',
+                pointerEvents: 'none',
+                zIndex: 1,
+                animation: 'spotlightMoveBlue 8s infinite ease-in-out'
+            }}></div>
+
+            {/* Decorative background elements (Giữ lại từ code gốc) */}
             <div style={{
                 position: 'absolute',
                 top: 0,
@@ -29,7 +59,8 @@ export function Part8LeftPage() {
                 right: 0,
                 bottom: 0,
                 background: 'radial-gradient(circle at 30% 20%, rgba(255,215,0,0.08) 0%, transparent 50%)',
-                pointerEvents: 'none'
+                pointerEvents: 'none',
+                zIndex: 0
             }} />
 
             {/* Header */}
@@ -38,7 +69,9 @@ export function Part8LeftPage() {
                 marginBottom: '1rem',
                 transform: isRevealed ? 'translateY(0)' : 'translateY(-20px)',
                 opacity: isRevealed ? 1 : 0,
-                transition: 'all 0.6s ease'
+                transition: 'all 0.6s ease',
+                zIndex: 2,
+                flexShrink: 0
             }}>
                 <h2 style={{
                     fontFamily: "'Playfair Display', Georgia, serif",
@@ -76,7 +109,9 @@ export function Part8LeftPage() {
                 marginBottom: '0.8rem',
                 border: '1px solid rgba(255, 215, 0, 0.3)',
                 opacity: isRevealed ? 1 : 0,
-                transition: 'all 0.6s ease 0.2s'
+                transition: 'all 0.6s ease 0.2s',
+                zIndex: 2,
+                flexShrink: 0
             }}>
                 <div style={{
                     color: 'rgba(255,215,0,0.8)',
@@ -105,14 +140,16 @@ export function Part8LeftPage() {
                 gap: '0.6rem',
                 flex: 1,
                 opacity: isRevealed ? 1 : 0,
-                transition: 'all 0.6s ease 0.3s'
+                transition: 'all 0.6s ease 0.3s',
+                zIndex: 2
             }}>
                 {/* Chính Quốc */}
                 <div style={{
                     background: 'rgba(255,255,255,0.08)',
                     borderRadius: '8px',
                     padding: '0.8rem',
-                    borderLeft: '3px solid #63b3ed'
+                    borderLeft: '3px solid #63b3ed',
+                    flexShrink: 0
                 }}>
                     <div style={{
                         color: '#63b3ed',
@@ -139,7 +176,8 @@ export function Part8LeftPage() {
                     background: 'rgba(255,255,255,0.08)',
                     borderRadius: '8px',
                     padding: '0.8rem',
-                    borderLeft: '3px solid #ed8936'
+                    borderLeft: '3px solid #ed8936',
+                    flexShrink: 0
                 }}>
                     <div style={{
                         color: '#ed8936',
@@ -167,7 +205,8 @@ export function Part8LeftPage() {
                     borderRadius: '8px',
                     padding: '0.7rem',
                     textAlign: 'center',
-                    marginTop: 'auto'
+                    marginTop: 'auto',
+                    flexShrink: 0
                 }}>
                     <p style={{
                         color: 'rgba(255,255,255,0.8)',
@@ -182,6 +221,9 @@ export function Part8LeftPage() {
                 </div>
             </div>
 
+            {/* Spacer */}
+            <div style={{ height: '30px', flexShrink: 0 }}></div>
+
             {/* Page number */}
             <div style={{
                 position: 'absolute',
@@ -190,7 +232,9 @@ export function Part8LeftPage() {
                 transform: 'translateX(-50%)',
                 color: 'rgba(255,255,255,0.5)',
                 fontFamily: "'Lora', Georgia, serif",
-                fontSize: '0.75rem'
+                fontSize: '0.75rem',
+                zIndex: 2,
+                pointerEvents: 'none'
             }}>
                 22
             </div>
@@ -198,7 +242,9 @@ export function Part8LeftPage() {
     );
 }
 
-// Part 8 Page 1 - Right Page
+// ==========================================
+// TRANG PHẢI (RIGHT PAGE) - PART 8
+// ==========================================
 export function Part8RightPage() {
     const [isRevealed, setIsRevealed] = useState(false);
 
@@ -208,22 +254,55 @@ export function Part8RightPage() {
     }, []);
 
     return (
-        <div style={{
+        <div className="scroll-container-light" style={{
             width: '100%',
             height: '100%',
             background: 'linear-gradient(135deg, #faf8f1 0%, #f5f0e1 100%)',
             display: 'flex',
             flexDirection: 'column',
-            padding: '1.5rem',
+            padding: '30px 25px',
             boxSizing: 'border-box',
-            position: 'relative'
+            position: 'relative',
+            overflowY: 'auto',
+            overflowX: 'hidden'
         }}>
+            {/* --- CSS: SCROLLBAR & ANIMATION --- */}
+            <style>{`
+                .scroll-container-light::-webkit-scrollbar { width: 6px; }
+                .scroll-container-light::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.05); }
+                .scroll-container-light::-webkit-scrollbar-thumb { background: rgba(184, 134, 11, 0.3); border-radius: 3px; }
+                .scroll-container-light::-webkit-scrollbar-thumb:hover { background: rgba(184, 134, 11, 0.6); }
+
+                @keyframes lanternMoveLight {
+                    0% { top: -10%; opacity: 0.4; }
+                    50% { top: 50%; opacity: 0.7; }
+                    100% { top: -10%; opacity: 0.4; }
+                }
+            `}</style>
+
+            {/* --- HIỆU ỨNG LANTERN LIGHT --- */}
+            <div style={{
+                position: 'absolute',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: '120%', 
+                height: '300px',
+                background: 'radial-gradient(ellipse at center, rgba(255, 223, 120, 0.4) 0%, transparent 70%)',
+                filter: 'blur(30px)',
+                pointerEvents: 'none',
+                zIndex: 0,
+                mixBlendMode: 'multiply',
+                animation: 'lanternMoveLight 10s infinite ease-in-out'
+            }}></div>
+
             {/* Header */}
             <div style={{
                 textAlign: 'center',
                 marginBottom: '1rem',
                 opacity: isRevealed ? 1 : 0,
-                transition: 'all 0.5s ease'
+                transition: 'all 0.5s ease',
+                zIndex: 1,
+                flexShrink: 0
             }}>
                 <div style={{
                     fontFamily: "'Lora', Georgia, serif",
@@ -254,7 +333,9 @@ export function Part8RightPage() {
                 marginBottom: '0.8rem',
                 border: '1px solid rgba(44, 82, 130, 0.2)',
                 opacity: isRevealed ? 1 : 0,
-                transition: 'all 0.6s ease 0.2s'
+                transition: 'all 0.6s ease 0.2s',
+                zIndex: 1,
+                flexShrink: 0
             }}>
                 <div style={{
                     display: 'flex',
@@ -308,7 +389,9 @@ export function Part8RightPage() {
                 border: '1px solid rgba(184, 134, 11, 0.3)',
                 marginBottom: '0.8rem',
                 opacity: isRevealed ? 1 : 0,
-                transition: 'all 0.6s ease 0.3s'
+                transition: 'all 0.6s ease 0.3s',
+                zIndex: 1,
+                flexShrink: 0
             }}>
                 <h4 style={{
                     color: '#B8860B',
@@ -338,7 +421,9 @@ export function Part8RightPage() {
                 padding: '0.8rem',
                 borderLeft: '3px solid #7B2D3E',
                 opacity: isRevealed ? 1 : 0,
-                transition: 'all 0.6s ease 0.4s'
+                transition: 'all 0.6s ease 0.4s',
+                zIndex: 1,
+                flexShrink: 0
             }}>
                 <p style={{
                     color: '#4a5568',
@@ -357,7 +442,9 @@ export function Part8RightPage() {
                 paddingTop: '0.5rem',
                 textAlign: 'center',
                 opacity: isRevealed ? 1 : 0,
-                transition: 'all 0.6s ease 0.5s'
+                transition: 'all 0.6s ease 0.5s',
+                zIndex: 1,
+                flexShrink: 0
             }}>
                 <div style={{
                     color: '#B8860B',
@@ -369,6 +456,9 @@ export function Part8RightPage() {
                 </div>
             </div>
 
+            {/* Spacer */}
+            <div style={{ height: '30px', flexShrink: 0 }}></div>
+
             {/* Page number */}
             <div style={{
                 position: 'absolute',
@@ -376,7 +466,9 @@ export function Part8RightPage() {
                 right: '20px',
                 color: 'rgba(0,0,0,0.3)',
                 fontFamily: "'Lora', Georgia, serif",
-                fontSize: '0.75rem'
+                fontSize: '0.75rem',
+                zIndex: 1,
+                pointerEvents: 'none'
             }}>
                 23
             </div>

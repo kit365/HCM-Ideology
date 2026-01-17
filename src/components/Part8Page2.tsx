@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 
-// Part 8 Page 2 - Left Page: Luận điểm sáng tạo
+// ==========================================
+// TRANG TRÁI (LEFT PAGE) - PART 8 PAGE 2
+// ==========================================
 export function Part8Page2LeftPage() {
     const [isRevealed, setIsRevealed] = useState(false);
     const [activeIndex, setActiveIndex] = useState(-1);
@@ -22,18 +24,46 @@ export function Part8Page2LeftPage() {
     ];
 
     return (
-        <div style={{
+        <div className="scroll-container-red" style={{
             width: '100%',
             height: '100%',
-            background: 'linear-gradient(135deg, #7B2D3E 0%, #5C2230 50%, #7B2D3E 100%)',
+            background: 'linear-gradient(135deg, #7B2D3E 0%, #5C2230 50%, #7B2D3E 100%)', // Tông đỏ rượu
             display: 'flex',
             flexDirection: 'column',
-            padding: '1.5rem',
+            padding: '30px 25px',
             boxSizing: 'border-box',
             position: 'relative',
-            overflow: 'hidden'
+            overflowY: 'auto', // Cho phép cuộn
+            overflowX: 'hidden'
         }}>
-            {/* Decorative background */}
+            {/* --- CSS: SCROLLBAR & ANIMATION --- */}
+            <style>{`
+                .scroll-container-red::-webkit-scrollbar { width: 6px; }
+                .scroll-container-red::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); }
+                .scroll-container-red::-webkit-scrollbar-thumb { background: rgba(255, 215, 0, 0.4); border-radius: 3px; }
+                .scroll-container-red::-webkit-scrollbar-thumb:hover { background: rgba(255, 215, 0, 0.7); }
+
+                @keyframes spotlightMoveRed {
+                    0% { top: -20%; opacity: 0.2; transform: scale(1); }
+                    50% { top: 60%; opacity: 0.5; transform: scale(1.3); }
+                    100% { top: -20%; opacity: 0.2; transform: scale(1); }
+                }
+            `}</style>
+
+            {/* --- HIỆU ỨNG SPOTLIGHT --- */}
+            <div style={{
+                position: 'absolute',
+                left: '0',
+                right: '0',
+                height: '400px',
+                background: 'radial-gradient(circle, rgba(255, 215, 0, 0.15) 0%, transparent 70%)',
+                filter: 'blur(25px)',
+                pointerEvents: 'none',
+                zIndex: 1,
+                animation: 'spotlightMoveRed 8s infinite ease-in-out'
+            }}></div>
+
+            {/* Decorative background (Giữ nguyên) */}
             <div style={{
                 position: 'absolute',
                 top: 0,
@@ -41,7 +71,8 @@ export function Part8Page2LeftPage() {
                 right: 0,
                 bottom: 0,
                 background: 'radial-gradient(circle at 70% 30%, rgba(255,215,0,0.1) 0%, transparent 50%)',
-                pointerEvents: 'none'
+                pointerEvents: 'none',
+                zIndex: 0
             }} />
 
             {/* Header */}
@@ -50,7 +81,9 @@ export function Part8Page2LeftPage() {
                 marginBottom: '0.8rem',
                 transform: isRevealed ? 'translateY(0)' : 'translateY(-20px)',
                 opacity: isRevealed ? 1 : 0,
-                transition: 'all 0.6s ease'
+                transition: 'all 0.6s ease',
+                zIndex: 2,
+                flexShrink: 0
             }}>
                 <h2 style={{
                     fontFamily: "'Playfair Display', Georgia, serif",
@@ -78,7 +111,9 @@ export function Part8Page2LeftPage() {
                 border: '1px solid rgba(255,215,0,0.4)',
                 marginBottom: '0.8rem',
                 opacity: isRevealed ? 1 : 0,
-                transition: 'all 0.6s ease 0.2s'
+                transition: 'all 0.6s ease 0.2s',
+                zIndex: 2,
+                flexShrink: 0
             }}>
                 <div style={{
                     color: 'rgba(255,215,0,0.8)',
@@ -109,7 +144,9 @@ export function Part8Page2LeftPage() {
                 marginBottom: '0.6rem',
                 textAlign: 'center',
                 opacity: isRevealed ? 1 : 0,
-                transition: 'all 0.6s ease 0.3s'
+                transition: 'all 0.6s ease 0.3s',
+                zIndex: 2,
+                flexShrink: 0
             }}>
                 <p style={{
                     color: 'rgba(255,255,255,0.9)',
@@ -126,7 +163,9 @@ export function Part8Page2LeftPage() {
             <div style={{
                 marginBottom: '0.5rem',
                 opacity: isRevealed ? 1 : 0,
-                transition: 'all 0.6s ease 0.4s'
+                transition: 'all 0.6s ease 0.4s',
+                zIndex: 2,
+                flexShrink: 0
             }}>
                 <h4 style={{
                     color: '#ffd700',
@@ -146,7 +185,8 @@ export function Part8Page2LeftPage() {
                 gap: '0.5rem',
                 flex: 1,
                 opacity: isRevealed ? 1 : 0,
-                transition: 'all 0.6s ease 0.5s'
+                transition: 'all 0.6s ease 0.5s',
+                zIndex: 2
             }}>
                 {foundations.map((item, index) => (
                     <div
@@ -161,7 +201,8 @@ export function Part8Page2LeftPage() {
                                 ? '3px solid #ffd700'
                                 : '3px solid rgba(255,215,0,0.3)',
                             transition: 'all 0.3s ease',
-                            cursor: 'pointer'
+                            cursor: 'pointer',
+                            flexShrink: 0
                         }}
                         onMouseEnter={() => setActiveIndex(index)}
                         onMouseLeave={() => setActiveIndex(-1)}
@@ -208,6 +249,9 @@ export function Part8Page2LeftPage() {
                 ))}
             </div>
 
+            {/* Spacer */}
+            <div style={{ height: '30px', flexShrink: 0 }}></div>
+
             {/* Page number */}
             <div style={{
                 position: 'absolute',
@@ -216,7 +260,9 @@ export function Part8Page2LeftPage() {
                 transform: 'translateX(-50%)',
                 color: 'rgba(255,255,255,0.5)',
                 fontFamily: "'Lora', Georgia, serif",
-                fontSize: '0.75rem'
+                fontSize: '0.75rem',
+                zIndex: 2,
+                pointerEvents: 'none'
             }}>
                 24
             </div>
@@ -224,7 +270,9 @@ export function Part8Page2LeftPage() {
     );
 }
 
-// Part 8 Page 2 - Right Page: Ý nghĩa và kết luận
+// ==========================================
+// TRANG PHẢI (RIGHT PAGE) - PART 8 PAGE 2
+// ==========================================
 export function Part8Page2RightPage() {
     const [isRevealed, setIsRevealed] = useState(false);
 
@@ -252,22 +300,55 @@ export function Part8Page2RightPage() {
     ];
 
     return (
-        <div style={{
+        <div className="scroll-container-light" style={{
             width: '100%',
             height: '100%',
             background: 'linear-gradient(135deg, #faf8f1 0%, #f5f0e1 100%)',
             display: 'flex',
             flexDirection: 'column',
-            padding: '1.5rem',
+            padding: '30px 25px',
             boxSizing: 'border-box',
-            position: 'relative'
+            position: 'relative',
+            overflowY: 'auto', // Cho phép cuộn
+            overflowX: 'hidden'
         }}>
+            {/* --- CSS: SCROLLBAR & ANIMATION --- */}
+            <style>{`
+                .scroll-container-light::-webkit-scrollbar { width: 6px; }
+                .scroll-container-light::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.05); }
+                .scroll-container-light::-webkit-scrollbar-thumb { background: rgba(123, 45, 62, 0.3); border-radius: 3px; }
+                .scroll-container-light::-webkit-scrollbar-thumb:hover { background: rgba(123, 45, 62, 0.6); }
+
+                @keyframes lanternMoveLight {
+                    0% { top: -10%; opacity: 0.4; }
+                    50% { top: 50%; opacity: 0.7; }
+                    100% { top: -10%; opacity: 0.4; }
+                }
+            `}</style>
+
+            {/* --- HIỆU ỨNG LANTERN LIGHT --- */}
+            <div style={{
+                position: 'absolute',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: '120%', 
+                height: '300px',
+                background: 'radial-gradient(ellipse at center, rgba(255, 223, 120, 0.4) 0%, transparent 70%)',
+                filter: 'blur(30px)',
+                pointerEvents: 'none',
+                zIndex: 0,
+                mixBlendMode: 'multiply',
+                animation: 'lanternMoveLight 10s infinite ease-in-out'
+            }}></div>
+
             {/* Header */}
             <div style={{
                 textAlign: 'center',
                 marginBottom: '0.8rem',
                 opacity: isRevealed ? 1 : 0,
-                transition: 'all 0.5s ease'
+                transition: 'all 0.5s ease',
+                zIndex: 1,
+                flexShrink: 0
             }}>
                 <h3 style={{
                     fontFamily: "'Playfair Display', Georgia, serif",
@@ -294,7 +375,9 @@ export function Part8Page2RightPage() {
                 marginBottom: '0.7rem',
                 border: '1px solid rgba(34, 197, 94, 0.3)',
                 opacity: isRevealed ? 1 : 0,
-                transition: 'all 0.6s ease 0.2s'
+                transition: 'all 0.6s ease 0.2s',
+                zIndex: 1,
+                flexShrink: 0
             }}>
                 <div style={{
                     display: 'flex',
@@ -353,7 +436,9 @@ export function Part8Page2RightPage() {
                 gap: '0.5rem',
                 marginBottom: '0.7rem',
                 opacity: isRevealed ? 1 : 0,
-                transition: 'all 0.6s ease 0.3s'
+                transition: 'all 0.6s ease 0.3s',
+                zIndex: 1,
+                flexShrink: 0
             }}>
                 {insights.map((item, index) => (
                     <div
@@ -362,7 +447,8 @@ export function Part8Page2RightPage() {
                             background: `linear-gradient(135deg, ${item.color}12 0%, ${item.color}06 100%)`,
                             borderRadius: '8px',
                             padding: '0.6rem',
-                            borderLeft: `3px solid ${item.color}`
+                            borderLeft: `3px solid ${item.color}`,
+                            flexShrink: 0
                         }}
                     >
                         <div style={{
@@ -395,7 +481,9 @@ export function Part8Page2RightPage() {
                 border: '1px solid rgba(123, 45, 62, 0.25)',
                 marginTop: 'auto',
                 opacity: isRevealed ? 1 : 0,
-                transition: 'all 0.6s ease 0.4s'
+                transition: 'all 0.6s ease 0.4s',
+                zIndex: 1,
+                flexShrink: 0
             }}>
                 <p style={{
                     color: '#5C2230',
@@ -410,6 +498,9 @@ export function Part8Page2RightPage() {
                 </p>
             </div>
 
+            {/* Spacer */}
+            <div style={{ height: '30px', flexShrink: 0 }}></div>
+
             {/* Page number */}
             <div style={{
                 position: 'absolute',
@@ -417,7 +508,9 @@ export function Part8Page2RightPage() {
                 right: '20px',
                 color: 'rgba(0,0,0,0.3)',
                 fontFamily: "'Lora', Georgia, serif",
-                fontSize: '0.75rem'
+                fontSize: '0.75rem',
+                zIndex: 1,
+                pointerEvents: 'none'
             }}>
                 25
             </div>
