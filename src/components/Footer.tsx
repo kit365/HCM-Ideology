@@ -130,7 +130,7 @@ export function Footer() {
               <ul className="space-y-4">
                 <li className="flex items-start gap-3 text-white/80">
                   <MapPin className="w-5 h-5 text-[#C9A227] flex-shrink-0 mt-0.5" />
-                  <span className="text-sm">Ba Đình, Hà Nội, Việt Nam</span>
+                  <span className="text-sm">Hồ Chí Minh, Việt Nam</span>
                 </li>
                 <li className="flex items-start gap-3 text-white/80">
                   <Mail className="w-5 h-5 text-[#C9A227] flex-shrink-0 mt-0.5" />
