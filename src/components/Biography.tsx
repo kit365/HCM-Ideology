@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { X, Calendar, MapPin, Star, Award, Heart, BookOpen, ChevronDown, ChevronUp } from 'lucide-react';
+import { DigitalMuseum } from './DigitalMuseum';
 
 interface LifeEvent {
     year: string;
@@ -722,6 +723,11 @@ export function Biography({ onClose }: { onClose: () => void }) {
                     </div>
                 </div>
             </section>
+
+
+            {/* Digital Museum Section */}
+            <DigitalMuseum />
+
 
             {/* Video Section */}
             <section style={{ padding: '80px 24px', background: '#F5F0E8' }}>

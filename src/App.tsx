@@ -10,6 +10,7 @@ import { Quotes } from './components/Quotes';
 import { Footer } from './components/Footer';
 import { HousePresentation } from './components/HousePresentation';
 import { Biography } from './components/Biography';
+import { DailyInspiration } from './components/DailyInspiration';
 
 export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -192,6 +193,7 @@ export default function App() {
         <KeyThoughts />
         <Timeline />
         <Quotes />
+        <DailyInspiration />
       </main>
       <Footer />
 
