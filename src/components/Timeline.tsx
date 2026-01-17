@@ -9,6 +9,9 @@ import trovetoquocImg from '../utils/picture/trovetoquoc.png';
 import tuyenngondoclapImg from '../utils/picture/tuyenngondoclap.png';
 import bachodixaImg from '../utils/picture/bachodixa.png';
 
+// Import logo búa liềm từ đường dẫn cục bộ của bạn
+import buaLiemImg from '../utils/picture/bua_liem.webp';
+
 // --- 2. CẤU TRÚC DỮ LIỆU ---
 interface TimelineEvent {
   id: string;
@@ -119,12 +122,12 @@ const TimelineStyles = () => (
       --primary: #8B2323;
       --bg: #F4F1EA;
       --text: #222;
-      --hammer-sickle-url: url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Flag_of_the_Communist_Party_of_Vietnam.svg/120px-Flag_of_the_Communist_Party_of_Vietnam.svg.png');
+      /* Sử dụng biến ảnh đã import */
+      --hammer-sickle-local: url('${buaLiemImg}');
     }
 
     .page-wrapper { background-color: var(--bg); color: var(--text); font-family: 'Manrope', sans-serif; height: 100vh; width: 100%; display: flex; flex-direction: column; overflow: hidden; }
     
-    /* Header & Sidebar (Giữ nguyên) */
     .header-section { text-align: center; padding: 30px 0 10px 0; flex-shrink: 0; z-index: 200; position: relative; }
     .header-eyebrow { font-family: 'Manrope', sans-serif; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; color: #555; margin-bottom: 5px; font-weight: 600; }
     .header-title { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 700; color: #1a1a1a; margin: 0; line-height: 1.2; }
@@ -133,12 +136,36 @@ const TimelineStyles = () => (
     .sidebar { width: 120px; height: 100%; border-right: 1px solid rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 50px; z-index: 100; background: rgba(244, 241, 234, 0.5); }
     
     /* Nav Dot */
-    .nav-dot { width: 18px; height: 18px; background: transparent; border: 3px solid #aaa; border-radius: 50%; cursor: pointer; position: relative; background-position: center; background-size: cover; background-repeat: no-repeat; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
-    .nav-dot:hover, .nav-dot.active { width: 45px; height: 45px; border-color: #D4AF37; border-width: 2px; background-color: #D40000; background-image: var(--hammer-sickle-url); box-shadow: 0 0 15px rgba(212, 175, 55, 0.6); transform: scale(1.1); }
+    .nav-dot { 
+      width: 18px; 
+      height: 18px; 
+      background: transparent; 
+      border: 3px solid #aaa; 
+      border-radius: 50%; 
+      cursor: pointer; 
+      position: relative; 
+      background-position: center; 
+      background-size: contain; 
+      background-repeat: no-repeat; 
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); 
+    }
+
+    .nav-dot:hover, .nav-dot.active { 
+      width: 50px; 
+      height: 50px; 
+      border-color: #D4AF37; 
+      border-width: 2px; 
+      background-color: #D40000; 
+      /* Thay đổi sang hình ảnh búa liềm nội bộ */
+      background-image: var(--hammer-sickle-local); 
+      background-size: 75%;
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.6); 
+      transform: scale(1.1); 
+    }
+
     .nav-dot::before { content: attr(data-year); position: absolute; left: 60px; top: 50%; transform: translateY(-50%); font-family: 'Cinzel', serif; font-weight: 700; opacity: 0; transition: all 0.3s; pointer-events: none; white-space: nowrap; font-size: 1.1rem; color: var(--primary); }
     .nav-dot:hover::before { opacity: 1; left: 55px; }
     
-    /* Main Stage */
     .main-stage { flex-grow: 1; position: relative; height: 100%; overflow: hidden; perspective: 1000px; }
     .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; visibility: hidden; transition: all 1s cubic-bezier(0.645, 0.045, 0.355, 1); display: flex; align-items: center; justify-content: center; }
     .slide.active { opacity: 1; visibility: visible; }
@@ -152,7 +179,6 @@ const TimelineStyles = () => (
 
     .content-wrap { position: relative; z-index: 5; width: 85%; height: 85%; }
 
-    /* Typography */
     .meta-info { font-family: 'Cinzel', serif; font-size: 1.8rem; font-weight: 700; color: #333; letter-spacing: 1px; margin-bottom: 20px; text-transform: uppercase; border-bottom: 3px solid var(--primary); display: inline-block; padding-bottom: 8px; text-shadow: 1px 1px 0px rgba(255,255,255,0.5); }
     .title { font-family: 'Playfair Display', serif; font-size: 5rem; color: var(--primary); line-height: 1; margin: 15px 0 30px 0; text-shadow: 2px 2px 0px #fff; }
     .description-box { background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(10px); padding: 40px; border-left: 6px solid var(--primary); box-shadow: 0 20px 50px rgba(0,0,0,0.08); max-width: 650px; }
@@ -162,19 +188,15 @@ const TimelineStyles = () => (
     .visual-img { object-fit: cover; box-shadow: 15px 15px 0px rgba(139, 35, 35, 0.1); transition: all 0.5s ease; }
     .visual-img:hover { transform: translate(-5px, -5px); box-shadow: 20px 20px 0px rgba(139, 35, 35, 0.2); }
 
-    /* --- LAYOUTS --- */
-    /* 1. Diagonal */
     .layout-diagonal .bg-year { bottom: -5%; right: -5%; top: auto; left: auto; transform: none; }
     .layout-diagonal .visual-img { position: absolute; bottom: 0; left: 5%; width: 38%; height: auto; z-index: 6; transform: rotate(-2deg); }
     .layout-diagonal .text-group { position: absolute; top: 0%; right: 5%; width: 50%; text-align: right; }
     .layout-diagonal .description-box { margin-left: auto; border-left: none; border-right: 6px solid var(--primary); }
 
-    /* 2. Split */
     .layout-split .bg-year { top: -10%; left: -5%; transform: none; }
     .layout-split .visual-img { position: absolute; top: 0%; right: 2%; width: 45%; height: 90%; z-index: 4; }
     .layout-split .text-group { position: absolute; top: 10%; left: 5%; width: 45%; z-index: 6; }
 
-    /* 3. Hero (1945) */
     .layout-hero .bg-year { display: none; }
     .layout-hero .visual-img { position: absolute; width: 100%; height: 100%; top: 0; left: 0; opacity: 0.4; z-index: 0; box-shadow: none; object-fit: cover; pointer-events: none; filter: blur(8px) grayscale(30%); }
     .layout-hero .content-wrap { position: relative; z-index: 10; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; height: 100%; width: 100%; }
@@ -186,108 +208,30 @@ const TimelineStyles = () => (
     .layout-hero .significance { font-size: 2rem; font-weight: 400; text-align: center; }
     .layout-hero .meta-info { margin-left: auto; margin-right: auto; }
 
-    /* --- [CẬP NHẬT MỚI] LAYOUT CENTER (1920, 1969) --- */
-    /* Sử dụng Flexbox để xếp dọc, đảm bảo không bao giờ chồng lấn */
-    .layout-center .bg-year { 
-      top: 50%; left: 50%; transform: translate(-50%, -50%); 
-      font-size: 30vw; z-index: 1; opacity: 0.03; /* Làm mờ năm đi chút để không rối */
-    }
+    .layout-center .bg-year { top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 30vw; z-index: 1; opacity: 0.03; }
+    .layout-center .content-wrap { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 30px; height: 100%; }
+    .layout-center .visual-img { position: relative; width: auto; max-width: 80%; height: auto; max-height: 45vh; object-fit: contain; z-index: 5; border: 8px solid #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.2); border-radius: 2px; }
+    .layout-center .visual-img::after { content: ''; position: absolute; inset: -5px; border: 1px solid var(--primary); z-index: -1; }
+    .layout-center .text-group { position: relative; width: 100%; max-width: 900px; text-align: center; z-index: 10; }
+    .layout-center .description-box { margin: 0 auto; background: rgba(255,255,255,0.95); border-top: 1px solid var(--primary); border-bottom: 1px solid var(--primary); padding: 30px; text-align: left; }
+    .layout-center .title { font-size: 4rem; margin-bottom: 20px; margin-top: 0; }
 
-    .layout-center .content-wrap {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 30px; /* Khoảng cách an toàn giữa ảnh và chữ */
-      height: 100%;
-    }
-
-    .layout-center .visual-img { 
-      position: relative; /* Chuyển về relative để nằm trong dòng chảy flex */
-      width: auto;
-      max-width: 80%;
-      height: auto;
-      max-height: 45vh; /* Giới hạn chiều cao ảnh để chừa chỗ cho chữ */
-      object-fit: contain;
-      z-index: 5;
-      /* Khung viền trang trí */
-      border: 8px solid #fff;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2); /* Bóng đổ nổi khối */
-      filter: none;
-      border-radius: 2px;
-    }
-
-    /* Tạo hiệu ứng khung tranh đôi */
-    .layout-center .visual-img::after {
-        content: ''; position: absolute; inset: -5px; 
-        border: 1px solid var(--primary); z-index: -1;
-    }
-
-    .layout-center .text-group { 
-      position: relative;
-      width: 100%;
-      max-width: 900px;
-      text-align: center;
-      z-index: 10;
-      top: auto; bottom: auto; left: auto; right: auto; transform: none; /* Reset vị trí absolute cũ */
-    }
-
-    .layout-center .description-box { 
-      margin: 0 auto; 
-      background: rgba(255,255,255,0.95); 
-      border: none;
-      /* Border trang trí phía trên */
-      border-top: 1px solid var(--primary); 
-      border-bottom: 1px solid var(--primary);
-      padding: 30px;
-      text-align: left; 
-    }
-
-    .layout-center .title { 
-      font-size: 4rem; 
-      margin-bottom: 20px;
-      margin-top: 0;
-    }
-
-    /* Animation */
-    .slide.active .title { animation: slideInDown 1s ease forwards; }
-    .slide.active .description-box { animation: slideInUp 1s 0.2s ease forwards; opacity: 0; }
-    .slide.active .visual-img { animation: zoomIn 1.5s ease forwards; }
     @keyframes slideInDown { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     @keyframes slideInUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     @keyframes zoomIn { from { transform: scale(1.1); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-    /* Mobile */
     @media (max-width: 768px) {
       .page-wrapper { height: auto; min-height: 100vh; }
       .timeline-body { flex-direction: column; height: auto; }
-      .header-title { font-size: 2.5rem; }
-      .header-desc { font-size: 1rem; padding: 0 20px; }
       .sidebar { width: 100%; height: 70px; flex-direction: row; order: 2; border-top: 1px solid #ccc; border-right: none; gap: 0; justify-content: space-evenly; position: fixed; bottom: 0; left: 0; background: #fff; }
       .nav-dot { width: 24px; height: 24px; }
       .nav-dot::before { display: none; }
       .main-stage { height: 80vh; margin-bottom: 70px; }
-      
-      .layout-diagonal .text-group, .layout-split .text-group { position: relative; top: auto; left: auto; right: auto; width: 100%; padding: 20px; box-sizing: border-box; transform: none; text-align: left; }
-      .layout-diagonal .visual-img, .layout-split .visual-img { position: relative; width: 100%; height: 250px; bottom: auto; top: auto; transform: none; display: none; }
-      
-      /* Mobile Center Layout */
-      .layout-center .content-wrap { gap: 10px; justify-content: flex-start; padding-top: 20px; }
-      .layout-center .visual-img { max-height: 30vh; width: 100%; max-width: 90%; }
-      .layout-center .title { font-size: 2.5rem; margin-bottom: 10px; }
-      .layout-center .description-box { padding: 20px; width: 95%; }
-      
-      .layout-hero .title { font-size: 3rem; letter-spacing: 2px; }
-      .title { font-size: 3rem; margin: 10px 0; }
-      .full-desc { font-size: 1.1rem; }
-      .significance { font-size: 1.2rem; }
-      .bg-year { font-size: 30vw; opacity: 0.1; top: 10%; }
-      .meta-info { font-size: 1.4rem; }
+      .layout-center .visual-img { max-height: 30vh; width: 100%; }
     }
   `}</style>
 );
 
-// --- 4. COMPONENT CHÍNH ---
 export function Timeline() {
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -317,10 +261,7 @@ export function Timeline() {
 
           <div className="main-stage">
             {timelineEvents.map((event, index) => (
-              <div
-                key={event.id}
-                className={`slide ${event.layout} ${index === activeIndex ? 'active' : ''}`}
-              >
+              <div key={event.id} className={`slide ${event.layout} ${index === activeIndex ? 'active' : ''}`}>
                 <div className="bg-year">{event.year}</div>
                 <div className="content-wrap">
                   <img src={event.image} className="visual-img" alt={event.title} />
