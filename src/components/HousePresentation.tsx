@@ -1,11 +1,18 @@
 import { useState } from 'react';
-import { X, ChevronRight, Home, Sparkles } from 'lucide-react';
+import { X, ChevronRight, Home, Sparkles, CheckCircle, XCircle } from 'lucide-react';
 
 interface ContentData {
     title: string;
     subtitle: string;
     content: string;
     quote?: string;
+}
+
+interface QuizData {
+    question: string;
+    options: string[];
+    correctIndex: number;
+    hint: string;
 }
 
 const foundationData: ContentData[] = [
@@ -15,12 +22,72 @@ const foundationData: ContentData[] = [
     { title: "Viên Gạch 4", subtitle: "Thống Nhất Lãnh Thổ", content: "Độc lập gắn liền với thống nhất và toàn vẹn lãnh thổ của Tổ quốc", quote: "Nước Việt Nam là một, dân tộc Việt Nam là một. Sông có thể cạn, núi có thể mòn, song chân lý đó không bao giờ thay đổi." }
 ];
 
+const foundationQuizzes: QuizData[] = [
+    {
+        question: "Theo tư tưởng Hồ Chí Minh, quyền độc lập, tự do của các dân tộc có đặc điểm gì?",
+        options: ["Có thể thay đổi theo thời gian", "Thiêng liêng, bất khả xâm phạm", "Chỉ dành cho nước lớn", "Phụ thuộc vào hoàn cảnh"],
+        correctIndex: 1,
+        hint: "Hãy nhớ lại tinh thần của bản Tuyên ngôn Độc lập!"
+    },
+    {
+        question: "Nếu nước độc lập mà dân không được gì, thì độc lập có ý nghĩa không?",
+        options: ["Vẫn có ý nghĩa", "Chẳng có nghĩa lý gì", "Có một phần ý nghĩa", "Tuỳ thuộc hoàn cảnh"],
+        correctIndex: 1,
+        hint: "Bác Hồ luôn đặt hạnh phúc của nhân dân lên hàng đầu!"
+    },
+    {
+        question: "Độc lập theo tư tưởng Hồ Chí Minh phải như thế nào?",
+        options: ["Độc lập hình thức", "Độc lập nửa vời", "Thật sự, hoàn toàn, triệt để", "Độc lập tương đối"],
+        correctIndex: 2,
+        hint: "Chúng ta không chấp nhận bất kỳ sự nô lệ nào!"
+    },
+    {
+        question: "Điền vào chỗ trống: 'Nước Việt Nam là ___, dân tộc Việt Nam là ___'",
+        options: ["lớn, mạnh", "một, một", "đẹp, giỏi", "cổ, lâu"],
+        correctIndex: 1,
+        hint: "Sông có thể cạn, núi có thể mòn, song chân lý đó không bao giờ thay đổi!"
+    }
+];
+
 const pillarData: ContentData[] = [
     { title: "Cột Trụ 1", subtitle: "Cách Mạng Vô Sản", content: "Muốn cứu nước và giải phóng dân tộc, phải đi theo con đường cách mạng vô sản", quote: "Muốn cứu nước và giải phóng dân tộc không có con đường nào khác con đường cách mạng vô sản." },
     { title: "Cột Trụ 2", subtitle: "Đảng Lãnh Đạo", content: "Phải có Đảng Cộng sản lãnh đạo - đội tiên phong của giai cấp công nhân", quote: "Cách mệnh trước hết phải có đảng cách mệnh... Đảng có vững cách mệnh mới thành công." },
     { title: "Cột Trụ 3", subtitle: "Đại Đoàn Kết", content: "Dựa trên lực lượng đại đoàn kết toàn dân tộc, lấy liên minh Công-Nông làm nền tảng", quote: "Đoàn kết, đoàn kết, đại đoàn kết. Thành công, thành công, đại thành công." },
     { title: "Cột Trụ 4", subtitle: "Chủ Động Sáng Tạo", content: "Cách mạng thuộc địa có thể chủ động, sáng tạo, giành thắng lợi trước cách mạng vô sản ở chính quốc" },
     { title: "Cột Trụ 5", subtitle: "Bạo Lực Cách Mạng", content: "Phải tiến hành bằng phương pháp bạo lực cách mạng - dùng sức mạnh của quần chúng đánh đổ bạo lực phản cách mạng" }
+];
+
+const pillarQuizzes: QuizData[] = [
+    {
+        question: "Theo Hồ Chí Minh, muốn cứu nước và giải phóng dân tộc, phải đi theo con đường nào?",
+        options: ["Cách mạng tư sản", "Cách mạng vô sản", "Cải lương từng bước", "Thỏa hiệp với đế quốc"],
+        correctIndex: 1,
+        hint: "Đây là bài học quan trọng từ Cách mạng Tháng Mười Nga!"
+    },
+    {
+        question: "Để cách mạng thành công, điều tiên quyết cần có là gì?",
+        options: ["Nhiều tiền bạc", "Quân đội mạnh", "Đảng cách mạng vững mạnh", "Sự giúp đỡ từ nước ngoài"],
+        correctIndex: 2,
+        hint: "Đảng có vững thì cách mạng mới thành công!"
+    },
+    {
+        question: "Câu nói nổi tiếng của Bác về đoàn kết là gì?",
+        options: ["Đoàn kết là sức mạnh", "Đoàn kết, đại đoàn kết, đại thành công", "Đoàn kết chiến thắng", "Đoàn kết một nhà"],
+        correctIndex: 1,
+        hint: "Thành công, thành công, đại thành công!"
+    },
+    {
+        question: "Cách mạng thuộc địa có thể giành thắng lợi trước cách mạng ở đâu?",
+        options: ["Ở nước láng giềng", "Ở chính quốc", "Ở các nước khác", "Không thể"],
+        correctIndex: 1,
+        hint: "Đây là quan điểm sáng tạo của Hồ Chí Minh!"
+    },
+    {
+        question: "Phương pháp cách mạng theo Hồ Chí Minh sử dụng sức mạnh gì?",
+        options: ["Sức mạnh quân sự", "Sức mạnh kinh tế", "Sức mạnh quần chúng", "Sức mạnh ngoại giao"],
+        correctIndex: 2,
+        hint: "Bạo lực cách mạng là sức mạnh của nhân dân!"
+    }
 ];
 
 export function HousePresentation({ onClose }: { onClose: () => void }) {
@@ -32,22 +99,67 @@ export function HousePresentation({ onClose }: { onClose: () => void }) {
     const [modalContent, setModalContent] = useState<ContentData | null>(null);
     const [modalType, setModalType] = useState<'foundation' | 'pillar' | 'roof'>('foundation');
 
+    // Quiz states
+    const [showQuiz, setShowQuiz] = useState(false);
+    const [currentQuiz, setCurrentQuiz] = useState<QuizData | null>(null);
+    const [pendingBuildIndex, setPendingBuildIndex] = useState<number | null>(null);
+    const [pendingBuildType, setPendingBuildType] = useState<'foundation' | 'pillar' | null>(null);
+    const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
+    const [answerResult, setAnswerResult] = useState<'correct' | 'wrong' | null>(null);
+
     const buildFoundation = (index: number) => {
         if (phase === 'foundation' && !builtFoundations.includes(index)) {
-            setBuiltFoundations([...builtFoundations, index]);
-            setModalContent(foundationData[index]);
-            setModalType('foundation');
-            setShowModal(true);
+            // Show quiz instead of building immediately
+            setCurrentQuiz(foundationQuizzes[index]);
+            setPendingBuildIndex(index);
+            setPendingBuildType('foundation');
+            setSelectedAnswer(null);
+            setAnswerResult(null);
+            setShowQuiz(true);
         }
     };
 
     const buildPillar = (index: number) => {
         if (phase === 'pillars' && !builtPillars.includes(index)) {
-            setBuiltPillars([...builtPillars, index]);
-            setModalContent(pillarData[index]);
-            setModalType('pillar');
-            setShowModal(true);
+            // Show quiz instead of building immediately
+            setCurrentQuiz(pillarQuizzes[index]);
+            setPendingBuildIndex(index);
+            setPendingBuildType('pillar');
+            setSelectedAnswer(null);
+            setAnswerResult(null);
+            setShowQuiz(true);
         }
+    };
+
+    const handleAnswerSelect = (answerIndex: number) => {
+        if (answerResult !== null) return; // Already answered
+
+        setSelectedAnswer(answerIndex);
+
+        if (currentQuiz && answerIndex === currentQuiz.correctIndex) {
+            setAnswerResult('correct');
+            // After a short delay, complete the build
+            setTimeout(() => {
+                if (pendingBuildType === 'foundation' && pendingBuildIndex !== null) {
+                    setBuiltFoundations(prev => [...prev, pendingBuildIndex!]);
+                    setModalContent(foundationData[pendingBuildIndex!]);
+                    setModalType('foundation');
+                } else if (pendingBuildType === 'pillar' && pendingBuildIndex !== null) {
+                    setBuiltPillars(prev => [...prev, pendingBuildIndex!]);
+                    setModalContent(pillarData[pendingBuildIndex!]);
+                    setModalType('pillar');
+                }
+                setShowQuiz(false);
+                setShowModal(true);
+            }, 1200);
+        } else {
+            setAnswerResult('wrong');
+        }
+    };
+
+    const retryQuiz = () => {
+        setSelectedAnswer(null);
+        setAnswerResult(null);
     };
 
     const buildRoof = () => {
@@ -203,6 +315,181 @@ export function HousePresentation({ onClose }: { onClose: () => void }) {
                     </button>
                 )}
             </div>
+
+            {/* QUIZ MODAL */}
+            {showQuiz && currentQuiz && (
+                <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(6px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 10001, padding: 20 }}>
+                    <div style={{ background: 'white', borderRadius: 24, maxWidth: 520, width: '100%', padding: 0, boxShadow: '0 25px 50px rgba(0,0,0,0.4)', animation: 'quizIn 0.4s ease-out', overflow: 'hidden' }} onClick={e => e.stopPropagation()}>
+
+                        {/* Quiz Header */}
+                        <div style={{
+                            background: pendingBuildType === 'foundation' ? 'linear-gradient(135deg, #dc2626, #b91c1c)' : 'linear-gradient(135deg, #f59e0b, #d97706)',
+                            padding: '24px 28px',
+                            position: 'relative',
+                            overflow: 'hidden'
+                        }}>
+                            <div style={{ position: 'absolute', top: -20, right: -20, width: 100, height: 100, background: 'rgba(255,255,255,0.1)', borderRadius: '50%' }} />
+                            <div style={{ position: 'absolute', bottom: -30, left: -30, width: 80, height: 80, background: 'rgba(255,255,255,0.05)', borderRadius: '50%' }} />
+
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
+                                <span style={{ fontSize: 28 }}>{pendingBuildType === 'foundation' ? '🧱' : '🏛️'}</span>
+                                <span style={{ color: 'rgba(255,255,255,0.9)', fontSize: 13, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1.5 }}>
+                                    {pendingBuildType === 'foundation' ? `Viên Gạch ${(pendingBuildIndex ?? 0) + 1}` : `Cột Trụ ${(pendingBuildIndex ?? 0) + 1}`}
+                                </span>
+                            </div>
+                            <p style={{ color: 'white', fontSize: 18, fontWeight: 700, margin: 0, lineHeight: 1.5, position: 'relative', zIndex: 1 }}>
+                                {currentQuiz.question}
+                            </p>
+                        </div>
+
+                        {/* Quiz Options */}
+                        <div style={{ padding: '20px 24px' }}>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                                {currentQuiz.options.map((option, idx) => {
+                                    const isSelected = selectedAnswer === idx;
+                                    const isCorrect = idx === currentQuiz.correctIndex;
+                                    const showResult = answerResult !== null;
+
+                                    let bgColor = '#f8fafc';
+                                    let borderColor = '#e2e8f0';
+                                    let textColor = '#374151';
+
+                                    if (showResult && isCorrect) {
+                                        bgColor = '#dcfce7';
+                                        borderColor = '#22c55e';
+                                        textColor = '#166534';
+                                    } else if (showResult && isSelected && !isCorrect) {
+                                        bgColor = '#fee2e2';
+                                        borderColor = '#ef4444';
+                                        textColor = '#991b1b';
+                                    } else if (isSelected && !showResult) {
+                                        bgColor = pendingBuildType === 'foundation' ? '#fef2f2' : '#fffbeb';
+                                        borderColor = pendingBuildType === 'foundation' ? '#dc2626' : '#f59e0b';
+                                    }
+
+                                    return (
+                                        <button
+                                            key={idx}
+                                            onClick={() => handleAnswerSelect(idx)}
+                                            disabled={answerResult !== null}
+                                            style={{
+                                                padding: '14px 18px',
+                                                background: bgColor,
+                                                border: `2px solid ${borderColor}`,
+                                                borderRadius: 12,
+                                                cursor: answerResult !== null ? 'default' : 'pointer',
+                                                textAlign: 'left',
+                                                fontSize: 15,
+                                                color: textColor,
+                                                fontWeight: isSelected ? 600 : 500,
+                                                transition: 'all 0.2s ease',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: 12
+                                            }}
+                                        >
+                                            <span style={{
+                                                width: 28,
+                                                height: 28,
+                                                borderRadius: '50%',
+                                                background: showResult && isCorrect ? '#22c55e' : showResult && isSelected && !isCorrect ? '#ef4444' : isSelected ? (pendingBuildType === 'foundation' ? '#dc2626' : '#f59e0b') : '#e2e8f0',
+                                                color: isSelected || (showResult && isCorrect) ? 'white' : '#6b7280',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                fontWeight: 700,
+                                                fontSize: 13,
+                                                flexShrink: 0
+                                            }}>
+                                                {showResult && isCorrect ? <CheckCircle size={16} /> : showResult && isSelected && !isCorrect ? <XCircle size={16} /> : String.fromCharCode(65 + idx)}
+                                            </span>
+                                            <span style={{ flex: 1 }}>{option}</span>
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        </div>
+
+                        {/* Quiz Footer / Result */}
+                        <div style={{ padding: '16px 24px 24px', borderTop: '1px solid #f1f5f9' }}>
+                            {answerResult === 'correct' && (
+                                <div style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: 12,
+                                    padding: '16px 20px',
+                                    background: 'linear-gradient(135deg, #dcfce7, #bbf7d0)',
+                                    borderRadius: 12,
+                                    animation: 'correctPulse 0.5s ease'
+                                }}>
+                                    <span style={{ fontSize: 32 }}>🎉</span>
+                                    <div>
+                                        <p style={{ color: '#166534', fontWeight: 700, fontSize: 16, margin: 0 }}>Chính xác!</p>
+                                        <p style={{ color: '#15803d', fontSize: 13, margin: '4px 0 0 0' }}>Đang xây dựng...</p>
+                                    </div>
+                                </div>
+                            )}
+
+                            {answerResult === 'wrong' && (
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                                    <div style={{
+                                        display: 'flex',
+                                        alignItems: 'flex-start',
+                                        gap: 12,
+                                        padding: '16px 20px',
+                                        background: '#fef3c7',
+                                        borderRadius: 12,
+                                        border: '1px solid #fcd34d'
+                                    }}>
+                                        <span style={{ fontSize: 24 }}>💡</span>
+                                        <div>
+                                            <p style={{ color: '#92400e', fontWeight: 600, fontSize: 14, margin: 0 }}>Gợi ý:</p>
+                                            <p style={{ color: '#a16207', fontSize: 14, margin: '4px 0 0 0', lineHeight: 1.5 }}>{currentQuiz.hint}</p>
+                                        </div>
+                                    </div>
+                                    <button
+                                        onClick={retryQuiz}
+                                        style={{
+                                            padding: '12px 24px',
+                                            background: pendingBuildType === 'foundation' ? '#dc2626' : '#f59e0b',
+                                            color: 'white',
+                                            fontWeight: 700,
+                                            border: 'none',
+                                            borderRadius: 10,
+                                            cursor: 'pointer',
+                                            fontSize: 15,
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            gap: 8
+                                        }}
+                                    >
+                                        🔄 Thử lại
+                                    </button>
+                                </div>
+                            )}
+
+                            {answerResult === null && (
+                                <p style={{ color: '#9ca3af', fontSize: 13, textAlign: 'center', margin: 0 }}>
+                                    Chọn câu trả lời đúng để xây dựng
+                                </p>
+                            )}
+                        </div>
+                    </div>
+
+                    <style>{`
+                        @keyframes quizIn {
+                            from { opacity: 0; transform: scale(0.9) translateY(30px); }
+                            to { opacity: 1; transform: scale(1) translateY(0); }
+                        }
+                        @keyframes correctPulse {
+                            0% { transform: scale(0.95); }
+                            50% { transform: scale(1.02); }
+                            100% { transform: scale(1); }
+                        }
+                    `}</style>
+                </div>
+            )}
 
             {/* MODAL */}
             {showModal && modalContent && (
