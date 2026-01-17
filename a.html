@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timeline Tư tưởng Hồ Chí Minh (Dynamic Data)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Manrope:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #8B2323; /* Đỏ sẫm */
+            --bg: #F4F1EA;      /* Giấy cũ */
+            --text: #222;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Manrope', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+        }
+
+        /* --- SIDEBAR NAV --- */
+        .sidebar {
+            width: 100px;
+            height: 100vh;
+            border-right: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 25px; /* Khoảng cách các chấm */
+            z-index: 100;
+            background: rgba(244, 241, 234, 0.95);
+            backdrop-filter: blur(5px);
+        }
+
+        .nav-dot {
+            width: 10px;
+            height: 10px;
+            background: transparent;
+            border: 2px solid #aaa;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .nav-dot:hover { transform: scale(1.5); border-color: var(--primary); }
+        
+        .nav-dot.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: scale(1.6);
+            box-shadow: 0 0 0 4px rgba(139, 35, 35, 0.15);
+        }
+
+        /* Tooltip năm */
+        .nav-dot::before {
+            content: attr(data-year);
+            position: absolute;
+            left: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            opacity: 0;
+            transition: all 0.3s;
+            pointer-events: none;
+            white-space: nowrap;
+            font-size: 0.9rem;
+            color: var(--primary);
+        }
+        .nav-dot:hover::before { opacity: 1; left: 25px; }
+
+        /* --- MAIN STAGE --- */
+        .main-stage {
+            flex-grow: 1;
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide.active { opacity: 1; visibility: visible; }
+
+        /* Background Year */
+        .bg-year {
+            position: absolute;
+            font-family: 'Cinzel', serif;
+            font-size: 22vw;
+            font-weight: 900;
+            color: rgba(139, 35, 35, 0.04);
+            z-index: 1;
+            line-height: 1;
+            user-select: none;
+            transition: transform 1.5s ease;
+        }
+        .slide.active .bg-year { transform: scale(1.05) translate(20px, -10px); }
+
+        /* Content Container */
+        .content-wrap {
+            position: relative;
+            z-index: 5;
+            width: 85%;
+            height: 85%;
+        }
+
+        /* Typography Elements */
+        .meta-info {
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            color: #666;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--primary);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        .title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: var(--primary);
+            line-height: 1.1;
+            margin: 10px 0 20px 0;
+            text-shadow: 2px 2px 0px #fff;
+        }
+
+        .description-box {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+            max-width: 550px;
+        }
+
+        .full-desc { font-size: 1.05rem; line-height: 1.7; color: #333; margin-bottom: 20px; text-align: justify; }
+        .significance { font-family: 'Playfair Display', serif; font-style: italic; color: var(--primary); font-size: 1.1rem; }
+
+        .visual-img {
+            object-fit: cover;
+            box-shadow: 15px 15px 0px rgba(139, 35, 35, 0.1);
+            transition: all 0.5s ease;
+        }
+        .visual-img:hover { transform: translate(-5px, -5px); box-shadow: 20px 20px 0px rgba(139, 35, 35, 0.2); }
+
+        /* --- CÁC KIỂU BỐ CỤC (LAYOUT VARIATIONS) --- */
+        
+        /* Layout 1: Diagonal (Chéo) */
+        .layout-diagonal .bg-year { bottom: -5%; right: -5%; }
+        .layout-diagonal .visual-img { position: absolute; bottom: 5%; left: 5%; width: 40%; height: auto; z-index: 6; transform: rotate(-2deg); }
+        .layout-diagonal .text-group { position: absolute; top: 10%; right: 5%; width: 45%; text-align: right; }
+        .layout-diagonal .description-box { margin-left: auto; border-left: none; border-right: 4px solid var(--primary); }
+
+        /* Layout 2: Split (Chia đôi) */
+        .layout-split .bg-year { top: -10%; left: -5%; }
+        .layout-split .visual-img { position: absolute; top: 10%; right: 5%; width: 45%; height: 80%; z-index: 4; }
+        .layout-split .text-group { position: absolute; top: 20%; left: 5%; width: 40%; z-index: 6; }
+
+        /* Layout 3: Center (Tập trung) */
+        .layout-center .bg-year { top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 30vw; }
+        .layout-center .visual-img { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 350px; height: 500px; border-radius: 200px 200px 0 0; z-index: 4; filter: grayscale(20%); }
+        .layout-center .text-group { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; width: 100%; text-align: center; }
+        .layout-center .description-box { margin: 0 auto; background: rgba(255,255,255,0.95); border: none; border-bottom: 4px solid var(--primary); text-align: left; }
+        .layout-center .title { color: #fff; text-shadow: 0 5px 15px rgba(0,0,0,0.8); }
+        .layout-center .meta-info { color: #eee; border-color: #eee; }
+
+        /* Layout 4: Hero (Đặc biệt cho 1945) */
+        .layout-hero .bg-year { display: none; }
+        .layout-hero .visual-img { position: absolute; width: 100%; height: 100%; top: 0; left: 0; opacity: 0.1; z-index: 1; box-shadow: none; }
+        .layout-hero .content-wrap { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .layout-hero .title { font-size: 5rem; text-transform: uppercase; letter-spacing: 5px; margin-bottom: 30px; border-top: 2px solid var(--primary); border-bottom: 2px solid var(--primary); padding: 20px 0; }
+        .layout-hero .description-box { background: transparent; border: none; box-shadow: none; max-width: 800px; }
+        .layout-hero .significance { font-size: 1.5rem; }
+
+        /* Animation */
+        .slide.active .title { animation: slideInDown 1s ease forwards; }
+        .slide.active .description-box { animation: slideInUp 1s 0.2s ease forwards; opacity: 0; }
+        .slide.active .visual-img { animation: zoomIn 1.5s ease forwards; }
+
+        @keyframes slideInDown { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes slideInUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes zoomIn { from { transform: scale(1.1); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .sidebar { width: 100%; height: 60px; flex-direction: row; bottom: 0; top: auto; position: absolute; border-top: 1px solid #ccc; border-right: none; }
+            .nav-dot::before { display: none; } /* Ẩn tooltip trên mobile */
+            .main-stage { height: calc(100vh - 60px); }
+            
+            /* Reset Layouts mobile */
+            .layout-diagonal .text-group, .layout-split .text-group, .layout-center .text-group { position: relative; top: auto; left: auto; right: auto; width: 100%; padding: 20px; box-sizing: border-box; transform: none; text-align: left; }
+            .layout-diagonal .visual-img, .layout-split .visual-img { position: relative; width: 100%; height: 250px; bottom: auto; top: auto; transform: none; }
+            .layout-center .visual-img { width: 100%; height: 100%; opacity: 0.2; border-radius: 0; }
+            .title { font-size: 2rem; }
+            .bg-year { top: 10%; font-size: 30vw; opacity: 0.1; }
+            .layout-hero .title { font-size: 2.5rem; letter-spacing: 2px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar" id="sidebar"></div>
+
+    <div class="main-stage" id="stage"></div>
+
+    <script>
+        // DATA CỦA BẠN (ĐÃ UPDATE)
+        const timelineData = [
+          {
+            id: '1880',
+            year: '1880',
+            date: '',
+            title: 'Khởi đầu hành trình',
+            location: 'Việt Nam',
+            shortDesc: 'Khởi đầu hành trình tìm đường cứu nước',
+            fullDesc: 'Những năm cuối thế kỷ 19, đất nước Việt Nam đang trong cảnh nô lệ dưới ách thực dân Pháp. Các phong trào yêu nước nổ ra nhưng đều thất bại, đặt ra câu hỏi lớn về con đường giải phóng dân tộc.',
+            significance: 'Bối cảnh lịch sử đặt nền móng cho hành trình tìm đường cứu nước của Hồ Chí Minh.',
+            image: 'https://upload.wikimedia.org/wikipedia/commons/e/e5/Hanoi_1900.jpg', // Ảnh minh họa thời xưa
+            layout: 'layout-diagonal'
+          },
+          {
+            id: '1911',
+            year: '1911',
+            date: '5 tháng 6',
+            title: 'Ra Đi Tìm Đường Cứu Nước',
+            location: 'Bến Nhà Rồng, Sài Gòn',
+            shortDesc: 'Người thanh niên Nguyễn Tất Thành rời Tổ quốc',
+            fullDesc: 'Ngày 5/6/1911, người thanh niên Nguyễn Tất Thành với tên gọi Văn Ba, chỉ với đôi bàn tay trắng, lên tàu Amiral Latouche-Tréville, bắt đầu hành trình 30 năm bôn ba tìm đường cứu nước.',
+            significance: 'Đánh dấu bước ngoặt quan trọng, mở đầu hành trình tìm đường giải phóng dân tộc.',
+            image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Ben_Nha_Rong_1.jpg/800px-Ben_Nha_Rong_1.jpg',
+            layout: 'layout-split'
+          },
+          {
+            id: '1920',
+            year: '1920',
+            date: 'Tháng 7',
+            title: 'Ánh Sáng Từ Luận Cương',
+            location: 'Paris, Pháp',
+            shortDesc: 'Tìm ra con đường cách mạng vô sản',
+            fullDesc: 'Tháng 7/1920, Nguyễn Ái Quốc đọc được "Sơ thảo lần thứ nhất những luận cương về vấn đề dân tộc và vấn đề thuộc địa" của Lênin. Người vui mừng đến phát khóc vì đã tìm thấy con đường giải phóng.',
+            significance: 'Bước ngoặt tư tưởng quan trọng nhất: Đi theo con đường cách mạng vô sản.',
+            image: 'https://upload.wikimedia.org/wikipedia/commons/0/03/Ho_Chi_Minh_1921.jpg',
+            layout: 'layout-center'
+          },
+          {
+            id: '1930',
+            year: '1930',
+            date: '3 tháng 2',
+            title: 'Thành Lập Đảng Cộng Sản',
+            location: 'Hương Cảng, Trung Quốc',
+            shortDesc: 'Đảng ra đời - bước ngoặt lịch sử',
+            fullDesc: 'Nguyễn Ái Quốc chủ trì Hội nghị hợp nhất ba tổ chức cộng sản thành Đảng Cộng sản Việt Nam. Đây là bước ngoặt vĩ đại, chấm dứt thời kỳ khủng hoảng về đường lối cứu nước.',
+            significance: 'Chấm dứt thời kỳ khủng hoảng, mở ra kỷ nguyên mới cho cách mạng Việt Nam.',
+            image: 'https://upload.wikimedia.org/wikipedia/commons/e/ec/Ho_Chi_Minh_1930.jpg',
+            layout: 'layout-diagonal'
+          },
+          {
+            id: '1940',
+            year: '1940', // Lưu ý: Data bạn ghi 1940 nhưng tiêu đề là 1941 về nước. Tôi sẽ hiển thị theo đúng logic data bạn đưa
+            date: '28 tháng 1',
+            title: 'Trở Về Tổ Quốc',
+            location: 'Pác Bó, Cao Bằng',
+            shortDesc: 'Sau 30 năm xa xứ trở về nước',
+            fullDesc: 'Sau 30 năm xa Tổ quốc, Người trở về nước qua cột mốc 108. Người sống và làm việc tại hang Pác Bó, trực tiếp lãnh đạo phong trào cách mạng, thành lập Mặt trận Việt Minh.',
+            significance: 'Người về nước đúng lúc, trực tiếp thổi bùng ngọn lửa cách mạng giải phóng.',
+            image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Pac_Bo.jpg/1024px-Pac_Bo.jpg',
+            layout: 'layout-split'
+          },
+          {
+            id: '1945',
+            year: '1945',
+            date: '2 tháng 9',
+            title: 'Tuyên Ngôn Độc Lập',
+            location: 'Ba Đình, Hà Nội',
+            shortDesc: 'Khai sinh nước Việt Nam mới',
+            fullDesc: 'Tại Quảng trường Ba Đình lịch sử, Chủ tịch Hồ Chí Minh đọc bản Tuyên ngôn Độc lập, khai sinh nước Việt Nam Dân chủ Cộng hòa - Nhà nước công nông đầu tiên ở Đông Nam Á.',
+            significance: '"Nước Việt Nam có quyền hưởng tự do và độc lập, và sự thật đã thành một nước tự do, độc lập."',
+            image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Ho_Chi_Minh_reading_the_Declaration_of_Independence.jpg/1280px-Ho_Chi_Minh_reading_the_Declaration_of_Independence.jpg',
+            layout: 'layout-hero'
+          },
+          {
+            id: '1969',
+            year: '1969',
+            date: '2 tháng 9',
+            title: 'Bác Hồ Đi Xa',
+            location: 'Hà Nội',
+            shortDesc: 'Vĩnh biệt Người',
+            fullDesc: 'Chủ tịch Hồ Chí Minh từ trần, để lại bản Di chúc thiêng liêng và niềm tiếc thương vô hạn. Tư tưởng và đạo đức của Người trở thành di sản tinh thần vô giá.',
+            significance: 'Tư tưởng Hồ Chí Minh sống mãi trong sự nghiệp của chúng ta.',
+            image: 'https://upload.wikimedia.org/wikipedia/commons/3/3f/Ho_Chi_Minh_1946.jpg', // Ảnh chân dung đẹp lúc sinh thời
+            layout: 'layout-center'
+          }
+        ];
+
+        const sidebar = document.getElementById('sidebar');
+        const stage = document.getElementById('stage');
+
+        // Hàm Render
+        function initTimeline() {
+            timelineData.forEach((item, index) => {
+                // 1. Tạo Sidebar Nav
+                const dot = document.createElement('div');
+                dot.classList.add('nav-dot');
+                if (index === 0) dot.classList.add('active');
+                dot.dataset.year = item.year; // Tooltip
+                dot.onclick = () => goto(index);
+                sidebar.appendChild(dot);
+
+                // 2. Tạo Slide Nội dung
+                const slide = document.createElement('div');
+                slide.className = `slide ${item.layout}`;
+                if (index === 0) slide.classList.add('active');
+                
+                slide.innerHTML = `
+                    <div class="bg-year">${item.year}</div>
+                    <div class="content-wrap">
+                        <img src="${item.image}" class="visual-img" alt="${item.title}">
+                        <div class="text-group">
+                            <div class="meta-info">${item.date} ${item.year} | ${item.location}</div>
+                            <h2 class="title">${item.title}</h2>
+                            <div class="description-box">
+                                <div class="full-desc">${item.fullDesc}</div>
+                                <div class="significance">${item.significance}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                stage.appendChild(slide);
+            });
+        }
+
+        // Hàm Chuyển Slide
+        function goto(index) {
+            const dots = document.querySelectorAll('.nav-dot');
+            const slides = document.querySelectorAll('.slide');
+
+            dots.forEach(d => d.classList.remove('active'));
+            slides.forEach(s => s.classList.remove('active'));
+
+            dots[index].classList.add('active');
+            slides[index].classList.add('active');
+        }
+
+        // Khởi chạy
+        initTimeline();
+
+    </script>
+</body>
+</html>

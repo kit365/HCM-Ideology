@@ -1,117 +1,164 @@
-import { Heart, Mail, MapPin, Phone } from 'lucide-react';
+import React from 'react';
+import { Star, Mail, MapPin, Phone, ArrowRight } from 'lucide-react'; // Thay Heart bằng Star cho phù hợp ngữ cảnh
+
+// --- STYLES ---
+const FooterStyles = () => (
+  <style>{`
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Manrope:wght@300;400;600&display=swap');
+
+    :root {
+      --footer-bg: #8B2323; /* Đỏ huyết dụ */
+      --footer-text: #F4F1EA; /* Màu kem sáng */
+      --footer-accent: #C9A227; /* Vàng kim */
+    }
+
+    .custom-footer {
+      background-color: var(--footer-bg);
+      color: var(--footer-text);
+      font-family: 'Manrope', sans-serif;
+      position: relative;
+      border-top: 8px solid var(--footer-accent); /* Viền vàng trên cùng */
+    }
+
+    /* Pattern trang trí nền mờ */
+    .footer-pattern {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(201, 162, 39, 0.2) 1px, transparent 1px);
+      background-size: 40px 40px;
+      opacity: 0.1;
+      pointer-events: none;
+    }
+
+    .footer-brand-title {
+      font-family: 'Playfair Display', serif;
+      letter-spacing: 1px;
+    }
+
+    .footer-col-title {
+      font-family: 'Cinzel', serif;
+      color: var(--footer-accent);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed rgba(201, 162, 39, 0.3);
+      display: inline-block;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-link {
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(244, 241, 234, 0.8);
+    }
+
+    .footer-link:hover {
+      color: var(--footer-accent);
+      transform: translateX(5px);
+    }
+
+    .icon-box {
+      background: rgba(201, 162, 39, 0.1);
+      border: 1px solid var(--footer-accent);
+      color: var(--footer-accent);
+    }
+  `}</style>
+);
 
 export function Footer() {
   return (
-    <footer className="bg-slate-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+    <>
+      <FooterStyles />
+      <footer className="custom-footer">
+        <div className="footer-pattern"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
 
-          <div>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center">
-                <Heart className="w-5 h-5 text-white" />
+            {/* Cột 1: Brand & Intro */}
+            <div>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="icon-box w-12 h-12 rounded-full flex items-center justify-center">
+                  <Star className="w-6 h-6 fill-current" />
+                </div>
+                <h3 className="footer-brand-title text-2xl font-bold text-white">
+                  Tư Tưởng HCM
+                </h3>
               </div>
-              <h3 className="text-xl">Tư Tưởng HCM</h3>
+              <p className="text-white/80 leading-relaxed font-light text-sm text-justify">
+                Website giáo dục phi lợi nhuận, chuyên sâu về tư tưởng Hồ Chí Minh và lịch sử cách mạng giải phóng dân tộc Việt Nam. Nơi lưu giữ và lan tỏa những giá trị trường tồn.
+              </p>
             </div>
-            <p className="text-slate-400 leading-relaxed">
-              Website giáo dục về tư tưởng Hồ Chí Minh và cách mạng giải phóng dân tộc Việt Nam.
-            </p>
+
+            {/* Cột 2: Liên Kết */}
+            <div>
+              <h3 className="footer-col-title">Điều Hướng</h3>
+              <ul className="space-y-3">
+                {['Giới Thiệu', 'Tư Tưởng', 'Lịch Sử', 'Trích Dẫn'].map((item) => (
+                  <li key={item}>
+                    <a href={`#${item.toLowerCase().replace(/\s/g, '-')}`} className="footer-link">
+                      <ArrowRight className="w-3 h-3 text-[#C9A227]" />
+                      {item}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Cột 3: Tài Nguyên */}
+            <div>
+              <h3 className="footer-col-title">Tư Liệu</h3>
+              <ul className="space-y-3">
+                {['Sách & Văn Kiện', 'Thư Viện Ảnh', 'Phim Tài Liệu', 'Bài Nghiên Cứu'].map((item) => (
+                  <li key={item}>
+                    <a href="#" className="footer-link">
+                      <ArrowRight className="w-3 h-3 text-[#C9A227]" />
+                      {item}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Cột 4: Liên Hệ */}
+            <div>
+              <h3 className="footer-col-title">Liên Hệ</h3>
+              <ul className="space-y-4">
+                <li className="flex items-start gap-3 text-white/80">
+                  <MapPin className="w-5 h-5 text-[#C9A227] flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">Ba Đình, Hà Nội, Việt Nam</span>
+                </li>
+                <li className="flex items-start gap-3 text-white/80">
+                  <Mail className="w-5 h-5 text-[#C9A227] flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">lienhe@tutuonghcm.vn</span>
+                </li>
+                <li className="flex items-start gap-3 text-white/80">
+                  <Phone className="w-5 h-5 text-[#C9A227] flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">(+84) 1900 1945</span>
+                </li>
+              </ul>
+            </div>
           </div>
 
-
-          <div>
-            <h3 className="text-xl mb-4">Liên Kết</h3>
-            <ul className="space-y-3">
-              <li>
-                <a href="#gioi-thieu" className="text-slate-400 hover:text-indigo-400 transition-colors">
-                  Giới Thiệu
-                </a>
-              </li>
-              <li>
-                <a href="#tu-tuong" className="text-slate-400 hover:text-indigo-400 transition-colors">
-                  Tư Tưởng
-                </a>
-              </li>
-              <li>
-                <a href="#lich-su" className="text-slate-400 hover:text-indigo-400 transition-colors">
-                  Lịch Sử
-                </a>
-              </li>
-              <li>
-                <a href="#trich-dan" className="text-slate-400 hover:text-indigo-400 transition-colors">
-                  Trích Dẫn
-                </a>
-              </li>
-            </ul>
-          </div>
-
-
-          <div>
-            <h3 className="text-xl mb-4">Tài Nguyên</h3>
-            <ul className="space-y-3">
-              <li>
-                <a href="#" className="text-slate-400 hover:text-indigo-400 transition-colors">
-                  Sách & Tài Liệu
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-slate-400 hover:text-indigo-400 transition-colors">
-                  Video & Hình Ảnh
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-slate-400 hover:text-indigo-400 transition-colors">
-                  Bài Viết
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-slate-400 hover:text-indigo-400 transition-colors">
-                  Nghiên Cứu
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Contact */}
-          <div>
-            <h3 className="text-xl mb-4">Liên Hệ</h3>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" />
-                <span className="text-slate-400 text-sm">Hồ Chí Minh, Việt Nam</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <Mail className="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" />
-                <span className="text-slate-400 text-sm">info@tutuonghcm.vn</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <Phone className="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" />
-                <span className="text-slate-400 text-sm">(+84) 123 456 789</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Bottom Bar */}
-        <div className="border-t border-slate-800 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-slate-400 text-sm text-center md:text-left">
-              © 2026 Tư Tưởng Hồ Chí Minh. Website giáo dục phi lợi nhuận.
-            </p>
-            <div className="flex gap-6">
-              <a href="#" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">
-                Chính Sách
-              </a>
-              <a href="#" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">
-                Điều Khoản
-              </a>
-              <a href="#" className="text-slate-400 hover:text-indigo-400 transition-colors text-sm">
-                Bảo Mật
-              </a>
+          {/* Bottom Bar */}
+          <div className="border-t border-[#C9A227]/30 pt-8 mt-8">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-white/60">
+              <p className="text-center md:text-left font-light">
+                © 2026 Tư Tưởng Hồ Chí Minh. Phụng sự tổ quốc, phục vụ nhân dân.
+              </p>
+              <div className="flex gap-6">
+                <a href="#" className="hover:text-[#C9A227] transition-colors">Chính Sách</a>
+                <a href="#" className="hover:text-[#C9A227] transition-colors">Điều Khoản</a>
+                <a href="#" className="hover:text-[#C9A227] transition-colors">Bảo Mật</a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </footer>
+      </footer>
+    </>
   );
 }
