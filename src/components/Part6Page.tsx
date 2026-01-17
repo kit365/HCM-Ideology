@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 
-// Component for Part 6 - Left Page: Đảng Cộng Sản lãnh đạo
+// ==========================================
+// TRANG TRÁI (LEFT PAGE) - CHO PHÉP CUỘN
+// ==========================================
 export function Part6LeftPage() {
     const [activeIndex, setActiveIndex] = useState(-1);
 
@@ -28,7 +30,7 @@ export function Part6LeftPage() {
     ];
 
     return (
-        <div style={{
+        <div className="scroll-container" style={{
             width: '100%',
             height: '100%',
             background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)',
@@ -36,14 +38,32 @@ export function Part6LeftPage() {
             display: 'flex',
             flexDirection: 'column',
             position: 'relative',
-            overflow: 'hidden'
+            overflowY: 'auto', // <--- QUAN TRỌNG: Cho phép cuộn dọc
+            overflowX: 'hidden' // Ẩn thanh cuộn ngang
         }}>
+            {/* CSS tùy chỉnh thanh cuộn cho nền tối */}
+            <style>{`
+                .scroll-container::-webkit-scrollbar {
+                    width: 6px;
+                }
+                .scroll-container::-webkit-scrollbar-track {
+                    background: rgba(255, 255, 255, 0.05);
+                }
+                .scroll-container::-webkit-scrollbar-thumb {
+                    background: rgba(255, 215, 0, 0.3);
+                    border-radius: 3px;
+                }
+                .scroll-container::-webkit-scrollbar-thumb:hover {
+                    background: rgba(255, 215, 0, 0.6);
+                }
+            `}</style>
+
             {/* Decorative elements */}
             <div style={{ position: 'absolute', top: '15px', right: '15px', fontSize: '20px', opacity: 0.3 }}>☭</div>
             <div style={{ position: 'absolute', bottom: '50px', left: '15px', fontSize: '16px', opacity: 0.2 }}>★</div>
 
             {/* Header */}
-            <div style={{ marginBottom: '15px', textAlign: 'center' }}>
+            <div style={{ marginBottom: '15px', textAlign: 'center', flexShrink: 0 }}>
                 <div style={{
                     fontFamily: "'Playfair Display', Georgia, serif",
                     color: '#ffd700',
@@ -77,7 +97,8 @@ export function Part6LeftPage() {
                 borderRadius: '10px',
                 padding: '12px 15px',
                 marginBottom: '15px',
-                border: '1px solid rgba(255, 215, 0, 0.3)'
+                border: '1px solid rgba(255, 215, 0, 0.3)',
+                flexShrink: 0
             }}>
                 <div style={{
                     color: 'rgba(255,215,0,0.8)',
@@ -104,7 +125,8 @@ export function Part6LeftPage() {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
-                marginBottom: '10px'
+                marginBottom: '10px',
+                flexShrink: 0
             }}>
                 <div style={{
                     width: '28px',
@@ -145,7 +167,8 @@ export function Part6LeftPage() {
                                 ? '3px solid #ffd700'
                                 : '3px solid transparent',
                             transition: 'all 0.3s ease',
-                            cursor: 'pointer'
+                            cursor: 'pointer',
+                            flexShrink: 0
                         }}
                         onMouseEnter={() => setActiveIndex(index)}
                         onMouseLeave={() => setActiveIndex(-1)}
@@ -174,13 +197,17 @@ export function Part6LeftPage() {
                 ))}
             </div>
 
+            {/* Spacer để tránh số trang che mất nội dung cuối */}
+            <div style={{ height: '30px', flexShrink: 0 }}></div>
+
             {/* Page number */}
             <div style={{
                 position: 'absolute',
                 bottom: '15px',
                 left: '25px',
                 color: 'rgba(255,255,255,0.5)',
-                fontSize: '0.75rem'
+                fontSize: '0.75rem',
+                pointerEvents: 'none' // Để click xuyên qua nếu cần
             }}>
                 18
             </div>
@@ -188,7 +215,9 @@ export function Part6LeftPage() {
     );
 }
 
-// Component for Part 6 - Right Page: Quan điểm Hồ Chí Minh
+// ==========================================
+// TRANG PHẢI (RIGHT PAGE) - CHO PHÉP CUỘN
+// ==========================================
 export function Part6RightPage() {
     const [isRevealed, setIsRevealed] = useState(false);
 
@@ -205,7 +234,7 @@ export function Part6RightPage() {
     ];
 
     return (
-        <div style={{
+        <div className="scroll-container-light" style={{
             width: '100%',
             height: '100%',
             backgroundColor: '#FDFBF7',
@@ -213,10 +242,28 @@ export function Part6RightPage() {
             display: 'flex',
             flexDirection: 'column',
             position: 'relative',
-            overflow: 'hidden'
+            overflowY: 'auto', // <--- QUAN TRỌNG: Cho phép cuộn dọc
+            overflowX: 'hidden'
         }}>
+            {/* CSS tùy chỉnh thanh cuộn cho nền sáng */}
+            <style>{`
+                .scroll-container-light::-webkit-scrollbar {
+                    width: 6px;
+                }
+                .scroll-container-light::-webkit-scrollbar-track {
+                    background: rgba(0, 0, 0, 0.05);
+                }
+                .scroll-container-light::-webkit-scrollbar-thumb {
+                    background: rgba(123, 45, 62, 0.3);
+                    border-radius: 3px;
+                }
+                .scroll-container-light::-webkit-scrollbar-thumb:hover {
+                    background: rgba(123, 45, 62, 0.6);
+                }
+            `}</style>
+
             {/* Header */}
-            <div style={{ marginBottom: '12px', textAlign: 'center' }}>
+            <div style={{ marginBottom: '12px', textAlign: 'center', flexShrink: 0 }}>
                 <div style={{
                     color: '#B8860B',
                     fontSize: '0.65rem',
@@ -246,7 +293,8 @@ export function Part6RightPage() {
                 boxShadow: '0 6px 20px rgba(123, 45, 62, 0.3)',
                 transform: isRevealed ? 'translateY(0)' : 'translateY(20px)',
                 opacity: isRevealed ? 1 : 0,
-                transition: 'all 0.6s ease'
+                transition: 'all 0.6s ease',
+                flexShrink: 0
             }}>
                 <div style={{
                     color: 'rgba(255,215,0,0.8)',
@@ -277,7 +325,8 @@ export function Part6RightPage() {
                 border: '2px solid rgba(184, 134, 11, 0.4)',
                 transform: isRevealed ? 'translateY(0)' : 'translateY(20px)',
                 opacity: isRevealed ? 1 : 0,
-                transition: 'all 0.6s ease 0.2s'
+                transition: 'all 0.6s ease 0.2s',
+                flexShrink: 0
             }}>
                 <p style={{
                     color: '#5C2230',
@@ -299,7 +348,8 @@ export function Part6RightPage() {
                 marginBottom: '12px',
                 transform: isRevealed ? 'translateY(0)' : 'translateY(20px)',
                 opacity: isRevealed ? 1 : 0,
-                transition: 'all 0.6s ease 0.3s'
+                transition: 'all 0.6s ease 0.3s',
+                flexShrink: 0
             }}>
                 {characteristics.map((char, index) => (
                     <div key={index} style={{
@@ -338,7 +388,8 @@ export function Part6RightPage() {
                 borderRadius: '8px',
                 padding: '10px 12px',
                 border: '1px solid rgba(255, 215, 0, 0.3)',
-                textAlign: 'center'
+                textAlign: 'center',
+                flexShrink: 0
             }}>
                 <p style={{
                     color: '#5C2230',
@@ -352,13 +403,17 @@ export function Part6RightPage() {
                 </p>
             </div>
 
+             {/* Spacer để tránh số trang che mất nội dung cuối */}
+             <div style={{ height: '30px', flexShrink: 0 }}></div>
+
             {/* Page number */}
             <div style={{
                 position: 'absolute',
                 bottom: '15px',
                 right: '25px',
                 color: '#999',
-                fontSize: '0.75rem'
+                fontSize: '0.75rem',
+                pointerEvents: 'none'
             }}>
                 19
             </div>

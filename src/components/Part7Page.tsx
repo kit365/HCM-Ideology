@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 
-// Component for Part 7 - Left Page: Lực lượng cách mạng
+// ==========================================
+// TRANG TRÁI (LEFT PAGE) - PART 7
+// ==========================================
 export function Part7LeftPage() {
     const [activeIndex, setActiveIndex] = useState(-1);
 
@@ -28,7 +30,7 @@ export function Part7LeftPage() {
     ];
 
     return (
-        <div style={{
+        <div className="scroll-container" style={{
             width: '100%',
             height: '100%',
             background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)',
@@ -36,14 +38,42 @@ export function Part7LeftPage() {
             display: 'flex',
             flexDirection: 'column',
             position: 'relative',
-            overflow: 'hidden'
+            overflowY: 'auto', // Cho phép cuộn dọc
+            overflowX: 'hidden'
         }}>
+            {/* --- CSS: SCROLLBAR & ANIMATION --- */}
+            <style>{`
+                .scroll-container::-webkit-scrollbar { width: 6px; }
+                .scroll-container::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); }
+                .scroll-container::-webkit-scrollbar-thumb { background: rgba(255, 215, 0, 0.3); border-radius: 3px; }
+                .scroll-container::-webkit-scrollbar-thumb:hover { background: rgba(255, 215, 0, 0.6); }
+
+                @keyframes spotlightMoveDark {
+                    0% { top: -20%; opacity: 0.3; transform: scale(1); }
+                    50% { top: 60%; opacity: 0.6; transform: scale(1.2); }
+                    100% { top: -20%; opacity: 0.3; transform: scale(1); }
+                }
+            `}</style>
+
+            {/* --- HIỆU ỨNG SPOTLIGHT --- */}
+            <div style={{
+                position: 'absolute',
+                left: '0',
+                right: '0',
+                height: '400px',
+                background: 'radial-gradient(circle, rgba(255, 215, 0, 0.15) 0%, transparent 70%)',
+                filter: 'blur(20px)',
+                pointerEvents: 'none',
+                zIndex: 1,
+                animation: 'spotlightMoveDark 8s infinite ease-in-out'
+            }}></div>
+
             {/* Decorative elements */}
-            <div style={{ position: 'absolute', top: '15px', right: '15px', fontSize: '20px', opacity: 0.3 }}>☭</div>
-            <div style={{ position: 'absolute', bottom: '50px', left: '15px', fontSize: '16px', opacity: 0.2 }}>★</div>
+            <div style={{ position: 'absolute', top: '15px', right: '15px', fontSize: '20px', opacity: 0.3, zIndex: 0 }}>☭</div>
+            <div style={{ position: 'absolute', bottom: '50px', left: '15px', fontSize: '16px', opacity: 0.2, zIndex: 0 }}>★</div>
 
             {/* Header */}
-            <div style={{ marginBottom: '15px', textAlign: 'center' }}>
+            <div style={{ marginBottom: '15px', textAlign: 'center', zIndex: 2, flexShrink: 0 }}>
                 <div style={{
                     fontFamily: "'Playfair Display', Georgia, serif",
                     color: '#ffd700',
@@ -77,7 +107,10 @@ export function Part7LeftPage() {
                 borderRadius: '10px',
                 padding: '12px 15px',
                 marginBottom: '15px',
-                border: '1px solid rgba(255, 215, 0, 0.3)'
+                border: '1px solid rgba(255, 215, 0, 0.3)',
+                zIndex: 2,
+                flexShrink: 0,
+                backdropFilter: 'blur(2px)'
             }}>
                 <div style={{
                     color: 'rgba(255,215,0,0.8)',
@@ -104,7 +137,9 @@ export function Part7LeftPage() {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
-                marginBottom: '10px'
+                marginBottom: '10px',
+                zIndex: 2,
+                flexShrink: 0
             }}>
                 <div style={{
                     width: '28px',
@@ -131,7 +166,7 @@ export function Part7LeftPage() {
             </div>
 
             {/* Key Points - Vertical List like Part 6 */}
-            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '8px', zIndex: 2 }}>
                 {keyPoints.map((point, index) => (
                     <div
                         key={index}
@@ -145,7 +180,8 @@ export function Part7LeftPage() {
                                 ? '3px solid #ffd700'
                                 : '3px solid transparent',
                             transition: 'all 0.3s ease',
-                            cursor: 'pointer'
+                            cursor: 'pointer',
+                            flexShrink: 0
                         }}
                         onMouseEnter={() => setActiveIndex(index)}
                         onMouseLeave={() => setActiveIndex(-1)}
@@ -174,6 +210,9 @@ export function Part7LeftPage() {
                 ))}
             </div>
 
+            {/* Spacer */}
+            <div style={{ height: '30px', flexShrink: 0 }}></div>
+
             {/* Page Number */}
             <div style={{
                 position: 'absolute',
@@ -181,7 +220,9 @@ export function Part7LeftPage() {
                 left: '25px',
                 color: 'rgba(255, 255, 255, 0.5)',
                 fontFamily: "'Lora', Georgia, serif",
-                fontSize: '0.75rem'
+                fontSize: '0.75rem',
+                zIndex: 2,
+                pointerEvents: 'none'
             }}>
                 20
             </div>
@@ -189,7 +230,9 @@ export function Part7LeftPage() {
     );
 }
 
-// Component for Part 7 - Right Page: Content detail
+// ==========================================
+// TRANG PHẢI (RIGHT PAGE) - PART 7
+// ==========================================
 export function Part7RightPage() {
     const [isRevealed, setIsRevealed] = useState(false);
 
@@ -199,7 +242,7 @@ export function Part7RightPage() {
     }, []);
 
     return (
-        <div style={{
+        <div className="scroll-container-light" style={{
             width: '100%',
             height: '100%',
             background: 'linear-gradient(135deg, #FDFBF7 0%, #F5F0E8 100%)',
@@ -207,8 +250,38 @@ export function Part7RightPage() {
             display: 'flex',
             flexDirection: 'column',
             position: 'relative',
-            overflow: 'hidden'
+            overflowY: 'auto', // Cho phép cuộn dọc
+            overflowX: 'hidden'
         }}>
+            {/* --- CSS: SCROLLBAR & ANIMATION --- */}
+            <style>{`
+                .scroll-container-light::-webkit-scrollbar { width: 6px; }
+                .scroll-container-light::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.05); }
+                .scroll-container-light::-webkit-scrollbar-thumb { background: rgba(123, 45, 62, 0.3); border-radius: 3px; }
+                .scroll-container-light::-webkit-scrollbar-thumb:hover { background: rgba(123, 45, 62, 0.6); }
+
+                @keyframes lanternMove {
+                    0% { top: -10%; opacity: 0.4; }
+                    50% { top: 50%; opacity: 0.8; }
+                    100% { top: -10%; opacity: 0.4; }
+                }
+            `}</style>
+
+            {/* --- HIỆU ỨNG LANTERN LIGHT --- */}
+            <div style={{
+                position: 'absolute',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: '120%', 
+                height: '300px',
+                background: 'radial-gradient(ellipse at center, rgba(255, 223, 120, 0.4) 0%, transparent 70%)',
+                filter: 'blur(30px)',
+                pointerEvents: 'none',
+                zIndex: 0,
+                mixBlendMode: 'multiply',
+                animation: 'lanternMove 10s infinite ease-in-out'
+            }}></div>
+
             {/* Decorative corner */}
             <div style={{
                 position: 'absolute',
@@ -216,14 +289,17 @@ export function Part7RightPage() {
                 right: '0',
                 width: '80px',
                 height: '80px',
-                background: 'linear-gradient(135deg, transparent 50%, rgba(123, 45, 62, 0.1) 50%)'
+                background: 'linear-gradient(135deg, transparent 50%, rgba(123, 45, 62, 0.1) 50%)',
+                zIndex: 0
             }}></div>
 
             {/* Header */}
             <div style={{
                 marginBottom: '20px',
                 borderBottom: '2px solid rgba(184, 134, 11, 0.3)',
-                paddingBottom: '12px'
+                paddingBottom: '12px',
+                zIndex: 1,
+                flexShrink: 0
             }}>
                 <div style={{
                     display: 'flex',
@@ -261,7 +337,9 @@ export function Part7RightPage() {
                 border: '1px solid rgba(184, 134, 11, 0.3)',
                 transform: isRevealed ? 'translateY(0)' : 'translateY(20px)',
                 opacity: isRevealed ? 1 : 0,
-                transition: 'all 0.5s ease'
+                transition: 'all 0.5s ease',
+                zIndex: 1,
+                flexShrink: 0
             }}>
                 <div style={{
                     display: 'flex',
@@ -314,7 +392,9 @@ export function Part7RightPage() {
                 marginBottom: '15px',
                 transform: isRevealed ? 'translateX(0)' : 'translateX(30px)',
                 opacity: isRevealed ? 1 : 0,
-                transition: 'all 0.5s ease 0.2s'
+                transition: 'all 0.5s ease 0.2s',
+                zIndex: 1,
+                flexShrink: 0
             }}>
                 <div style={{
                     display: 'flex',
@@ -353,7 +433,9 @@ export function Part7RightPage() {
                 border: '1px solid rgba(184, 134, 11, 0.2)',
                 transform: isRevealed ? 'translateY(0)' : 'translateY(20px)',
                 opacity: isRevealed ? 1 : 0,
-                transition: 'all 0.5s ease 0.3s'
+                transition: 'all 0.5s ease 0.3s',
+                zIndex: 1,
+                flexShrink: 0
             }}>
                 <div style={{
                     display: 'flex',
@@ -374,6 +456,9 @@ export function Part7RightPage() {
                 </div>
             </div>
 
+            {/* Spacer */}
+            <div style={{ height: '30px', flexShrink: 0 }}></div>
+
             {/* Page Number */}
             <div style={{
                 position: 'absolute',
@@ -381,7 +466,9 @@ export function Part7RightPage() {
                 right: '25px',
                 color: 'rgba(0, 0, 0, 0.3)',
                 fontFamily: "'Lora', Georgia, serif",
-                fontSize: '0.75rem'
+                fontSize: '0.75rem',
+                zIndex: 1,
+                pointerEvents: 'none'
             }}>
                 21
             </div>
