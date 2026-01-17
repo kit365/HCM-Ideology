@@ -11,6 +11,7 @@ import { Footer } from './components/Footer';
 import { HousePresentation } from './components/HousePresentation';
 import { Biography } from './components/Biography';
 import { DailyInspiration } from './components/DailyInspiration';
+import { KnowledgeQuiz } from './components/KnowledgeQuiz';
 
 export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -40,6 +41,7 @@ export default function App() {
     { id: 'tuyen-ngon', label: 'Tuyên Ngôn' },
     { id: 'cach-mang-giai-phong', label: 'Cách Mạng' },
     { id: 'tu-tuong', label: 'Tư Tưởng' },
+    { id: 'trac-nghiem', label: 'Trắc Nghiệm' },
     { id: 'lich-su', label: 'Lịch Sử' },
     { id: 'trich-dan', label: 'Trích Dẫn' },
   ];
@@ -191,6 +193,7 @@ export default function App() {
         <DeclarationVideo />
         <LiberationRevolution />
         <KeyThoughts />
+        <KnowledgeQuiz />
         <Timeline />
         <Quotes />
         <DailyInspiration />
