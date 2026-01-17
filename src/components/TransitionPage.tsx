@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 
-// Trang chuyển tiếp giữa Part IV và Part V
-// Giới thiệu về con đường tư tưởng đạt được độc lập
+// ==========================================
+// TRANG TRÁI (LEFT PAGE) - TRANSITION
+// ==========================================
 export function TransitionLeftPage() {
     const [visibleItems, setVisibleItems] = useState(0);
 
@@ -17,123 +18,84 @@ export function TransitionLeftPage() {
     }, []);
 
     const questions = [
-        {
-            icon: '❓',
-            text: 'Làm thế nào để cứu nước, giải phóng dân tộc?'
-        },
-        {
-            icon: '🔍',
-            text: 'Con đường nào đúng đắn cho dân tộc Việt Nam?'
-        },
-        {
-            icon: '⚖️',
-            text: 'Bài học từ các cuộc cách mạng trên thế giới?'
-        },
-        {
-            icon: '💡',
-            text: 'Lý luận nào soi đường cho cách mạng?'
-        }
+        { text: 'Làm thế nào để cứu nước, giải phóng dân tộc?' },
+        { text: 'Con đường nào đúng đắn cho dân tộc Việt Nam?' },
+        { text: 'Bài học từ các cuộc cách mạng trên thế giới?' },
+        { text: 'Lý luận nào soi đường cho cách mạng?' }
     ];
 
     return (
         <div style={{
-            width: '100%',
-            height: '100%',
-            background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)',
-            padding: '35px 30px',
-            display: 'flex',
-            flexDirection: 'column',
-            position: 'relative',
-            overflow: 'hidden'
+            width: '100%', height: '100%',
+            backgroundColor: '#F4F1EA', // Màu giấy cũ đồng bộ
+            padding: '35px 30px', display: 'flex', flexDirection: 'column',
+            position: 'relative', overflow: 'hidden', color: '#222',
+            backgroundImage: 'radial-gradient(#d1d1d1 1px, transparent 1px)',
+            backgroundSize: '30px 30px'
         }}>
-            {/* Decorative background elements */}
+            {/* Họa tiết trang trí */}
             <div style={{
-                position: 'absolute',
-                top: '-50px',
-                right: '-50px',
-                width: '200px',
-                height: '200px',
-                borderRadius: '50%',
-                background: 'radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%)',
+                position: 'absolute', top: '-20px', right: '-20px',
+                width: '150px', height: '150px', borderRadius: '50%',
+                background: 'radial-gradient(circle, rgba(201,162,39,0.1) 0%, transparent 70%)',
                 pointerEvents: 'none'
             }} />
 
-            {/* Header */}
-            <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-                {/* <div style={{
-                    color: '#ffd700',
-                    fontSize: '0.65rem',
-                    letterSpacing: '3px',
-                    textTransform: 'uppercase',
-                    marginBottom: '8px'
-                }}>
-                    Phần V
-                </div> */}
+            {/* Header đồng bộ */}
+            <div style={{ textAlign: 'center', marginBottom: '25px' }}>
+                <span style={{ fontFamily: "'Cinzel', serif", fontSize: '0.75rem', letterSpacing: '3px', color: '#8B2323', fontWeight: 'bold' }}>
+                    TÌM KIẾM CHÂN LÝ
+                </span>
                 <h1 style={{
-                    color: '#fff',
-                    fontSize: '1.5rem',
-                    fontFamily: "'Playfair Display', Georgia, serif",
-                    fontWeight: 'bold',
-                    margin: 0,
-                    lineHeight: 1.3
+                    color: '#1A1A1A', fontSize: '1.6rem',
+                    fontFamily: "'Playfair Display', serif", fontWeight: '900',
+                    margin: '5px 0', lineHeight: 1.3
                 }}>
                     Tư Tưởng Hồ Chí Minh
                 </h1>
                 <h2 style={{
-                    color: '#ffd700',
-                    fontSize: '1.15rem',
-                    fontFamily: "'Playfair Display', Georgia, serif",
-                    fontWeight: 'normal',
-                    marginTop: '5px',
-                    fontStyle: 'italic'
+                    color: '#8B2323', fontSize: '1rem',
+                    fontFamily: "'Playfair Display', serif", fontWeight: 'bold',
+                    fontStyle: 'italic', margin: 0
                 }}>
-                    Về Con Đường Đạt Được Độc Lập
+                    Về Con Đường Giải Phóng
                 </h2>
             </div>
 
             {/* Divider */}
             <div style={{
-                width: '60px',
-                height: '2px',
-                background: 'linear-gradient(90deg, transparent, #ffd700, transparent)',
-                margin: '0 auto 20px auto'
+                width: '60px', height: '2px', background: '#C9A227',
+                margin: '0 auto 25px auto'
             }} />
 
             {/* Introduction */}
             <p style={{
-                color: 'rgba(255,255,255,0.9)',
-                fontSize: '0.95rem',
-                lineHeight: 1.7,
-                textAlign: 'center',
-                marginBottom: '20px',
-                fontStyle: 'italic'
+                color: '#444', fontFamily: "'Lora', serif", fontSize: '0.9rem',
+                lineHeight: 1.7, textAlign: 'center', marginBottom: '25px', fontStyle: 'italic'
             }}>
-                Trước khi tìm ra con đường cứu nước, Hồ Chí Minh đã trải qua quá trình tìm tòi, học hỏi đầy gian khó...
+                Trước khi tìm ra con đường cứu nước, Người đã trải qua hành trình vạn dặm đầy gian khổ với những trăn trở lớn lao...
             </p>
 
-            {/* Questions list */}
-            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            {/* Questions list - Editorial Style */}
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '15px' }}>
                 {questions.map((q, idx) => (
                     <div
                         key={idx}
                         style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '12px',
-                            padding: '12px 15px',
-                            backgroundColor: 'rgba(255,255,255,0.05)',
-                            borderRadius: '8px',
-                            borderLeft: '3px solid #ffd700',
+                            display: 'flex', alignItems: 'center', gap: '15px',
+                            padding: '15px', backgroundColor: '#fff',
+                            border: '1px solid rgba(139, 35, 35, 0.1)',
+                            borderLeft: '4px solid #8B2323',
                             transform: visibleItems > idx ? 'translateX(0)' : 'translateX(-20px)',
                             opacity: visibleItems > idx ? 1 : 0,
-                            transition: 'all 0.5s ease'
+                            transition: 'all 0.6s ease',
+                            boxShadow: '4px 4px 10px rgba(0,0,0,0.03)'
                         }}
                     >
-                        <span style={{ fontSize: '1.3rem' }}>{q.icon}</span>
+                        <span style={{ color: '#C9A227', fontFamily: "'Cinzel', serif", fontWeight: 'bold' }}>0{idx + 1}</span>
                         <span style={{
-                            color: '#fff',
-                            fontSize: '0.95rem',
-                            fontWeight: 500
+                            color: '#1A1A1A', fontFamily: "'Lora', serif",
+                            fontSize: '0.9rem', fontWeight: 500
                         }}>
                             {q.text}
                         </span>
@@ -143,12 +105,8 @@ export function TransitionLeftPage() {
 
             {/* Page number */}
             <div style={{
-                position: 'absolute',
-                bottom: '20px',
-                left: '30px',
-                color: '#ffd700',
-                fontSize: '0.8rem',
-                opacity: 0.7
+                position: 'absolute', bottom: '20px', left: '30px',
+                color: '#8B2323', fontFamily: "'Cinzel', serif", fontSize: '0.8rem', fontWeight: 'bold'
             }}>
                 12
             </div>
@@ -156,6 +114,9 @@ export function TransitionLeftPage() {
     );
 }
 
+// ==========================================
+// TRANG PHẢI (RIGHT PAGE) - TRANSITION
+// ==========================================
 export function TransitionRightPage() {
     const [isRevealed, setIsRevealed] = useState(false);
 
@@ -164,194 +125,98 @@ export function TransitionRightPage() {
         return () => clearTimeout(timer);
     }, []);
 
+    const timelineData = [
+        { year: '1911', text: 'Ra đi tìm đường cứu nước từ Bến Nhà Rồng' },
+        { year: '1919', text: 'Gửi Bản yêu sách 8 điểm đến Hội nghị Versailles' },
+        { year: '1920', text: 'Đọc Sơ thảo Luận cương của Lênin' },
+        { year: 'Kết luận', text: 'Chủ nghĩa xã hội là con đường duy nhất giải phóng dân tộc' }
+    ];
+
     return (
         <div style={{
-            width: '100%',
-            height: '100%',
-            backgroundColor: '#FDFBF7',
-            padding: '30px 28px',
-            display: 'flex',
-            flexDirection: 'column',
-            position: 'relative'
+            width: '100%', height: '100%',
+            backgroundColor: '#F4F1EA', padding: '35px 30px',
+            display: 'flex', flexDirection: 'column',
+            position: 'relative', overflow: 'hidden',
+            backgroundImage: 'url("https://www.transparenttextures.com/patterns/paper-fibers.png")'
         }}>
             {/* Header */}
-            <div style={{ textAlign: 'center', marginBottom: '15px' }}>
+            <div style={{ textAlign: 'center', marginBottom: '30px' }}>
                 <h2 style={{
-                    color: '#7B2D3E',
-                    fontSize: '1.2rem',
-                    fontFamily: "'Playfair Display', Georgia, serif",
-                    fontWeight: 'bold',
-                    margin: 0
+                    color: '#8B2323', fontSize: '1.3rem',
+                    fontFamily: "'Playfair Display', serif", fontWeight: '900',
+                    margin: 0, borderBottom: '1px solid #C9A227', paddingBottom: '10px'
                 }}>
-                    Hành Trình Tìm Đường Cứu Nước
+                    Hành Trình Tìm Ánh Sáng
                 </h2>
             </div>
 
-            {/* Timeline visual */}
-            <div style={{
-                flex: 1,
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '10px',
-                paddingLeft: '15px',
-                borderLeft: '2px solid #e0d5c5'
-            }}>
-                {/* Journey point 1 */}
-                <div style={{
-                    position: 'relative',
-                    paddingLeft: '20px',
-                    opacity: isRevealed ? 1 : 0,
-                    transform: isRevealed ? 'translateX(0)' : 'translateX(-10px)',
-                    transition: 'all 0.5s ease'
-                }}>
-                    <div style={{
-                        position: 'absolute',
-                        left: '-8px',
-                        top: '4px',
-                        width: '12px',
-                        height: '12px',
-                        borderRadius: '50%',
-                        background: '#7B2D3E'
-                    }} />
-                    <p style={{
-                        color: '#333',
-                        fontSize: '0.9rem',
-                        lineHeight: 1.6,
-                        margin: 0
+            {/* Timeline visual - Professional Editorial Style */}
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '20px', paddingLeft: '10px' }}>
+                {timelineData.map((item, idx) => (
+                    <div key={idx} style={{
+                        position: 'relative', paddingLeft: '30px',
+                        borderLeft: '2px solid #C9A227',
+                        opacity: isRevealed ? 1 : 0,
+                        transform: isRevealed ? 'translateX(0)' : 'translateX(15px)',
+                        transition: `all 0.6s ease ${idx * 0.15}s`
                     }}>
-                        <strong>1911:</strong> Ra đi tìm đường cứu nước từ Bến Nhà Rồng
-                    </p>
-                </div>
-
-                {/* Journey point 2 */}
-                <div style={{
-                    position: 'relative',
-                    paddingLeft: '20px',
-                    opacity: isRevealed ? 1 : 0,
-                    transform: isRevealed ? 'translateX(0)' : 'translateX(-10px)',
-                    transition: 'all 0.5s ease 0.1s'
-                }}>
-                    <div style={{
-                        position: 'absolute',
-                        left: '-8px',
-                        top: '4px',
-                        width: '12px',
-                        height: '12px',
-                        borderRadius: '50%',
-                        background: '#B8860B'
-                    }} />
-                    <p style={{
-                        color: '#333',
-                        fontSize: '0.9rem',
-                        lineHeight: 1.6,
-                        margin: 0
-                    }}>
-                        <strong>1919:</strong> Gửi Bản yêu sách 8 điểm đến Hội nghị Versailles
-                    </p>
-                </div>
-
-                {/* Journey point 3 */}
-                <div style={{
-                    position: 'relative',
-                    paddingLeft: '20px',
-                    opacity: isRevealed ? 1 : 0,
-                    transform: isRevealed ? 'translateX(0)' : 'translateX(-10px)',
-                    transition: 'all 0.5s ease 0.2s'
-                }}>
-                    <div style={{
-                        position: 'absolute',
-                        left: '-8px',
-                        top: '4px',
-                        width: '12px',
-                        height: '12px',
-                        borderRadius: '50%',
-                        background: '#2e7d32'
-                    }} />
-                    <p style={{
-                        color: '#333',
-                        fontSize: '0.9rem',
-                        lineHeight: 1.6,
-                        margin: 0
-                    }}>
-                        <strong>1920:</strong> Đọc Sơ thảo Luận cương của Lênin - Bước ngoặt tư tưởng
-                    </p>
-                </div>
-
-                {/* Journey point 4 */}
-                <div style={{
-                    position: 'relative',
-                    paddingLeft: '20px',
-                    opacity: isRevealed ? 1 : 0,
-                    transform: isRevealed ? 'translateX(0)' : 'translateX(-10px)',
-                    transition: 'all 0.5s ease 0.3s'
-                }}>
-                    <div style={{
-                        position: 'absolute',
-                        left: '-8px',
-                        top: '4px',
-                        width: '12px',
-                        height: '12px',
-                        borderRadius: '50%',
-                        background: '#1565c0'
-                    }} />
-                    <p style={{
-                        color: '#333',
-                        fontSize: '0.9rem',
-                        lineHeight: 1.6,
-                        margin: 0
-                    }}>
-                        <strong>Kết luận:</strong> Chỉ có CNXH mới thực sự giải phóng được dân tộc
-                    </p>
-                </div>
+                        <div style={{
+                            position: 'absolute', left: '-7px', top: '0',
+                            width: '12px', height: '12px', borderRadius: '50%',
+                            background: '#8B2323', border: '2px solid #F4F1EA'
+                        }} />
+                        <span style={{
+                            fontFamily: "'Cinzel', serif", color: '#8B2323',
+                            fontSize: '0.8rem', fontWeight: 'bold', display: 'block'
+                        }}>
+                            {item.year}
+                        </span>
+                        <p style={{
+                            color: '#333', fontFamily: "'Lora', serif",
+                            fontSize: '0.9rem', lineHeight: 1.5, margin: '3px 0 0 0'
+                        }}>
+                            {item.text}
+                        </p>
+                    </div>
+                ))}
             </div>
 
-            {/* Quote box */}
+            {/* Quote box - Chỉnh lại đồng bộ */}
             <div style={{
-                marginTop: '15px',
-                padding: '12px 15px',
-                backgroundColor: 'rgba(123, 45, 62, 0.08)',
-                borderRadius: '8px',
-                borderLeft: '3px solid #7B2D3E',
-                opacity: isRevealed ? 1 : 0,
-                transition: 'all 0.6s ease 0.4s'
+                marginTop: '20px', padding: '15px',
+                backgroundColor: '#fff', border: '1px solid rgba(201, 162, 39, 0.3)',
+                boxShadow: '3px 3px 0px #C9A227',
+                opacity: isRevealed ? 1 : 0, transition: 'all 0.8s ease 0.6s'
             }}>
                 <p style={{
-                    color: '#444',
-                    fontSize: '0.9rem',
-                    lineHeight: 1.7,
-                    fontStyle: 'italic',
-                    margin: 0
+                    color: '#1A1A1A', fontFamily: "'Lora', serif",
+                    fontSize: '0.9rem', lineHeight: 1.7, fontStyle: 'italic', margin: 0
                 }}>
                     "Tôi hiểu rằng chủ nghĩa Lênin là cái cẩm nang thần kỳ, là con đường giải phóng chúng ta."
                 </p>
                 <div style={{
-                    marginTop: '6px',
-                    textAlign: 'right',
-                    color: '#7B2D3E',
-                    fontSize: '0.85rem',
-                    fontWeight: 600
+                    marginTop: '8px', textAlign: 'right',
+                    color: '#8B2323', fontFamily: "'Cinzel', serif",
+                    fontSize: '0.75rem', fontWeight: 'bold'
                 }}>
-                    — Hồ Chí Minh
+                    — CHỦ TỊCH HỒ CHÍ MINH
                 </div>
             </div>
 
-            {/* Arrow to continue */}
+            {/* Bottom Indicator */}
             <div style={{
-                textAlign: 'center',
-                marginTop: '12px',
-                color: '#B8860B',
-                fontSize: '0.9rem'
+                textAlign: 'center', marginTop: '20px',
+                color: '#C9A227', fontFamily: "'Cinzel', serif",
+                fontSize: '0.7rem', letterSpacing: '1px', fontWeight: 'bold'
             }}>
-                ▶ Tiếp theo: Con đường cách mạng vô sản
+                PHẦN KẾ TIẾP: CÁCH MẠNG VÔ SẢN ➜
             </div>
 
             {/* Page number */}
             <div style={{
-                position: 'absolute',
-                bottom: '20px',
-                right: '28px',
-                color: '#999',
-                fontSize: '0.8rem'
+                position: 'absolute', bottom: '20px', right: '30px',
+                color: '#8B2323', fontFamily: "'Cinzel', serif", fontSize: '0.8rem', fontWeight: 'bold'
             }}>
                 13
             </div>

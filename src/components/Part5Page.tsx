@@ -1,34 +1,29 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
-// Timeline data for the revolutionary path
 const timelineData = [
     {
         year: '',
         title: 'Thực tiễn phong trào yêu nước',
         description: 'Các phong trào yêu nước nổ ra và thất bại',
-        detail: 'Từ phong trào Cần Vương, Đông Du, Duy Tân đến khởi nghĩa Yên Bái... tất cả đều thất bại do thiếu đường lối đúng đắn.',
-        icon: '⚔️'
+        detail: 'Từ phong trào Cần Vương, Đông Du, Duy Tân đến khởi nghĩa Yên Bái... tất cả đều thất bại do thiếu đường lối đúng đắn.'
     },
     {
         year: '',
         title: 'Khảo cứu cách mạng Pháp, Mỹ',
         description: 'Tìm hiểu các cuộc cách mạng tư sản',
-        detail: 'Hồ Chí Minh nghiên cứu Cách mạng Pháp 1789, Cách mạng Mỹ 1776 và nhận ra những hạn chế của cách mạng tư sản.',
-        icon: '📚'
+        detail: 'Hồ Chí Minh nghiên cứu Cách mạng Pháp 1789, Cách mạng Mỹ 1776 và nhận ra những hạn chế của cách mạng tư sản.'
     },
     {
         year: '1917',
         title: 'Cách mạng Tháng Mười Nga',
         description: 'Bước ngoặt lịch sử thế giới',
-        detail: 'Cách mạng Tháng Mười Nga thắng lợi mở ra thời đại mới - thời đại quá độ từ chủ nghĩa tư bản lên chủ nghĩa xã hội.',
-        icon: '🌟'
+        detail: 'Cách mạng Tháng Mười Nga thắng lợi mở ra thời đại mới - thời đại quá độ từ chủ nghĩa tư bản lên chủ nghĩa xã hội.'
     },
     {
         year: '1920',
         title: 'Đọc Luận cương của Lênin',
-        description: 'Sơ thảo lần thứ nhất những luận cương về vấn đề dân tộc và vấn đề thuộc địa',
-        detail: 'Đây là bước ngoặt quyết định trong tư tưởng Hồ Chí Minh, tìm ra con đường cứu nước đúng đắn.',
-        icon: '📖'
+        description: 'Sơ thảo lần thứ nhất luận cương về vấn đề dân tộc và thuộc địa',
+        detail: 'Đây là bước ngoặt quyết định trong tư tưởng Hồ Chí Minh, tìm ra con đường cứu nước đúng đắn.'
     }
 ];
 
@@ -39,171 +34,75 @@ export function Part5LeftPage() {
     const [activeIndex, setActiveIndex] = useState(-1);
 
     return (
-        <div className="scroll-container-purple" style={{
-            width: '100%',
-            height: '100%',
-            background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)', // Tông tím than/xanh tối
-            padding: '40px 35px',
-            display: 'flex',
-            flexDirection: 'column',
-            position: 'relative',
-            overflowY: 'auto', // Cho phép cuộn
-            overflowX: 'hidden'
+        <div className="scroll-container-left-5" style={{
+            width: '100%', height: '100%',
+            backgroundColor: '#F4F1EA',
+            padding: '40px 35px', display: 'flex', flexDirection: 'column',
+            position: 'relative', overflowY: 'auto', overflowX: 'hidden',
+            backgroundImage: 'radial-gradient(#d1d1d1 1px, transparent 1px)',
+            backgroundSize: '30px 30px', color: '#222'
         }}>
-            {/* --- CSS: SCROLLBAR & ANIMATION --- */}
             <style>{`
-                .scroll-container-purple::-webkit-scrollbar { width: 6px; }
-                .scroll-container-purple::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); }
-                .scroll-container-purple::-webkit-scrollbar-thumb { background: rgba(100, 100, 255, 0.3); border-radius: 3px; }
-                .scroll-container-purple::-webkit-scrollbar-thumb:hover { background: rgba(100, 100, 255, 0.6); }
-
-                @keyframes spotlightMovePurple {
-                    0% { top: -20%; opacity: 0.2; transform: scale(1); }
-                    50% { top: 60%; opacity: 0.5; transform: scale(1.3); }
-                    100% { top: -20%; opacity: 0.2; transform: scale(1); }
-                }
+                .scroll-container-left-5::-webkit-scrollbar { width: 4px; }
+                .scroll-container-left-5::-webkit-scrollbar-thumb { background: #8B2323; border-radius: 10px; }
             `}</style>
 
-            {/* --- HIỆU ỨNG SPOTLIGHT --- */}
-            <div style={{
-                position: 'absolute',
-                left: '0',
-                right: '0',
-                height: '400px',
-                background: 'radial-gradient(circle, rgba(100, 100, 255, 0.15) 0%, transparent 70%)',
-                filter: 'blur(25px)',
-                pointerEvents: 'none',
-                zIndex: 1,
-                animation: 'spotlightMovePurple 8s infinite ease-in-out'
-            }}></div>
-
-            {/* Decorative stars */}
-            <div style={{ position: 'absolute', top: '20px', right: '20px', fontSize: '24px', opacity: 0.3, zIndex: 0 }}>✦</div>
-            <div style={{ position: 'absolute', bottom: '60px', left: '20px', fontSize: '16px', opacity: 0.2, zIndex: 0 }}>✧</div>
-
-            {/* Header */}
-            <div style={{ marginBottom: '25px', textAlign: 'center', zIndex: 2, flexShrink: 0 }}>
-                <div style={{
-                    fontFamily: "'Playfair Display', Georgia, serif",
-                    color: '#ffd700',
-                    fontSize: '1.75rem',
-                    fontWeight: 'bold',
-                    marginBottom: '8px'
-                }}>
+            {/* Header đồng bộ */}
+            <div style={{ marginBottom: '25px', textAlign: 'center', zIndex: 2 }}>
+                <span style={{ fontFamily: "'Cinzel', serif", fontSize: '0.75rem', letterSpacing: '3px', color: '#8B2323', fontWeight: 'bold' }}>
+                    TIỀN ĐỀ TƯ TƯỞNG
+                </span>
+                <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: '1.8rem', fontWeight: '900', color: '#1A1A1A', marginTop: '5px' }}>
                     Phần V
-                </div>
-                <h3 style={{
-                    fontFamily: "'Lora', Georgia, serif",
-                    fontSize: '0.85rem',
-                    color: 'rgba(255,255,255,0.9)',
-                    fontStyle: 'italic',
-                    marginBottom: '0.5rem'
-                }}>
+                </h2>
+                <div style={{ width: '40px', height: '2px', background: '#C9A227', margin: '10px auto' }} />
+                <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: '1rem', color: '#8B2323', fontStyle: 'italic', fontWeight: 'bold' }}>
                     Con Đường Cách Mạng Vô Sản
                 </h3>
-                <div style={{
-                    width: '60px',
-                    height: '2px',
-                    background: 'linear-gradient(90deg, transparent, #ffd700, transparent)',
-                    margin: '12px auto 0'
-                }}></div>
             </div>
 
-            {/* Timeline */}
-            <div style={{ flex: 1, position: 'relative', paddingLeft: '30px', zIndex: 2 }}>
-                {/* Timeline line */}
+            {/* Timeline Vertical */}
+            <div style={{ flex: 1, position: 'relative', paddingLeft: '25px', zIndex: 2 }}>
                 <div style={{
-                    position: 'absolute',
-                    left: '10px',
-                    top: '0',
-                    bottom: '20px',
-                    width: '2px',
-                    background: 'linear-gradient(to bottom, #ffd700, #ff6b6b, #ffd700)',
-                    opacity: 0.6
+                    position: 'absolute', left: '8px', top: '0', bottom: '20px',
+                    width: '1px', background: '#C9A227', opacity: 0.5
                 }}></div>
 
                 {timelineData.map((item, index) => (
                     <div
                         key={index}
-                        style={{
-                            position: 'relative',
-                            marginBottom: '20px',
-                            cursor: 'pointer',
-                            transition: 'all 0.3s ease',
-                            flexShrink: 0
-                        }}
+                        style={{ position: 'relative', marginBottom: '25px', cursor: 'pointer' }}
                         onMouseEnter={() => setActiveIndex(index)}
                         onMouseLeave={() => setActiveIndex(-1)}
                     >
-                        {/* Timeline dot */}
                         <div style={{
-                            position: 'absolute',
-                            left: '-26px',
-                            top: '5px',
-                            width: '20px',
-                            height: '20px',
-                            borderRadius: '50%',
-                            background: activeIndex === index ? '#ffd700' : 'rgba(255,215,0,0.3)',
-                            border: '2px solid #ffd700',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            fontSize: '10px',
-                            transition: 'all 0.3s ease',
-                            boxShadow: activeIndex === index ? '0 0 15px rgba(255,215,0,0.5)' : 'none'
-                        }}>
-                            {item.icon}
-                        </div>
+                            position: 'absolute', left: '-22px', top: '5px',
+                            width: '10px', height: '10px', borderRadius: '50%',
+                            background: activeIndex === index ? '#8B2323' : '#C9A227',
+                            border: '2px solid #F4F1EA', transition: 'all 0.3s ease',
+                            boxShadow: activeIndex === index ? '0 0 10px rgba(139, 35, 35, 0.4)' : 'none'
+                        }}></div>
 
-                        {/* Content */}
                         <div style={{
-                            background: activeIndex === index
-                                ? 'rgba(255,215,0,0.15)'
-                                : 'rgba(255,255,255,0.05)',
-                            borderRadius: '8px',
-                            padding: '12px 15px',
-                            borderLeft: activeIndex === index
-                                ? '3px solid #ffd700'
-                                : '3px solid transparent',
-                            transition: 'all 0.3s ease'
+                            background: activeIndex === index ? '#fff' : 'rgba(255,255,255,0.4)',
+                            padding: '12px 15px', borderRadius: '2px',
+                            border: '1px solid rgba(139, 35, 35, 0.1)',
+                            borderLeft: activeIndex === index ? '4px solid #8B2323' : '4px solid transparent',
+                            transition: 'all 0.3s ease', boxShadow: activeIndex === index ? '5px 5px 15px rgba(0,0,0,0.05)' : 'none'
                         }}>
                             {item.year && (
-                                <div style={{
-                                    color: '#ffd700',
-                                    fontSize: '0.85rem',
-                                    fontWeight: 'bold',
-                                    marginBottom: '4px'
-                                }}>
-                                    Năm {item.year}
+                                <div style={{ color: '#8B2323', fontFamily: "'Cinzel', serif", fontSize: '0.8rem', fontWeight: 'bold' }}>
+                                    {item.year}
                                 </div>
                             )}
-                            <div style={{
-                                color: '#fff',
-                                fontSize: '1rem',
-                                fontWeight: '600',
-                                marginBottom: '4px'
-                            }}>
+                            <div style={{ fontFamily: "'Playfair Display', serif", fontSize: '1rem', fontWeight: 'bold', color: '#1A1A1A' }}>
                                 {item.title}
                             </div>
-                            <div style={{
-                                color: 'rgba(255,255,255,0.8)',
-                                fontSize: '0.9rem',
-                                lineHeight: 1.5
-                            }}>
+                            <div style={{ fontFamily: "'Lora', serif", fontSize: '0.85rem', color: '#444', lineHeight: 1.4 }}>
                                 {item.description}
                             </div>
-
-                            {/* Expanded detail on hover */}
                             {activeIndex === index && (
-                                <div style={{
-                                    marginTop: '8px',
-                                    paddingTop: '8px',
-                                    borderTop: '1px solid rgba(255,215,0,0.3)',
-                                    color: 'rgba(255,255,255,0.9)',
-                                    fontSize: '0.85rem',
-                                    lineHeight: 1.5,
-                                    fontStyle: 'italic'
-                                }}>
+                                <div style={{ marginTop: '8px', paddingTop: '8px', borderTop: '1px solid #F0EBE0', fontFamily: "'Lora', serif", fontSize: '0.8rem', fontStyle: 'italic', color: '#666' }}>
                                     {item.detail}
                                 </div>
                             )}
@@ -212,19 +111,7 @@ export function Part5LeftPage() {
                 ))}
             </div>
 
-            {/* Page number */}
-            <div style={{
-                position: 'absolute',
-                bottom: '30px',
-                left: '35px',
-                color: '#ffd700',
-                fontSize: '0.9rem',
-                opacity: 0.7,
-                zIndex: 2,
-                pointerEvents: 'none'
-            }}>
-                14
-            </div>
+            <div style={{ position: 'absolute', bottom: '15px', left: '20px', fontFamily: "'Cinzel', serif", fontSize: '0.8rem', color: '#8B2323', fontWeight: 'bold' }}>14</div>
         </div>
     );
 }
@@ -241,210 +128,64 @@ export function Part5RightPage() {
     }, []);
 
     return (
-        <div className="scroll-container-light-5" style={{
-            width: '100%',
-            height: '100%',
-            backgroundColor: '#FDFBF7',
-            padding: '25px 30px',
-            display: 'flex',
-            flexDirection: 'column',
-            position: 'relative',
-            overflowY: 'auto', // Cho phép cuộn
-            overflowX: 'hidden'
+        <div style={{
+            width: '100%', height: '100%',
+            backgroundColor: '#F4F1EA', padding: '40px 30px',
+            display: 'flex', flexDirection: 'column',
+            position: 'relative', overflowY: 'auto',
+            backgroundImage: 'url("https://www.transparenttextures.com/patterns/paper-fibers.png")'
         }}>
-            {/* --- CSS: SCROLLBAR & ANIMATION --- */}
-            <style>{`
-                .scroll-container-light-5::-webkit-scrollbar { width: 6px; }
-                .scroll-container-light-5::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.05); }
-                .scroll-container-light-5::-webkit-scrollbar-thumb { background: rgba(184, 134, 11, 0.3); border-radius: 3px; }
-                .scroll-container-light-5::-webkit-scrollbar-thumb:hover { background: rgba(184, 134, 11, 0.6); }
-
-                @keyframes lanternMoveLight5 {
-                    0% { top: -10%; opacity: 0.4; }
-                    50% { top: 50%; opacity: 0.7; }
-                    100% { top: -10%; opacity: 0.4; }
-                }
-            `}</style>
-
-            {/* --- HIỆU ỨNG LANTERN LIGHT --- */}
-            <div style={{
-                position: 'absolute',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                width: '120%', 
-                height: '300px',
-                background: 'radial-gradient(ellipse at center, rgba(255, 223, 120, 0.4) 0%, transparent 70%)',
-                filter: 'blur(30px)',
-                pointerEvents: 'none',
-                zIndex: 0,
-                mixBlendMode: 'multiply',
-                animation: 'lanternMoveLight5 10s infinite ease-in-out'
-            }}></div>
-
             {/* Header */}
-            <div style={{ marginBottom: '12px', textAlign: 'center', zIndex: 1, flexShrink: 0 }}>
-                <div style={{
-                    color: '#B8860B',
-                    fontSize: '0.65rem',
-                    letterSpacing: '2px',
-                    marginBottom: '4px',
-                    textTransform: 'uppercase'
-                }}>
-                    Kết Luận Của Hồ Chí Minh
-                </div>
-                <h2 style={{
-                    color: '#7B2D3E',
-                    fontSize: '1rem',
-                    fontFamily: "'Playfair Display', Georgia, serif",
-                    fontWeight: 'bold',
-                    margin: 0
-                }}>
-                    Từ Thực Tiễn và Lý Luận
+            <div style={{ textAlign: 'center', marginBottom: '25px', zIndex: 1 }}>
+                <span style={{ fontFamily: "'Cinzel', serif", fontSize: '0.7rem', color: '#C9A227', letterSpacing: '2px' }}>
+                    KẾT LUẬN CHIẾN LƯỢC
+                </span>
+                <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: '1.2rem', color: '#8B2323', fontWeight: '900', margin: '5px 0' }}>
+                    Bản Chất Của Sự Nghiệp Giải Phóng
                 </h2>
             </div>
 
-            {/* Arrow pointing to conclusion */}
+            {/* Content Box 1 - Editorial Style */}
             <div style={{
-                textAlign: 'center',
-                marginBottom: '10px',
-                color: '#B8860B',
-                fontSize: '1.5rem',
-                animation: 'bounce 1s infinite',
-                zIndex: 1,
-                flexShrink: 0
-            }}>
-                ↓
-            </div>
-
-            {/* Main Quote Box 1 */}
-            <div style={{
-                background: 'linear-gradient(135deg, #7B2D3E 0%, #5C2230 100%)',
-                borderRadius: '10px',
-                padding: '15px 18px',
-                marginBottom: '12px',
-                boxShadow: '0 6px 20px rgba(123, 45, 62, 0.3)',
+                backgroundColor: '#fff', padding: '1.5rem', marginBottom: '1.5rem',
+                border: '1px solid rgba(139, 35, 35, 0.1)', boxShadow: '5px 5px 0px #C9A227',
                 transform: isRevealed ? 'translateY(0)' : 'translateY(20px)',
-                opacity: isRevealed ? 1 : 0,
-                transition: 'all 0.6s ease',
-                zIndex: 1,
-                flexShrink: 0
+                opacity: isRevealed ? 1 : 0, transition: 'all 0.8s ease', zIndex: 1
             }}>
-                <div style={{
-                    color: 'rgba(255,215,0,0.8)',
-                    fontSize: '1.3rem',
-                    marginBottom: '6px',
-                    lineHeight: 1
-                }}>
-                    ❝
-                </div>
-                <p style={{
-                    color: '#fff',
-                    fontSize: '1rem',
-                    lineHeight: 1.6,
-                    fontFamily: "'Lora', Georgia, serif",
-                    fontStyle: 'italic',
-                    margin: 0
-                }}>
-                    Muốn cứu nước và giải phóng dân tộc không có con đường nào khác <strong style={{ color: '#ffd700' }}>con đường cách mạng vô sản</strong>.
+                <p style={{ fontFamily: "'Lora', serif", fontSize: '1rem', color: '#1A1A1A', lineHeight: 1.8, fontStyle: 'italic', margin: 0, textAlign: 'justify' }}>
+                    "Muốn cứu nước và giải phóng dân tộc không có con đường nào khác <strong style={{ color: '#8B2323' }}>con đường cách mạng vô sản</strong>."
                 </p>
-                <div style={{
-                    marginTop: '8px',
-                    textAlign: 'right',
-                    color: 'rgba(255,255,255,0.8)',
-                    fontSize: '0.85rem'
-                }}>
-                    — Hồ Chí Minh
+                <div style={{ marginTop: '10px', textAlign: 'right', fontFamily: "'Cinzel', serif", fontSize: '0.75rem', color: '#8B2323', fontWeight: 'bold' }}>
+                    — HỒ CHÍ MINH
                 </div>
             </div>
 
-            {/* Main Quote Box 2 */}
+            {/* Content Box 2 - Highlighted */}
             <div style={{
-                background: 'linear-gradient(135deg, #B8860B 0%, #8B6914 100%)',
-                borderRadius: '10px',
-                padding: '15px 18px',
-                boxShadow: '0 6px 20px rgba(184, 134, 11, 0.3)',
+                backgroundColor: '#8B2323', padding: '1.2rem', marginBottom: '20px',
                 transform: isRevealed ? 'translateY(0)' : 'translateY(20px)',
-                opacity: isRevealed ? 1 : 0,
-                transition: 'all 0.6s ease 0.2s',
-                zIndex: 1,
-                flexShrink: 0
+                opacity: isRevealed ? 1 : 0, transition: 'all 0.8s ease 0.2s', zIndex: 1
             }}>
-                <div style={{
-                    color: 'rgba(255,255,255,0.8)',
-                    fontSize: '1.3rem',
-                    marginBottom: '6px',
-                    lineHeight: 1
-                }}>
-                    ❝
-                </div>
                 <p style={{
-                    color: '#fff',
-                    fontSize: '1rem',
-                    lineHeight: 1.6,
-                    fontFamily: "'Lora', Georgia, serif",
-                    fontStyle: 'italic',
-                    margin: 0
+                    fontFamily: "'Playfair Display', serif", fontSize: '1.1rem',
+                    color: '#F4F1EA', textAlign: 'center', margin: 0, fontWeight: 'bold', letterSpacing: '0.5px'
                 }}>
-                    <strong style={{ color: '#fff', textDecoration: 'underline' }}>Độc lập dân tộc</strong> gắn liền với <strong style={{ color: '#fff', textDecoration: 'underline' }}>chủ nghĩa xã hội</strong>
+                    Độc lập dân tộc gắn liền với Chủ nghĩa xã hội
                 </p>
             </div>
 
-            {/* Bottom insight - simple */}
+            {/* Bottom Citation */}
             <div style={{
-                marginTop: 'auto',
-                paddingTop: '20px',
-                textAlign: 'center',
-                zIndex: 1,
-                flexShrink: 0
+                marginTop: 'auto', padding: '1.2rem', textAlign: 'center',
+                backgroundColor: 'rgba(139, 35, 35, 0.03)', border: '1px dashed rgba(139, 35, 35, 0.2)',
+                opacity: isRevealed ? 1 : 0, transition: 'all 0.8s ease 0.4s'
             }}>
-                <div style={{
-                    background: 'linear-gradient(135deg, rgba(123, 45, 62, 0.1) 0%, rgba(184, 134, 11, 0.1) 100%)',
-                    borderRadius: '8px',
-                    padding: '15px',
-                    border: '1px solid rgba(184, 134, 11, 0.3)'
-                }}>
-                    <p style={{
-                        color: '#5C2230',
-                        fontSize: '0.95rem',
-                        lineHeight: 1.6,
-                        fontStyle: 'italic',
-                        margin: 0,
-                        fontFamily: "'Lora', Georgia, serif"
-                    }}>
-                        Đây là kết luận quan trọng nhất của Hồ Chí Minh trong hành trình tìm đường cứu nước.
-                    </p>
-                </div>
-                <div style={{
-                    marginTop: '12px',
-                    color: '#B8860B',
-                    fontSize: '0.85rem'
-                }}>
-                    ➤ Xem trang tiếp theo để hiểu rõ hơn về đường lối cách mạng
-                </div>
+                <p style={{ fontFamily: "'Lora', serif", fontSize: '0.9rem', color: '#444', lineHeight: 1.6, margin: 0 }}>
+                    Đây là kết luận quan trọng nhất, mở ra kỷ nguyên mới cho lịch sử dân tộc Việt Nam.
+                </p>
             </div>
 
-            {/* Spacer */}
-            <div style={{ height: '30px', flexShrink: 0 }}></div>
-
-            {/* Page number */}
-            <div style={{
-                position: 'absolute',
-                bottom: '15px',
-                right: '25px',
-                color: '#999',
-                fontSize: '0.8rem',
-                zIndex: 1,
-                pointerEvents: 'none'
-            }}>
-                15
-            </div>
-
-            <style>{`
-                @keyframes bounce {
-                    0%, 100% { transform: translateY(0); }
-                    50% { transform: translateY(5px); }
-                }
-            `}</style>
+            <div style={{ position: 'absolute', bottom: '15px', right: '20px', fontFamily: "'Cinzel', serif", fontSize: '0.8rem', color: '#8B2323', fontWeight: 'bold' }}>15</div>
         </div>
     );
 }
