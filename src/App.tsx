@@ -14,11 +14,16 @@ import { DailyInspiration } from './components/DailyInspiration';
 import { KnowledgeQuiz } from './components/KnowledgeQuiz';
 import { FloatingLotus } from './components/FloatingLotus';
 import { CustomCursor } from './components/CustomCursor';
+import { Archive } from './components/Archive';
+import { ImageGallery } from './components/ImageGallery';
+import { Book, Image as ImageIcon } from 'lucide-react';
 
 export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showPresentation, setShowPresentation] = useState(false);
   const [showBiography, setShowBiography] = useState(false);
+  const [showArchive, setShowArchive] = useState(false);
+  const [showGallery, setShowGallery] = useState(false);
 
   // Nếu đang xem Presentation → render fullscreen
   if (showPresentation) {
@@ -28,6 +33,16 @@ export default function App() {
   // Nếu đang xem Biography → render fullscreen
   if (showBiography) {
     return <Biography onClose={() => setShowBiography(false)} />;
+  }
+
+  // Nếu đang xem Archive → render fullscreen
+  if (showArchive) {
+    return <Archive onClose={() => setShowArchive(false)} />;
+  }
+
+  // Nếu đang xem Gallery → render fullscreen
+  if (showGallery) {
+    return <ImageGallery onClose={() => setShowGallery(false)} />;
   }
 
   const scrollToSection = (id: string) => {
@@ -99,6 +114,68 @@ export default function App() {
                 <User className="w-3 h-3" />
                 <span className="hidden sm:inline">Tiểu Sử</span>
                 <span className="sm:hidden">Tiểu Sử</span>
+              </button>
+              {/* Archive Button */}
+              <button
+                onClick={() => setShowArchive(true)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  background: 'rgba(255,255,255,0.1)',
+                  color: 'white',
+                  padding: '8px 14px',
+                  borderRadius: 6,
+                  fontSize: '0.7rem',
+                  fontWeight: 700,
+                  letterSpacing: '0.06em',
+                  textTransform: 'uppercase' as const,
+                  border: '1px solid rgba(255,255,255,0.2)',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  fontFamily: 'system-ui, sans-serif'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.2)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
+                }}
+              >
+                <Book className="w-3 h-3" />
+                <span className="hidden sm:inline">Thư Viện</span>
+                <span className="sm:hidden">Sách</span>
+              </button>
+              {/* Gallery Button */}
+              <button
+                onClick={() => setShowGallery(true)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  background: 'rgba(255,255,255,0.1)',
+                  color: 'white',
+                  padding: '8px 14px',
+                  borderRadius: 6,
+                  fontSize: '0.7rem',
+                  fontWeight: 700,
+                  letterSpacing: '0.06em',
+                  textTransform: 'uppercase' as const,
+                  border: '1px solid rgba(255,255,255,0.2)',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  fontFamily: 'system-ui, sans-serif'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.2)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
+                }}
+              >
+                <ImageIcon className="w-3 h-3" />
+                <span className="hidden sm:inline">Ảnh Tư Liệu</span>
+                <span className="sm:hidden">Ảnh</span>
               </button>
             </div>
 

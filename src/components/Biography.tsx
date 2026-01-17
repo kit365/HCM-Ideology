@@ -161,6 +161,18 @@ const aliasesData: AliasData[] = [
 export function Biography({ onClose }: { onClose: () => void }) {
     const [expandedEvent, setExpandedEvent] = useState<number | null>(null);
     const [selectedAlias, setSelectedAlias] = useState<AliasData | null>(null);
+    const [activePeriod, setActivePeriod] = useState(0);
+
+    const periods = [
+        { label: "1890 - 1911: Thời niên thiếu", start: 1890, end: 1911 },
+        { label: "1911 - 1941: Tìm đường cứu nước", start: 1911, end: 1941 },
+        { label: "1941 - 1969: Lãnh đạo Cách mạng", start: 1941, end: 1969 }
+    ];
+
+    const filteredEvents = lifeEvents.filter(event => {
+        const year = parseInt(event.year);
+        return year >= periods[activePeriod].start && year <= periods[activePeriod].end;
+    });
 
     return (
         <div style={{
@@ -281,7 +293,14 @@ export function Biography({ onClose }: { onClose: () => void }) {
             </section>
 
             {/* Personal Info Cards */}
-            <section style={{ padding: '60px 24px', background: '#FDFBF7' }}>
+            <section style={{ padding: '60px 24px', background: '#FFFFFF', position: 'relative' }}>
+                <div style={{
+                    position: 'absolute',
+                    top: 0, left: 0, right: 0, height: '100%',
+                    background: 'url("https://www.transparenttextures.com/patterns/white-diamond-dark.png")',
+                    opacity: 0.05,
+                    pointerEvents: 'none'
+                }} />
                 <div style={{ maxWidth: 1000, margin: '0 auto' }}>
                     <div style={{
                         display: 'grid',
@@ -338,7 +357,7 @@ export function Biography({ onClose }: { onClose: () => void }) {
             </section>
 
             {/* Aliases Section */}
-            <section style={{ padding: '40px 24px 60px', background: '#F5F0E8' }}>
+            <section style={{ padding: '60px 24px 80px', background: '#FAF6F0', borderTop: '1px solid #E5E0D5', borderBottom: '1px solid #E5E0D5' }}>
                 <div style={{ maxWidth: 1000, margin: '0 auto', textAlign: 'center' }}>
                     <h3 style={{
                         fontFamily: "'Playfair Display', Georgia, serif",
@@ -366,7 +385,7 @@ export function Biography({ onClose }: { onClose: () => void }) {
                     <div style={{
                         display: 'flex',
                         flexWrap: 'wrap',
-                        gap: 12,
+                        gap: 16,
                         justifyContent: 'center'
                     }}>
                         {aliasesData.map((alias, idx) => (
@@ -374,25 +393,27 @@ export function Biography({ onClose }: { onClose: () => void }) {
                                 key={idx}
                                 onClick={() => setSelectedAlias(alias)}
                                 style={{
-                                    padding: '10px 20px',
-                                    background: idx === aliasesData.length - 1 ? 'linear-gradient(135deg, #7B2D3E, #5C2230)' : 'white',
-                                    color: idx === aliasesData.length - 1 ? 'white' : '#4A4A4A',
-                                    borderRadius: 100,
-                                    fontSize: 14,
-                                    fontWeight: idx === aliasesData.length - 1 ? 600 : 500,
-                                    boxShadow: '0 2px 10px rgba(0,0,0,0.06)',
-                                    fontFamily: "'Lora', Georgia, serif",
-                                    border: 'none',
+                                    padding: '12px 24px',
+                                    background: idx === aliasesData.length - 1 ? 'linear-gradient(135deg, #7B2D3E, #5C2230)' : '#FFFFFF',
+                                    color: idx === aliasesData.length - 1 ? '#C9A227' : '#2D2D2D',
+                                    borderRadius: 12,
+                                    fontSize: 15,
+                                    fontWeight: idx === aliasesData.length - 1 ? 700 : 600,
+                                    boxShadow: '0 4px 0px rgba(0,0,0,0.05), 0 8px 15px rgba(0,0,0,0.05)',
+                                    fontFamily: "'Playfair Display', serif",
+                                    border: '1px solid #D4C5A9',
                                     cursor: 'pointer',
-                                    transition: 'all 0.2s ease'
+                                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                                    position: 'relative',
+                                    overflow: 'hidden'
                                 }}
                                 onMouseEnter={(e) => {
-                                    e.currentTarget.style.transform = 'scale(1.05)';
-                                    e.currentTarget.style.boxShadow = '0 4px 15px rgba(0,0,0,0.12)';
+                                    e.currentTarget.style.transform = 'translateY(-3px)';
+                                    e.currentTarget.style.boxShadow = '0 7px 0px rgba(0,0,0,0.08), 0 12px 20px rgba(0,0,0,0.1)';
                                 }}
                                 onMouseLeave={(e) => {
-                                    e.currentTarget.style.transform = 'scale(1)';
-                                    e.currentTarget.style.boxShadow = '0 2px 10px rgba(0,0,0,0.06)';
+                                    e.currentTarget.style.transform = 'translateY(0)';
+                                    e.currentTarget.style.boxShadow = '0 4px 0px rgba(0,0,0,0.05), 0 8px 15px rgba(0,0,0,0.05)';
                                 }}
                             >
                                 {alias.name}
@@ -536,201 +557,244 @@ export function Biography({ onClose }: { onClose: () => void }) {
                 </div>
             )}
 
-            {/* Timeline Section */}
-            <section style={{ padding: '80px 24px', background: '#FDFBF7' }}>
-                <div style={{ maxWidth: 900, margin: '0 auto' }}>
-                    <div style={{ textAlign: 'center', marginBottom: 60 }}>
-                        <span style={{
-                            display: 'inline-block',
-                            fontSize: 11,
-                            letterSpacing: '0.2em',
-                            textTransform: 'uppercase',
-                            color: '#7B2D3E',
-                            marginBottom: 12,
-                            fontWeight: 600
-                        }}>
-                            Hành trình cuộc đời
-                        </span>
+            {/* Timeline Section - Manuscript Style */}
+            <section style={{
+                padding: '120px 24px',
+                background: '#EBE5D9',
+                position: 'relative',
+                boxShadow: 'inset 0 20px 40px rgba(0,0,0,0.05), inset 0 -20px 40px rgba(0,0,0,0.05)'
+            }}>
+                {/* Decorative Divider Top */}
+                <div style={{
+                    position: 'absolute',
+                    top: 0, left: 0, right: 0, height: 40,
+                    background: 'url("data:image/svg+xml,%3Csvg width=\'100%25\' height=\'40\' viewBox=\'0 0 1200 40\' preserveAspectRatio=\'none\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M0 0C300 30 900 30 1200 0V40H0V0Z\' fill=\'%23FAF6F0\'/%3E%3C/svg%3E")',
+                    transform: 'rotate(180deg)'
+                }} />
+                <style>{`
+                    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Great+Vibes&display=swap');
+                    
+                    .manuscript-card {
+                        background: #FFFFFF;
+                        border: 1px solid #D4C5A9;
+                        position: relative;
+                        padding: 35px;
+                        box-shadow: 4px 4px 0px #D4C5A9, 0 15px 35px rgba(0,0,0,0.08);
+                        border-radius: 4px;
+                        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                    }
+                    .manuscript-card::before {
+                        content: '';
+                        position: absolute;
+                        top: 0; left: 0; width: 100%; height: 100%;
+                        background-image: url("https://www.transparenttextures.com/patterns/parchment.png");
+                        opacity: 0.2;
+                        pointer-events: none;
+                    }
+                    .manuscript-card:hover {
+                        transform: translateY(-5px) rotate(0.5deg);
+                        box-shadow: 2px 2px 0px #7B2D3E, 20px 20px 50px rgba(123, 45, 62, 0.1);
+                        border-color: #7B2D3E;
+                    }
+                    .year-handwritten {
+                        font-family: 'Dancing Script', cursive;
+                        font-size: 2.8rem;
+                        color: #7B2D3E;
+                        line-height: 1;
+                    }
+                    .timeline-line-manuscript {
+                        position: absolute;
+                        left: 40px;
+                        top: 0;
+                        bottom: 0;
+                        width: 1px;
+                        background: dashed #d4c5a9;
+                        border-left: 2px dashed rgba(123, 45, 62, 0.2);
+                    }
+                    .sidebar-nav-item {
+                        padding: 14px 22px;
+                        margin-bottom: 12px;
+                        cursor: pointer;
+                        border-left: 3px solid transparent;
+                        transition: all 0.3s;
+                        font-family: 'Playfair Display', serif;
+                        font-size: 0.95rem;
+                        color: #555;
+                        background: rgba(255,255,255,0.4);
+                        border-radius: 0 8px 8px 0;
+                    }
+                    .sidebar-nav-item.active {
+                        border-left-color: #7B2D3E;
+                        color: #7B2D3E;
+                        background: rgba(123, 45, 62, 0.05);
+                        font-weight: 700;
+                    }
+                `}</style>
+
+                <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+                    {/* Header */}
+                    <div style={{ textAlign: 'left', marginBottom: 80, borderBottom: '1px solid #d4c5a9', paddingBottom: 30 }}>
                         <h2 style={{
-                            fontFamily: "'Playfair Display', Georgia, serif",
-                            fontSize: 'clamp(2rem, 4vw, 3rem)',
+                            fontFamily: "'Playfair Display', serif",
+                            fontSize: '3.5rem',
                             color: '#1A1A1A',
-                            marginBottom: 16
+                            margin: 0
                         }}>
-                            Những dấu mốc lịch sử
+                            Biên Niên Sử
                         </h2>
-                        <div style={{
-                            width: 60,
-                            height: 3,
-                            background: 'linear-gradient(90deg, #7B2D3E, #C9A227)',
-                            margin: '0 auto',
-                            borderRadius: 2
-                        }} />
+                        <p style={{
+                            fontFamily: "'Great Vibes', cursive",
+                            fontSize: '1.8rem',
+                            color: '#7B2D3E',
+                            marginTop: 10
+                        }}>
+                            Hành trình phụng sự Tổ quốc
+                        </p>
                     </div>
 
-                    <div style={{ position: 'relative' }}>
-                        {/* Timeline line */}
-                        <div style={{
-                            position: 'absolute',
-                            left: 'calc(50% - 1px)',
-                            top: 0,
-                            bottom: 0,
-                            width: 2,
-                            background: 'linear-gradient(180deg, #7B2D3E, #C9A227, #7B2D3E)',
-                            opacity: 0.3
-                        }} />
-
-                        {lifeEvents.map((event, idx) => {
-                            const isExpanded = expandedEvent === idx;
-                            const isLeft = idx % 2 === 0;
-
-                            return (
+                    <div style={{ display: 'grid', gridTemplateColumns: '250px 1fr', gap: 60 }}>
+                        {/* Left Sidebar Nav */}
+                        <div style={{ position: 'sticky', top: 120, height: 'fit-content' }}>
+                            {periods.map((p, i) => (
                                 <div
-                                    key={idx}
-                                    style={{
-                                        display: 'flex',
-                                        alignItems: 'flex-start',
-                                        justifyContent: isLeft ? 'flex-end' : 'flex-start',
-                                        paddingLeft: isLeft ? 0 : 'calc(50% + 30px)',
-                                        paddingRight: isLeft ? 'calc(50% + 30px)' : 0,
-                                        marginBottom: 40,
-                                        position: 'relative'
+                                    key={i}
+                                    className={`sidebar-nav-item ${activePeriod === i ? 'active' : ''}`}
+                                    onClick={() => {
+                                        setActivePeriod(i);
+                                        setExpandedEvent(null);
                                     }}
                                 >
-                                    {/* Year marker */}
-                                    <div style={{
-                                        position: 'absolute',
-                                        left: '50%',
-                                        transform: 'translateX(-50%)',
-                                        width: event.highlight ? 56 : 44,
-                                        height: event.highlight ? 56 : 44,
-                                        borderRadius: '50%',
-                                        background: event.highlight
-                                            ? 'linear-gradient(135deg, #7B2D3E, #5C2230)'
-                                            : 'white',
-                                        border: event.highlight ? 'none' : '2px solid #7B2D3E',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        boxShadow: '0 4px 15px rgba(123, 45, 62, 0.2)',
-                                        zIndex: 10
-                                    }}>
-                                        {event.highlight ? (
-                                            <Star size={20} color="#C9A227" fill="#C9A227" />
-                                        ) : (
-                                            <div style={{
-                                                width: 8,
-                                                height: 8,
-                                                borderRadius: '50%',
-                                                background: '#7B2D3E'
-                                            }} />
-                                        )}
-                                    </div>
-
-                                    {/* Event card */}
-                                    <div
-                                        onClick={() => setExpandedEvent(isExpanded ? null : idx)}
-                                        style={{
-                                            background: 'white',
-                                            borderRadius: 20,
-                                            padding: 24,
-                                            boxShadow: event.highlight
-                                                ? '0 8px 30px rgba(123, 45, 62, 0.12)'
-                                                : '0 4px 20px rgba(0,0,0,0.04)',
-                                            border: event.highlight
-                                                ? '2px solid rgba(123, 45, 62, 0.15)'
-                                                : '1px solid rgba(0,0,0,0.05)',
-                                            cursor: 'pointer',
-                                            transition: 'all 0.3s ease',
-                                            maxWidth: 400,
-                                            width: '100%'
-                                        }}
-                                    >
-                                        <div style={{
-                                            display: 'flex',
-                                            justifyContent: 'space-between',
-                                            alignItems: 'flex-start',
-                                            marginBottom: 12
-                                        }}>
-                                            <span style={{
-                                                fontSize: 32,
-                                                fontFamily: "'Playfair Display', Georgia, serif",
-                                                color: '#C9A227',
-                                                fontWeight: 600,
-                                                lineHeight: 1
-                                            }}>
-                                                {event.year}
-                                            </span>
-                                            {isExpanded ? (
-                                                <ChevronUp size={20} color="#7B2D3E" />
-                                            ) : (
-                                                <ChevronDown size={20} color="#9ca3af" />
-                                            )}
-                                        </div>
-
-                                        <h4 style={{
-                                            fontSize: 18,
-                                            fontWeight: 600,
-                                            color: '#1A1A1A',
-                                            marginBottom: 8,
-                                            fontFamily: "'Lora', Georgia, serif"
-                                        }}>
-                                            {event.title}
-                                        </h4>
-
-                                        <div style={{
-                                            maxHeight: isExpanded ? 500 : 0,
-                                            overflow: 'hidden',
-                                            transition: 'max-height 0.4s ease'
-                                        }}>
-                                            <p style={{
-                                                fontSize: 15,
-                                                color: '#4A4A4A',
-                                                lineHeight: 1.7,
-                                                marginBottom: event.location ? 12 : 0
-                                            }}>
-                                                {event.description}
-                                            </p>
-
-                                            {event.location && (
-                                                <div style={{
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    gap: 6,
-                                                    color: '#7B2D3E',
-                                                    fontSize: 13,
-                                                    fontWeight: 500
-                                                }}>
-                                                    <MapPin size={14} />
-                                                    {event.location}
-                                                </div>
-                                            )}
-                                        </div>
-
-                                        {!isExpanded && (
-                                            <p style={{
-                                                fontSize: 13,
-                                                color: '#9ca3af',
-                                                marginTop: 4
-                                            }}>
-                                                Nhấn để xem chi tiết
-                                            </p>
-                                        )}
-                                    </div>
+                                    {p.label}
                                 </div>
-                            );
-                        })}
+                            ))}
+
+                            <div style={{ marginTop: 40, padding: 20, background: '#fffcf5', border: '1px solid #d4c5a9', borderRadius: 4 }}>
+                                <p style={{ fontSize: '0.8rem', fontStyle: 'italic', color: '#888', margin: 0 }}>
+                                    "Tôi hiến cả đời tôi cho dân tộc tôi."
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Right Timeline Content */}
+                        <div style={{ position: 'relative', paddingLeft: 80 }}>
+                            <div className="timeline-line-manuscript"></div>
+
+                            {filteredEvents.map((event, idx) => {
+                                const realIdx = lifeEvents.indexOf(event);
+                                const isExpanded = expandedEvent === realIdx;
+                                return (
+                                    <div
+                                        key={idx}
+                                        style={{ marginBottom: 60, position: 'relative' }}
+                                    >
+                                        {/* Dot marker */}
+                                        <div style={{
+                                            position: 'absolute',
+                                            left: -49,
+                                            top: 20,
+                                            width: 18,
+                                            height: 18,
+                                            borderRadius: '50%',
+                                            background: '#fffcf5',
+                                            border: '3px solid #7B2D3E',
+                                            zIndex: 2
+                                        }} />
+
+                                        <div
+                                            className="manuscript-card"
+                                            onClick={() => setExpandedEvent(isExpanded ? null : realIdx)}
+                                            style={{ cursor: 'pointer' }}
+                                        >
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+                                                <div className="year-handwritten">{event.year}</div>
+                                                {event.highlight && (
+                                                    <div style={{ background: '#7B2D3E', padding: '4px 12px', borderRadius: 100, color: '#C9A227', fontSize: '0.7rem', fontWeight: 800, textTransform: 'uppercase' }}>
+                                                        Mốc Son Chói Lọi
+                                                    </div>
+                                                )}
+                                            </div>
+
+                                            <h3 style={{
+                                                fontFamily: "'Playfair Display', serif",
+                                                fontSize: '1.6rem',
+                                                color: '#1A1A1A',
+                                                marginBottom: 15,
+                                                borderBottom: '1px solid rgba(212, 197, 169, 0.5)',
+                                                paddingBottom: 10
+                                            }}>
+                                                {event.title}
+                                            </h3>
+
+                                            <div style={{
+                                                maxHeight: isExpanded ? 1000 : 80,
+                                                overflow: 'hidden',
+                                                transition: 'all 0.5s ease',
+                                                position: 'relative'
+                                            }}>
+                                                <p style={{
+                                                    fontFamily: "'Lora', serif",
+                                                    fontSize: '1.1rem',
+                                                    color: '#2D2D2D',
+                                                    lineHeight: 1.8,
+                                                    textAlign: 'justify'
+                                                }}>
+                                                    {event.description}
+                                                </p>
+
+                                                {event.location && (
+                                                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 20, color: '#7B2D3E', fontWeight: 600, fontSize: '0.9rem' }}>
+                                                        <MapPin size={16} />
+                                                        {event.location}
+                                                    </div>
+                                                )}
+
+                                                {!isExpanded && (
+                                                    <div style={{
+                                                        position: 'absolute',
+                                                        bottom: 0, left: 0, right: 0, height: 40,
+                                                        background: 'linear-gradient(to top, #fffcf5, transparent)'
+                                                    }} />
+                                                )}
+                                            </div>
+
+                                            <div style={{ textAlign: 'right', marginTop: 15 }}>
+                                                <span style={{ fontSize: '0.8rem', color: '#7B2D3E', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                                                    {isExpanded ? 'Thu gọn -' : 'Xem chi tiết +'}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
                     </div>
                 </div>
             </section>
 
+            {/* Decorative Divider bottom */}
+            <div style={{
+                height: 60,
+                background: '#FFFFFF',
+                backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'100%25\' height=\'60\' viewBox=\'0 0 1200 60\' preserveAspectRatio=\'none\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M0 60C300 0 900 0 1200 60V0H0V60Z\' fill=\'%23EBE5D9\'/%3E%3C/svg%3E")',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                position: 'relative',
+                zIndex: 2,
+                marginTop: -1
+            }}>
+                <div style={{ width: 100, height: 1, background: '#D4C5A9' }} />
+                <Star size={16} color="#7B2D3E" style={{ margin: '0 20px' }} />
+                <div style={{ width: 100, height: 1, background: '#D4C5A9' }} />
+            </div>
+
 
             {/* Digital Museum Section */}
-            <DigitalMuseum />
+            < DigitalMuseum />
 
 
             {/* Video Section */}
-            <section style={{ padding: '80px 24px', background: '#F5F0E8' }}>
+            <section style={{ padding: '100px 24px', background: '#FFFFFF' }}>
                 <div style={{ maxWidth: 1100, margin: '0 auto' }}>
                     <div style={{ textAlign: 'center', marginBottom: 50 }}>
                         <span style={{
@@ -952,10 +1016,10 @@ export function Biography({ onClose }: { onClose: () => void }) {
                         </a>
                     </div>
                 </div>
-            </section>
+            </section >
 
             {/* Legacy Section */}
-            <section style={{
+            < section style={{
                 padding: '80px 24px',
                 background: 'linear-gradient(135deg, #7B2D3E 0%, #5C2230 100%)',
                 position: 'relative'
@@ -1001,10 +1065,10 @@ export function Biography({ onClose }: { onClose: () => void }) {
                         </p>
                     </div>
                 </div>
-            </section>
+            </section >
 
             {/* Footer */}
-            <footer style={{
+            < footer style={{
                 padding: '40px 24px',
                 background: '#1A1A1A',
                 textAlign: 'center'
@@ -1035,7 +1099,7 @@ export function Biography({ onClose }: { onClose: () => void }) {
                 }}>
                     Nguồn: hochiminh.vn
                 </p>
-            </footer>
-        </div>
+            </footer >
+        </div >
     );
 }
