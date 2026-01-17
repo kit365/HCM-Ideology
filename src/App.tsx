@@ -1,21 +1,33 @@
 import { useState } from 'react';
-import { Menu, X, Presentation } from 'lucide-react';
+import { Menu, X, Presentation, User } from 'lucide-react';
 import { Hero } from './components/Hero';
 import { Introduction } from './components/Introduction';
+import { DeclarationVideo } from './components/DeclarationVideo';
 import { LiberationRevolution } from './components/LiberationRevolution';
 import { KeyThoughts } from './components/KeyThoughts';
 import { Timeline } from './components/Timeline';
 import { Quotes } from './components/Quotes';
 import { Footer } from './components/Footer';
 import { HousePresentation } from './components/HousePresentation';
+import { Biography } from './components/Biography';
+import { DailyInspiration } from './components/DailyInspiration';
+import { KnowledgeQuiz } from './components/KnowledgeQuiz';
+import { FloatingLotus } from './components/FloatingLotus';
+import { CustomCursor } from './components/CustomCursor';
 
 export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showPresentation, setShowPresentation] = useState(false);
+  const [showBiography, setShowBiography] = useState(false);
 
   // Nếu đang xem Presentation → render fullscreen
   if (showPresentation) {
     return <HousePresentation onClose={() => setShowPresentation(false)} />;
+  }
+
+  // Nếu đang xem Biography → render fullscreen
+  if (showBiography) {
+    return <Biography onClose={() => setShowBiography(false)} />;
   }
 
   const scrollToSection = (id: string) => {
@@ -28,36 +40,93 @@ export default function App() {
 
   const navItems = [
     { id: 'gioi-thieu', label: 'Giới Thiệu' },
+    { id: 'tuyen-ngon', label: 'Tuyên Ngôn' },
     { id: 'cach-mang-giai-phong', label: 'Cách Mạng' },
     { id: 'tu-tuong', label: 'Tư Tưởng' },
+    { id: 'trac-nghiem', label: 'Trắc Nghiệm' },
     { id: 'lich-su', label: 'Lịch Sử' },
     { id: 'trich-dan', label: 'Trích Dẫn' },
   ];
 
   return (
-    <div className="min-h-screen bg-[#FDFBF7]">
+    <div className="min-h-screen bg-[#F5F0E8]">
+      <CustomCursor />
+      <FloatingLotus />
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 bg-[#FDFBF7]/90 backdrop-blur-sm z-50 border-b border-black/5">
+      <nav style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        background: 'linear-gradient(180deg, rgba(45, 26, 26, 0.95) 0%, rgba(92, 34, 48, 0.9) 100%)',
+        backdropFilter: 'blur(10px)',
+        zIndex: 50,
+        boxShadow: '0 4px 20px rgba(0,0,0,0.15)'
+      }}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="flex justify-between items-center h-12">
+          <div className="flex justify-between items-center h-16">
             {/* Logo */}
-            <div className="flex items-center">
-              <span
-                className="text-xs tracking-[0.08em] uppercase text-[#7B2D3E] font-medium"
-                style={{ fontFamily: 'system-ui, sans-serif' }}
-              >
-                Tư Tưởng HCM
+            <div className="flex items-center gap-4">
+              <span style={{
+                fontFamily: "'Playfair Display', Georgia, serif",
+                fontSize: '1.2rem',
+                color: 'white',
+                fontWeight: 600
+              }}>
+                Tư Tưởng <span style={{ color: '#C9A227' }}>HCM</span>
               </span>
+              {/* Biography Button */}
+              <button
+                onClick={() => setShowBiography(true)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  background: '#C9A227',
+                  color: '#1A1A1A',
+                  padding: '8px 14px',
+                  borderRadius: 6,
+                  fontSize: '0.7rem',
+                  fontWeight: 700,
+                  letterSpacing: '0.06em',
+                  textTransform: 'uppercase' as const,
+                  border: 'none',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  fontFamily: 'system-ui, sans-serif'
+                }}
+              >
+                <User className="w-3 h-3" />
+                <span className="hidden sm:inline">Tiểu Sử</span>
+                <span className="sm:hidden">Tiểu Sử</span>
+              </button>
             </div>
 
             {/* Desktop Menu */}
-            <div className="hidden lg:flex gap-4 xl:gap-6">
+            <div className="hidden lg:flex items-center gap-6">
               {navItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className="text-[#4A4A4A] hover:text-[#7B2D3E] transition-colors text-[0.65rem] tracking-[0.08em] uppercase font-medium whitespace-nowrap"
-                  style={{ fontFamily: 'system-ui, sans-serif' }}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: 'rgba(255,255,255,0.8)',
+                    fontSize: '0.75rem',
+                    letterSpacing: '0.1em',
+                    textTransform: 'uppercase' as const,
+                    fontWeight: 500,
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                    fontFamily: 'system-ui, sans-serif',
+                    padding: '8px 0'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = '#C9A227';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = 'rgba(255,255,255,0.8)';
+                  }}
                 >
                   {item.label}
                 </button>
@@ -67,22 +136,44 @@ export default function App() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden text-[#4A4A4A] hover:text-[#7B2D3E] transition-colors"
+              style={{
+                background: 'none',
+                border: 'none',
+                color: 'rgba(255,255,255,0.8)',
+                cursor: 'pointer',
+                padding: 8
+              }}
+              className="lg:hidden"
             >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
 
           {/* Mobile Menu */}
           {mobileMenuOpen && (
-            <div className="lg:hidden py-4 border-t border-black/5">
+            <div style={{
+              borderTop: '1px solid rgba(255,255,255,0.1)',
+              paddingTop: 16,
+              paddingBottom: 16
+            }} className="lg:hidden">
               <div className="flex flex-col gap-3">
                 {navItems.map((item) => (
                   <button
                     key={item.id}
                     onClick={() => scrollToSection(item.id)}
-                    className="text-left text-[#4A4A4A] hover:text-[#7B2D3E] transition-colors text-xs tracking-[0.08em] uppercase font-medium py-1"
-                    style={{ fontFamily: 'system-ui, sans-serif' }}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: 'rgba(255,255,255,0.8)',
+                      fontSize: '0.8rem',
+                      letterSpacing: '0.08em',
+                      textTransform: 'uppercase' as const,
+                      fontWeight: 500,
+                      cursor: 'pointer',
+                      textAlign: 'left' as const,
+                      padding: '8px 0',
+                      fontFamily: 'system-ui, sans-serif'
+                    }}
                   >
                     {item.label}
                   </button>
@@ -94,26 +185,43 @@ export default function App() {
       </nav>
 
       {/* Main Content */}
-      <main className="pt-12">
+      <main className="pt-16">
         <Hero />
         <Introduction />
+        <DeclarationVideo />
         <LiberationRevolution />
         <KeyThoughts />
+        <KnowledgeQuiz />
         <Timeline />
         <Quotes />
+        <DailyInspiration />
       </main>
       <Footer />
 
-      {/* Floating Presentation Trigger Button */}
+      {/* Floating Presentation Button */}
       <button
         onClick={() => setShowPresentation(true)}
-        className="fixed bottom-8 left-8 z-[9999] group"
+        style={{
+          position: 'fixed',
+          bottom: 32,
+          left: 32,
+          zIndex: 9999,
+          display: 'flex',
+          alignItems: 'center',
+          gap: 10,
+          background: 'linear-gradient(135deg, #7B2D3E, #5C2230)',
+          color: 'white',
+          padding: '14px 24px',
+          borderRadius: 100,
+          border: 'none',
+          cursor: 'pointer',
+          boxShadow: '0 8px 30px rgba(123, 45, 62, 0.4)',
+          transition: 'all 0.3s ease',
+          fontFamily: 'system-ui, sans-serif'
+        }}
       >
-        <div className="absolute inset-0 bg-amber-400 rounded-full animate-ping opacity-30"></div>
-        <div className="relative flex items-center gap-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white px-6 py-4 rounded-full shadow-lg shadow-orange-500/30 hover:shadow-xl hover:scale-105 transition-all font-bold">
-          <Presentation className="w-5 h-5" />
-          <span className="text-sm uppercase tracking-wider">Bắt đầu Thuyết Trình</span>
-        </div>
+        <Presentation className="w-5 h-5" />
+        <span style={{ fontSize: '0.85rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' }}>XÂY NHÀ</span>
       </button>
     </div>
   );

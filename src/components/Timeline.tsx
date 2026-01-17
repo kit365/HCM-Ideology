@@ -1,212 +1,345 @@
-import React, { useState, useEffect } from 'react';
-import { createPortal } from 'react-dom';
-import { X, ZoomIn } from 'lucide-react';
+import React, { useState } from 'react';
 
-const timelineEvents = [
+// --- 1. IMPORT HÌNH ẢNH ---
+import khoidauImg from '../utils/picture/khoidauhanhtrinh.png';
+import raditimduongImg from '../utils/picture/raditimduong.png';
+import anhsangtuluancuongImg from '../utils/picture/anhsangtuluancuong.png';
+import thanhlapDangImg from '../utils/picture/thanhlapdang.png';
+import trovetoquocImg from '../utils/picture/trovetoquoc.png';
+import tuyenngondoclapImg from '../utils/picture/tuyenngondoclap.png';
+import bachodixaImg from '../utils/picture/bachodixa.png';
+
+// --- 2. CẤU TRÚC DỮ LIỆU ---
+interface TimelineEvent {
+  id: string;
+  year: string;
+  date: string;
+  title: string;
+  location: string;
+  shortDesc: string;
+  fullDesc: string;
+  significance: string;
+  image: string;
+  layout: 'layout-diagonal' | 'layout-split' | 'layout-center' | 'layout-hero';
+}
+
+const timelineEvents: TimelineEvent[] = [
   {
+    id: '1880',
+    year: '1880',
+    date: '',
+    title: 'Khởi đầu hành trình',
+    location: 'Việt Nam',
+    shortDesc: 'Khởi đầu hành trình tìm đường cứu nước',
+    fullDesc: 'Những năm cuối thế kỷ 19, đất nước Việt Nam đang trong cảnh nô lệ dưới ách thực dân Pháp. Các phong trào yêu nước nổ ra nhưng đều thất bại, đặt ra câu hỏi lớn về con đường giải phóng dân tộc.',
+    significance: 'Bối cảnh lịch sử đặt nền móng cho hành trình tìm đường cứu nước của Hồ Chí Minh.',
+    image: khoidauImg,
+    layout: 'layout-diagonal'
+  },
+  {
+    id: '1911',
     year: '1911',
-    title: 'Khát Vọng Giải Phóng',
-    description: 'Người rời bến cảng Nhà Rồng, bắt đầu hành trình bôn ba qua 3 đại dương, 4 châu lục để khảo nghiệm các con đường cứu nước.',
+    date: '5 tháng 6',
+    title: 'Ra Đi Tìm Đường',
+    location: 'Bến Nhà Rồng, Sài Gòn',
+    shortDesc: 'Người thanh niên Nguyễn Tất Thành rời Tổ quốc',
+    fullDesc: 'Ngày 5/6/1911, người thanh niên Nguyễn Tất Thành với tên gọi Văn Ba, chỉ với đôi bàn tay trắng, lên tàu Amiral Latouche-Tréville, bắt đầu hành trình 30 năm bôn ba tìm đường cứu nước.',
+    significance: 'Đánh dấu bước ngoặt quan trọng, mở đầu hành trình tìm đường giải phóng dân tộc.',
+    image: raditimduongImg,
+    layout: 'layout-split'
   },
   {
+    id: '1920',
     year: '1920',
-    title: 'Tìm Thấy Ánh Sáng Thời Đại',
-    description: 'Bắt gặp Sơ thảo luận cương của Lênin, Người khẳng định chân lý: "Muốn cứu nước và giải phóng dân tộc không có con đường nào khác con đường cách mạng vô sản".',
+    date: 'Tháng 7',
+    title: 'Ánh Sáng Từ Luận Cương',
+    location: 'Paris, Pháp',
+    shortDesc: 'Tìm ra con đường cách mạng vô sản',
+    fullDesc: 'Tháng 7/1920, Nguyễn Ái Quốc đọc được "Sơ thảo lần thứ nhất những luận cương về vấn đề dân tộc và vấn đề thuộc địa" của Lênin. Người vui mừng đến phát khóc vì đã tìm thấy con đường giải phóng.',
+    significance: 'Bước ngoặt tư tưởng quan trọng nhất: Đi theo con đường cách mạng vô sản.',
+    image: anhsangtuluancuongImg,
+    layout: 'layout-center'
   },
   {
+    id: '1930',
     year: '1930',
-    title: 'Đảng Tiên Phong Ra Đời',
-    description: 'Sáng lập Đảng Cộng sản Việt Nam, chấm dứt thời kỳ khủng hoảng về đường lối, xác định ngọn cờ độc lập dân tộc gắn liền với chủ nghĩa xã hội.',
+    date: '3 tháng 2',
+    title: 'Thành Lập Đảng',
+    location: 'Hương Cảng, Trung Quốc',
+    shortDesc: 'Đảng ra đời - bước ngoặt lịch sử',
+    fullDesc: 'Nguyễn Ái Quốc chủ trì Hội nghị hợp nhất ba tổ chức cộng sản thành Đảng Cộng sản Việt Nam. Đây là bước ngoặt vĩ đại, chấm dứt thời kỳ khủng hoảng về đường lối cứu nước.',
+    significance: 'Chấm dứt thời kỳ khủng hoảng, mở ra kỷ nguyên mới cho cách mạng Việt Nam.',
+    image: thanhlapDangImg,
+    layout: 'layout-diagonal'
   },
   {
+    id: '1941',
     year: '1941',
-    title: 'Xây Dựng Khối Đại Đoàn Kết',
-    description: 'Về nước trực tiếp lãnh đạo, thành lập Mặt trận Việt Minh, đặt quyền lợi dân tộc lên trên hết, khơi dậy lòng yêu nước của toàn dân.',
+    date: '28 tháng 1',
+    title: 'Trở Về Tổ Quốc',
+    location: 'Pác Bó, Cao Bằng',
+    shortDesc: 'Sau 30 năm xa xứ trở về nước',
+    fullDesc: 'Sau 30 năm xa Tổ quốc, Người trở về nước qua cột mốc 108. Người sống và làm việc tại hang Pác Bó, trực tiếp lãnh đạo phong trào cách mạng, thành lập Mặt trận Việt Minh.',
+    significance: 'Người về nước đúng lúc, trực tiếp thổi bùng ngọn lửa cách mạng giải phóng.',
+    image: trovetoquocImg,
+    layout: 'layout-split'
   },
   {
+    id: '1945',
     year: '1945',
-    title: 'Khai Sinh Nền Độc Lập',
-    description: 'Chớp thời cơ "ngàn năm có một", lãnh đạo Cách mạng Tháng Tám thành công. Người đọc Tuyên ngôn Độc lập, khai sinh nước VNDCCH.',
+    date: '2 tháng 9',
+    title: 'Tuyên Ngôn Độc Lập',
+    location: 'Ba Đình, Hà Nội',
+    shortDesc: 'Khai sinh nước Việt Nam mới',
+    fullDesc: 'Tại Quảng trường Ba Đình lịch sử, Chủ tịch Hồ Chí Minh đọc bản Tuyên ngôn Độc lập, khai sinh nước Việt Nam Dân chủ Cộng hòa - Nhà nước công nông đầu tiên ở Đông Nam Á.',
+    significance: '"Nước Việt Nam có quyền hưởng tự do và độc lập, và sự thật đã thành một nước tự do, độc lập."',
+    image: tuyenngondoclapImg,
+    layout: 'layout-hero'
   },
   {
-    year: '1954',
-    title: 'Chiến Thắng Lừng Lẫy Năm Châu',
-    description: 'Kết thúc thắng lợi cuộc kháng chiến chống thực dân Pháp bằng chiến dịch Điện Biên Phủ, chứng minh sức mạnh của chiến tranh nhân dân.',
-  },
-  {
-    year: '1975',
-    title: 'Non Sông Thu Về Một Mối',
-    description: 'Giải phóng hoàn toàn miền Nam, thống nhất đất nước, hiện thực hóa chân lý bất di bất dịch: "Nước Việt Nam là một, dân tộc Việt Nam là một".',
-  },
+    id: '1969',
+    year: '1969',
+    date: '2 tháng 9',
+    title: 'Bác Hồ Đi Xa',
+    location: 'Hà Nội',
+    shortDesc: 'Vĩnh biệt Người',
+    fullDesc: 'Chủ tịch Hồ Chí Minh từ trần, để lại bản Di chúc thiêng liêng và niềm tiếc thương vô hạn. Tư tưởng và đạo đức của Người trở thành di sản tinh thần vô giá.',
+    significance: 'Tư tưởng Hồ Chí Minh sống mãi trong sự nghiệp của chúng ta.',
+    image: bachodixaImg,
+    layout: 'layout-center'
+  }
 ];
 
+// --- 3. STYLES ---
+const TimelineStyles = () => (
+  <style>{`
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Manrope:wght@300;400;600&display=swap');
+
+    :root {
+      --primary: #8B2323;
+      --bg: #F4F1EA;
+      --text: #222;
+      --hammer-sickle-url: url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Flag_of_the_Communist_Party_of_Vietnam.svg/120px-Flag_of_the_Communist_Party_of_Vietnam.svg.png');
+    }
+
+    .page-wrapper { background-color: var(--bg); color: var(--text); font-family: 'Manrope', sans-serif; height: 100vh; width: 100%; display: flex; flex-direction: column; overflow: hidden; }
+    
+    /* Header & Sidebar (Giữ nguyên) */
+    .header-section { text-align: center; padding: 30px 0 10px 0; flex-shrink: 0; z-index: 200; position: relative; }
+    .header-eyebrow { font-family: 'Manrope', sans-serif; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; color: #555; margin-bottom: 5px; font-weight: 600; }
+    .header-title { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 700; color: #1a1a1a; margin: 0; line-height: 1.2; }
+    .header-desc { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: #444; margin-top: 10px; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.5; }
+    .timeline-body { display: flex; flex-grow: 1; height: 100%; position: relative; }
+    .sidebar { width: 120px; height: 100%; border-right: 1px solid rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 50px; z-index: 100; background: rgba(244, 241, 234, 0.5); }
+    
+    /* Nav Dot */
+    .nav-dot { width: 18px; height: 18px; background: transparent; border: 3px solid #aaa; border-radius: 50%; cursor: pointer; position: relative; background-position: center; background-size: cover; background-repeat: no-repeat; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .nav-dot:hover, .nav-dot.active { width: 45px; height: 45px; border-color: #D4AF37; border-width: 2px; background-color: #D40000; background-image: var(--hammer-sickle-url); box-shadow: 0 0 15px rgba(212, 175, 55, 0.6); transform: scale(1.1); }
+    .nav-dot::before { content: attr(data-year); position: absolute; left: 60px; top: 50%; transform: translateY(-50%); font-family: 'Cinzel', serif; font-weight: 700; opacity: 0; transition: all 0.3s; pointer-events: none; white-space: nowrap; font-size: 1.1rem; color: var(--primary); }
+    .nav-dot:hover::before { opacity: 1; left: 55px; }
+    
+    /* Main Stage */
+    .main-stage { flex-grow: 1; position: relative; height: 100%; overflow: hidden; perspective: 1000px; }
+    .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; visibility: hidden; transition: all 1s cubic-bezier(0.645, 0.045, 0.355, 1); display: flex; align-items: center; justify-content: center; }
+    .slide.active { opacity: 1; visibility: visible; }
+    
+    .bg-year { 
+      position: absolute; font-family: 'Cinzel', serif; font-size: 20vw; font-weight: 900; 
+      color: rgba(139, 35, 35, 0.04); z-index: 1; line-height: 1; user-select: none; 
+      transition: transform 1.5s ease; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+    }
+    .slide.active .bg-year { transform: translate(-45%, -55%) scale(1.05); }
+
+    .content-wrap { position: relative; z-index: 5; width: 85%; height: 85%; }
+
+    /* Typography */
+    .meta-info { font-family: 'Cinzel', serif; font-size: 1.8rem; font-weight: 700; color: #333; letter-spacing: 1px; margin-bottom: 20px; text-transform: uppercase; border-bottom: 3px solid var(--primary); display: inline-block; padding-bottom: 8px; text-shadow: 1px 1px 0px rgba(255,255,255,0.5); }
+    .title { font-family: 'Playfair Display', serif; font-size: 5rem; color: var(--primary); line-height: 1; margin: 15px 0 30px 0; text-shadow: 2px 2px 0px #fff; }
+    .description-box { background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(10px); padding: 40px; border-left: 6px solid var(--primary); box-shadow: 0 20px 50px rgba(0,0,0,0.08); max-width: 650px; }
+    .full-desc { font-size: 1.4rem; line-height: 1.6; color: #222; margin-bottom: 25px; text-align: justify; }
+    .significance { font-family: 'Playfair Display', serif; font-style: italic; color: var(--primary); font-size: 1.5rem; line-height: 1.4; font-weight: 500; }
+    
+    .visual-img { object-fit: cover; box-shadow: 15px 15px 0px rgba(139, 35, 35, 0.1); transition: all 0.5s ease; }
+    .visual-img:hover { transform: translate(-5px, -5px); box-shadow: 20px 20px 0px rgba(139, 35, 35, 0.2); }
+
+    /* --- LAYOUTS --- */
+    /* 1. Diagonal */
+    .layout-diagonal .bg-year { bottom: -5%; right: -5%; top: auto; left: auto; transform: none; }
+    .layout-diagonal .visual-img { position: absolute; bottom: 0; left: 5%; width: 38%; height: auto; z-index: 6; transform: rotate(-2deg); }
+    .layout-diagonal .text-group { position: absolute; top: 0%; right: 5%; width: 50%; text-align: right; }
+    .layout-diagonal .description-box { margin-left: auto; border-left: none; border-right: 6px solid var(--primary); }
+
+    /* 2. Split */
+    .layout-split .bg-year { top: -10%; left: -5%; transform: none; }
+    .layout-split .visual-img { position: absolute; top: 0%; right: 2%; width: 45%; height: 90%; z-index: 4; }
+    .layout-split .text-group { position: absolute; top: 10%; left: 5%; width: 45%; z-index: 6; }
+
+    /* 3. Hero (1945) */
+    .layout-hero .bg-year { display: none; }
+    .layout-hero .visual-img { position: absolute; width: 100%; height: 100%; top: 0; left: 0; opacity: 0.4; z-index: 0; box-shadow: none; object-fit: cover; pointer-events: none; filter: blur(8px) grayscale(30%); }
+    .layout-hero .content-wrap { position: relative; z-index: 10; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; height: 100%; width: 100%; }
+    .layout-hero .content-wrap::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(244, 241, 234, 0.85); z-index: 2; backdrop-filter: blur(5px); }
+    .layout-hero .text-group { width: 100%; display: flex; flex-direction: column; align-items: center; position: relative; z-index: 5; }
+    .layout-hero .title { font-size: 6.5rem; text-transform: uppercase; letter-spacing: 8px; margin-bottom: 40px; border-top: 3px solid var(--primary); border-bottom: 3px solid var(--primary); padding: 30px 0; width: auto; display: inline-block; }
+    .layout-hero .description-box { background: transparent; border: none; box-shadow: none; max-width: 900px; padding: 0; display: flex; flex-direction: column; align-items: center; }
+    .layout-hero .full-desc { font-size: 1.6rem; text-align: center; }
+    .layout-hero .significance { font-size: 2rem; font-weight: 400; text-align: center; }
+    .layout-hero .meta-info { margin-left: auto; margin-right: auto; }
+
+    /* --- [CẬP NHẬT MỚI] LAYOUT CENTER (1920, 1969) --- */
+    /* Sử dụng Flexbox để xếp dọc, đảm bảo không bao giờ chồng lấn */
+    .layout-center .bg-year { 
+      top: 50%; left: 50%; transform: translate(-50%, -50%); 
+      font-size: 30vw; z-index: 1; opacity: 0.03; /* Làm mờ năm đi chút để không rối */
+    }
+
+    .layout-center .content-wrap {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 30px; /* Khoảng cách an toàn giữa ảnh và chữ */
+      height: 100%;
+    }
+
+    .layout-center .visual-img { 
+      position: relative; /* Chuyển về relative để nằm trong dòng chảy flex */
+      width: auto;
+      max-width: 80%;
+      height: auto;
+      max-height: 45vh; /* Giới hạn chiều cao ảnh để chừa chỗ cho chữ */
+      object-fit: contain;
+      z-index: 5;
+      /* Khung viền trang trí */
+      border: 8px solid #fff;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2); /* Bóng đổ nổi khối */
+      filter: none;
+      border-radius: 2px;
+    }
+
+    /* Tạo hiệu ứng khung tranh đôi */
+    .layout-center .visual-img::after {
+        content: ''; position: absolute; inset: -5px; 
+        border: 1px solid var(--primary); z-index: -1;
+    }
+
+    .layout-center .text-group { 
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      text-align: center;
+      z-index: 10;
+      top: auto; bottom: auto; left: auto; right: auto; transform: none; /* Reset vị trí absolute cũ */
+    }
+
+    .layout-center .description-box { 
+      margin: 0 auto; 
+      background: rgba(255,255,255,0.95); 
+      border: none;
+      /* Border trang trí phía trên */
+      border-top: 1px solid var(--primary); 
+      border-bottom: 1px solid var(--primary);
+      padding: 30px;
+      text-align: left; 
+    }
+
+    .layout-center .title { 
+      font-size: 4rem; 
+      margin-bottom: 20px;
+      margin-top: 0;
+    }
+
+    /* Animation */
+    .slide.active .title { animation: slideInDown 1s ease forwards; }
+    .slide.active .description-box { animation: slideInUp 1s 0.2s ease forwards; opacity: 0; }
+    .slide.active .visual-img { animation: zoomIn 1.5s ease forwards; }
+    @keyframes slideInDown { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    @keyframes slideInUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    @keyframes zoomIn { from { transform: scale(1.1); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .page-wrapper { height: auto; min-height: 100vh; }
+      .timeline-body { flex-direction: column; height: auto; }
+      .header-title { font-size: 2.5rem; }
+      .header-desc { font-size: 1rem; padding: 0 20px; }
+      .sidebar { width: 100%; height: 70px; flex-direction: row; order: 2; border-top: 1px solid #ccc; border-right: none; gap: 0; justify-content: space-evenly; position: fixed; bottom: 0; left: 0; background: #fff; }
+      .nav-dot { width: 24px; height: 24px; }
+      .nav-dot::before { display: none; }
+      .main-stage { height: 80vh; margin-bottom: 70px; }
+      
+      .layout-diagonal .text-group, .layout-split .text-group { position: relative; top: auto; left: auto; right: auto; width: 100%; padding: 20px; box-sizing: border-box; transform: none; text-align: left; }
+      .layout-diagonal .visual-img, .layout-split .visual-img { position: relative; width: 100%; height: 250px; bottom: auto; top: auto; transform: none; display: none; }
+      
+      /* Mobile Center Layout */
+      .layout-center .content-wrap { gap: 10px; justify-content: flex-start; padding-top: 20px; }
+      .layout-center .visual-img { max-height: 30vh; width: 100%; max-width: 90%; }
+      .layout-center .title { font-size: 2.5rem; margin-bottom: 10px; }
+      .layout-center .description-box { padding: 20px; width: 95%; }
+      
+      .layout-hero .title { font-size: 3rem; letter-spacing: 2px; }
+      .title { font-size: 3rem; margin: 10px 0; }
+      .full-desc { font-size: 1.1rem; }
+      .significance { font-size: 1.2rem; }
+      .bg-year { font-size: 30vw; opacity: 0.1; top: 10%; }
+      .meta-info { font-size: 1.4rem; }
+    }
+  `}</style>
+);
+
+// --- 4. COMPONENT CHÍNH ---
 export function Timeline() {
-  const [selectedEvent, setSelectedEvent] = useState<typeof timelineEvents[0] | null>(null);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  // Handle keyboard 'Escape' to close modal
-  useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setSelectedEvent(null);
-    };
-    window.addEventListener('keydown', handleEsc);
-    return () => window.removeEventListener('keydown', handleEsc);
-  }, []);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section id="lich-su" className="py-24 bg-[#FDFBF7] relative overflow-hidden">
-      {/* Background Decor */}
-      <div className="absolute top-0 left-0 select-none pointer-events-none" style={{
-        fontFamily: "'Playfair Display', serif",
-        fontSize: '25rem',
-        fontWeight: 600,
-        color: 'rgba(0,0,0,0.02)',
-        lineHeight: 1,
-        transform: 'translate(-20%, -10%)'
-      }}>05</div>
-
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <span className="inline-block text-[0.65rem] font-medium tracking-[0.2em] uppercase text-[#7B2D3E] mb-4" style={{ fontFamily: 'system-ui, sans-serif' }}>
-            Hành trình lịch sử
-          </span>
-          <h2 className="text-4xl sm:text-5xl md:text-6xl text-[#1A1A1A] mb-6" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
-            Dấu Mốc Vẻ Vang
-          </h2>
-          <div className="w-16 h-[2px] bg-gradient-to-r from-[#7B2D3E] to-[#C9A227] mx-auto mb-6"></div>
-          <p className="text-lg text-[#4A4A4A] max-w-2xl mx-auto" style={{ fontFamily: "'Lora', Georgia, serif" }}>
-            Nhấn vào các mốc thời gian để xem chi tiết.
-          </p>
+    <>
+      <TimelineStyles />
+      <div className="page-wrapper">
+        <div className="header-section">
+          <div className="header-eyebrow">Dòng Chảy Lịch Sử</div>
+          <h1 className="header-title">Những Mốc Son</h1>
+          <div className="header-desc">
+            Tổng hợp những sự kiện quan trọng trong tư tưởng Hồ Chí Minh về độc lập dân tộc
+          </div>
         </div>
 
-        {/* List Events */}
-        <div className="relative">
-          {/* Central Line */}
-          <div className="absolute left-8 md:left-1/2 md:-translate-x-1/2 top-4 bottom-12 w-[1px] bg-gradient-to-b from-[#7B2D3E] via-[#C9A227] to-[#7B2D3E] opacity-30 md:opacity-100"></div>
-          
-          <div className="space-y-12">
+        <div className="timeline-body">
+          <div className="sidebar">
             {timelineEvents.map((event, index) => (
-              <div key={index} className={`relative flex flex-col md:flex-row gap-8 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
-                
-                {/* Content Side */}
-                <div className={`flex-1 ml-16 md:ml-0 ${index % 2 === 0 ? 'md:text-right md:pr-12' : 'md:pl-12'}`}>
-                  <button
-                    onClick={() => setSelectedEvent(event)}
-                    className="w-full text-left md:text-inherit group cursor-pointer bg-[#F5F0E8]/80 rounded-lg border border-black/5 hover:border-[#7B2D3E] transition-all duration-300 hover:shadow-xl hover:-translate-y-1 p-6 relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-[#7B2D3E] focus:ring-offset-2"
-                  >
-                    <div className="absolute inset-0 bg-[#7B2D3E]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <span className="inline-block px-3 py-1 bg-[#7B2D3E] text-white text-sm font-medium mb-4 group-hover:bg-[#C9A227] transition-colors duration-300 rounded" style={{ fontFamily: "'Playfair Display', serif" }}>
-                      {event.year}
-                    </span>
-                    <h3 className="text-xl font-medium text-[#1A1A1A] mb-2 group-hover:text-[#7B2D3E] transition-colors" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
-                      {event.title}
-                    </h3>
-                    <div className={`flex items-center gap-2 text-sm text-[#7B2D3E]/70 mt-3 font-medium ${index % 2 === 0 ? 'md:justify-end' : 'md:justify-start'}`}>
-                      <ZoomIn size={16} />
-                      <span className="uppercase tracking-wider text-xs">Xem chi tiết</span>
-                    </div>
-                  </button>
-                </div>
+              <div
+                key={event.id}
+                className={`nav-dot ${index === activeIndex ? 'active' : ''}`}
+                data-year={event.year}
+                onClick={() => setActiveIndex(index)}
+              />
+            ))}
+          </div>
 
-                {/* Center Dot */}
-                <div className="absolute left-8 md:left-1/2 -translate-x-1/2 flex items-center justify-center pt-6 md:pt-0">
-                  <div className="w-4 h-4 bg-[#7B2D3E] rounded-full border-4 border-[#FDFBF7] shadow-sm z-10 relative">
-                     <div className="absolute inset-0 bg-[#7B2D3E] rounded-full animate-ping opacity-20"></div>
+          <div className="main-stage">
+            {timelineEvents.map((event, index) => (
+              <div
+                key={event.id}
+                className={`slide ${event.layout} ${index === activeIndex ? 'active' : ''}`}
+              >
+                <div className="bg-year">{event.year}</div>
+                <div className="content-wrap">
+                  <img src={event.image} className="visual-img" alt={event.title} />
+                  <div className="text-group">
+                    <div className="meta-info">
+                      {event.date} {event.year} {event.location && `| ${event.location}`}
+                    </div>
+                    <h2 className="title">{event.title}</h2>
+                    <div className="description-box">
+                      <p className="full-desc">{event.fullDesc}</p>
+                      <p className="significance">{event.significance}</p>
+                    </div>
                   </div>
                 </div>
-
-                {/* Empty Side for alignment */}
-                <div className="hidden md:block flex-1"></div>
               </div>
             ))}
           </div>
         </div>
       </div>
-
-      {/* MODAL / POPUP */}
-      {mounted && selectedEvent && createPortal(
-        <div 
-          className="fixed inset-0 z-[9999] flex items-center justify-center p-4"
-          style={{ isolation: 'isolate' }}
-        >
-
-          <div 
-            className="absolute inset-0 bg-black/80 backdrop-blur-sm cursor-pointer transition-opacity"
-            onClick={() => setSelectedEvent(null)}
-            aria-hidden="true"
-          ></div>
-
-          {/* POPUP CARD */}
-          <div 
-            className="relative shadow-2xl flex flex-col"
-            role="dialog"
-            aria-modal="true"
-            style={{ 
-                // DIMENSIONS
-                width: '90%',
-                maxWidth: '450px',
-                minHeight: '350px', 
-                maxHeight: '80vh',
-                
-                // VISUALS - HARDCODED SOLID WHITE
-                backgroundColor: '#ffffff', 
-                borderRadius: '24px',
-                
-                // LAYOUT
-                zIndex: 10001,
-                opacity: 1, 
-                isolation: 'isolate' 
-            }}
-            onClick={(e) => e.stopPropagation()} 
-          >
-            {/* Close Button */}
-            <button 
-              onClick={() => setSelectedEvent(null)}
-              className="absolute top-4 left-4 w-10 h-10 flex items-center justify-center bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-full transition-colors z-50 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#7B2D3E]"
-              aria-label="Close modal"
-            >
-              <X size={22} />
-            </button>
-
-            {/* Content Container */}
-            <div className="flex-1 flex flex-col items-center justify-center p-8 md:p-10 text-center overflow-y-auto custom-scrollbar">
-                
-                {/* Year */}
-                <div 
-                  className="text-lg text-[#7B2D3E] mb-3 tracking-widest font-bold"
-                  style={{ fontFamily: "'Playfair Display', serif" }}
-                >
-                   {selectedEvent.year}
-                </div>
-
-                {/* Title */}
-                <h3 
-                  className="text-2xl md:text-3xl font-bold text-black mb-6 leading-tight"
-                  style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-                >
-                    {selectedEvent.title}
-                </h3>
-
-                {/* Divider */}
-                <div className="w-12 h-[2px] bg-[#C9A227] mb-6"></div>
-
-                {/* Description */}
-                <p 
-                  className="text-lg text-gray-900 leading-relaxed font-medium"
-                  style={{ fontFamily: "'Lora', Georgia, serif" }}
-                >
-                    {selectedEvent.description}
-                </p>
-            </div>
-          </div>
-        </div>,
-        document.body
-      )}
-    </section>
+    </>
   );
 }

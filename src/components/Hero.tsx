@@ -1,20 +1,53 @@
 import { useState } from 'react';
 import { Book } from './Book';
+import { Biography } from './Biography';
 
 export function Hero() {
   const [showBook, setShowBook] = useState(false);
+  const [showBiography, setShowBiography] = useState(false);
+
+  const handleShowBiography = () => {
+    setShowBook(false); // Đóng sách trước
+    setShowBiography(true); // Mở tiểu sử
+  };
 
   return (
     <>
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{ backgroundColor: '#FDFBF7' }}>
-        {/* Subtle background pattern */}
-        <div
-          className="absolute inset-0 pointer-events-none opacity-5"
-          style={{
-            backgroundImage: 'radial-gradient(circle at 2px 2px, #7B2D3E 1px, transparent 0)',
-            backgroundSize: '40px 40px'
-          }}
-        ></div>
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{ background: 'linear-gradient(180deg, #F5F0E8 0%, #FDFBF7 40%, #F5F0E8 100%)' }}>
+        {/* Decorative glow effects */}
+        <div style={{
+          position: 'absolute',
+          top: '10%',
+          right: '10%',
+          width: 400,
+          height: 400,
+          background: 'radial-gradient(circle, rgba(123, 45, 62, 0.08) 0%, transparent 70%)',
+          borderRadius: '50%',
+          filter: 'blur(80px)'
+        }} />
+        <div style={{
+          position: 'absolute',
+          bottom: '20%',
+          left: '5%',
+          width: 350,
+          height: 350,
+          background: 'radial-gradient(circle, rgba(201, 162, 39, 0.1) 0%, transparent 70%)',
+          borderRadius: '50%',
+          filter: 'blur(60px)'
+        }} />
+        <div style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 600,
+          height: 600,
+          background: 'radial-gradient(circle, rgba(123, 45, 62, 0.03) 0%, transparent 50%)',
+          borderRadius: '50%'
+        }} />
+
+
+
 
         {/* Hero Content */}
         <div className="relative z-10 w-full max-w-4xl mx-auto px-6 text-center py-16">
@@ -87,49 +120,56 @@ export function Hero() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16" style={{ animation: 'fadeInUp 1.5s ease-out' }}>
             <button
               onClick={() => setShowBook(true)}
-              className="px-10 py-4 text-xs font-bold uppercase transition-all duration-300"
               style={{
-                fontFamily: 'system-ui, sans-serif',
-                backgroundColor: '#7B2D3E',
-                color: '#ffffff',
-                letterSpacing: '0.2em',
+                padding: '14px 32px',
+                background: '#7B2D3E',
+                color: 'white',
                 border: 'none',
-                cursor: 'pointer'
+                borderRadius: 8,
+                fontSize: '0.8rem',
+                fontWeight: 600,
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase' as const,
+                cursor: 'pointer',
+                boxShadow: '0 4px 15px rgba(123, 45, 62, 0.3)',
+                transition: 'all 0.2s ease',
+                fontFamily: 'system-ui, sans-serif'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = '#5C2230';
+                e.currentTarget.style.background = '#5C2230';
                 e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = '0 10px 25px rgba(123, 45, 62, 0.3)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = '#7B2D3E';
+                e.currentTarget.style.background = '#7B2D3E';
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = 'none';
               }}
             >
               Khám Phá Ngay
             </button>
 
             <button
-              onClick={() => document.getElementById('tu-tuong')?.scrollIntoView({ behavior: 'smooth' })}
-              className="px-10 py-4 text-xs font-bold uppercase transition-all duration-300"
+              onClick={() => document.getElementById('gioi-thieu')?.scrollIntoView({ behavior: 'smooth' })}
               style={{
-                fontFamily: 'system-ui, sans-serif',
-                backgroundColor: 'transparent',
+                padding: '14px 32px',
+                background: 'transparent',
                 color: '#7B2D3E',
-                letterSpacing: '0.2em',
                 border: '2px solid #7B2D3E',
-                cursor: 'pointer'
+                borderRadius: 8,
+                fontSize: '0.8rem',
+                fontWeight: 600,
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase' as const,
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                fontFamily: 'system-ui, sans-serif'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(123, 45, 62, 0.05)';
-                e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.borderColor = '#5C2230';
+                e.currentTarget.style.background = '#7B2D3E';
+                e.currentTarget.style.color = 'white';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent';
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.borderColor = '#7B2D3E';
+                e.currentTarget.style.background = 'transparent';
+                e.currentTarget.style.color = '#7B2D3E';
               }}
             >
               Tìm Hiểu Thêm
@@ -225,12 +265,14 @@ export function Hero() {
               transform: translateX(-50%) translateY(16px);
               opacity: 0;
             }
-          }
-        `}</style>
+          `}</style>
       </section>
 
       {/* Book component */}
-      {showBook && <Book onClose={() => setShowBook(false)} />}
+      {showBook && <Book onClose={() => setShowBook(false)} onShowBiography={handleShowBiography} />}
+
+      {/* Biography component */}
+      {showBiography && <Biography onClose={() => setShowBiography(false)} />}
     </>
   );
 }

@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { User } from 'lucide-react';
 import { Part1Page2 } from './Part1Page2';
 import { Part2LeftPage } from './Part2LeftPage';
 import { Part2RightPage } from './Part2RightPage';
@@ -20,9 +21,10 @@ import hoChiMinhImage from '../Screenshot 2026-01-15 001843.png';
 
 interface BookProps {
     onClose: () => void;
+    onShowBiography?: () => void;
 }
 
-export function Book({ onClose }: BookProps) {
+export function Book({ onClose, onShowBiography }: BookProps) {
     const [currentPage, setCurrentPage] = useState(0);
     const [playingQuote, setPlayingQuote] = useState<string | null>(null);
     const currentAudioRef = useRef<HTMLAudioElement | null>(null);
@@ -424,12 +426,46 @@ Theo Hồ Chí Minh, độc lập dân tộc phải gắn với tự do của nh
                                             <img
                                                 src={hoChiMinhImage}
                                                 alt="Chân dung Chủ tịch Hồ Chí Minh"
-                                                style={{ width: '100%', maxWidth: '360px', height: 'auto', maxHeight: '500px', objectFit: 'contain', filter: 'sepia(0.3) contrast(1.1)', display: 'block' }}
+                                                style={{ width: '100%', maxWidth: '360px', height: 'auto', maxHeight: '420px', objectFit: 'contain', filter: 'sepia(0.3) contrast(1.1)', display: 'block' }}
                                             />
                                             <div style={{ marginTop: '0.75rem', textAlign: 'center', fontFamily: "'Lora', Georgia, serif", fontSize: '0.8rem', color: '#888', fontStyle: 'italic' }}>
                                                 Chủ tịch Hồ Chí Minh<br />(1890-1969)
                                             </div>
                                         </div>
+                                        {/* Nút Tiểu Sử Bác Hồ */}
+                                        {onShowBiography && (
+                                            <button
+                                                onClick={onShowBiography}
+                                                style={{
+                                                    marginTop: '1.25rem',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: '8px',
+                                                    padding: '10px 20px',
+                                                    background: 'linear-gradient(135deg, #7B2D3E, #5C2230)',
+                                                    color: 'white',
+                                                    border: 'none',
+                                                    borderRadius: '100px',
+                                                    fontFamily: "'Lora', Georgia, serif",
+                                                    fontSize: '0.85rem',
+                                                    fontWeight: 600,
+                                                    cursor: 'pointer',
+                                                    boxShadow: '0 4px 15px rgba(123, 45, 62, 0.3)',
+                                                    transition: 'all 0.3s ease'
+                                                }}
+                                                onMouseEnter={(e) => {
+                                                    e.currentTarget.style.transform = 'scale(1.05)';
+                                                    e.currentTarget.style.boxShadow = '0 6px 20px rgba(123, 45, 62, 0.4)';
+                                                }}
+                                                onMouseLeave={(e) => {
+                                                    e.currentTarget.style.transform = 'scale(1)';
+                                                    e.currentTarget.style.boxShadow = '0 4px 15px rgba(123, 45, 62, 0.3)';
+                                                }}
+                                            >
+                                                <User size={16} />
+                                                Xem Tiểu Sử Bác Hồ
+                                            </button>
+                                        )}
                                     </div>
                                 )
                             )}
