@@ -12,6 +12,8 @@ import { HousePresentation } from './components/HousePresentation';
 import { Biography } from './components/Biography';
 import { DailyInspiration } from './components/DailyInspiration';
 import { KnowledgeQuiz } from './components/KnowledgeQuiz';
+import { FloatingLotus } from './components/FloatingLotus';
+import { CustomCursor } from './components/CustomCursor';
 
 export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -48,6 +50,8 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#F5F0E8]">
+      <CustomCursor />
+      <FloatingLotus />
       {/* Navigation */}
       <nav style={{
         position: 'fixed',
@@ -90,12 +94,6 @@ export default function App() {
                   cursor: 'pointer',
                   transition: 'all 0.2s ease',
                   fontFamily: 'system-ui, sans-serif'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#B8941F';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = '#C9A227';
                 }}
               >
                 <User className="w-3 h-3" />
@@ -220,14 +218,6 @@ export default function App() {
           boxShadow: '0 8px 30px rgba(123, 45, 62, 0.4)',
           transition: 'all 0.3s ease',
           fontFamily: 'system-ui, sans-serif'
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.transform = 'scale(1.05)';
-          e.currentTarget.style.boxShadow = '0 12px 40px rgba(123, 45, 62, 0.5)';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.transform = 'scale(1)';
-          e.currentTarget.style.boxShadow = '0 8px 30px rgba(123, 45, 62, 0.4)';
         }}
       >
         <Presentation className="w-5 h-5" />
